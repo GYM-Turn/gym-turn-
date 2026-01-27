@@ -1,17 +1,14 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg custom-nav">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" routerLink="/inicio">MI MARCA</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="#">Home</a>
-        <a class="nav-link" routerLink="/inicio">inicio</a>
-        <a class="nav-link" routerLink="/contacto">contacto</a>
-        <a class="nav-link" routerLink="/actividades">actividades</a>
-        <a class="nav-link" routerLink="/sedes">sedes</a>
-        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="navbar-nav ms-auto"> <a class="nav-link" routerLink="/inicio" routerLinkActive="active-link">Inicio</a>
+        <a class="nav-link" routerLink="/sedes" routerLinkActive="active-link">Sedes</a>
+        <a class="nav-link" routerLink="/actividades" routerLinkActive="active-link">Actividades</a>
+        <a class="nav-link btn-contacto" routerLink="/contacto">Contacto</a>
       </div>
     </div>
   </div>

@@ -1,0 +1,32 @@
+.custom-nav {
+  background-color: var(--color-3) !important;
+  padding: 1rem 2rem;
+}
+
+.navbar-brand {
+  color: var(--color-2) !important;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.nav-link {
+  color: var(--color-4) !important; /* Gris para links inactivos */
+  margin: 0 10px;
+  transition: 0.3s;
+}
+
+.nav-link:hover, .active-link {
+  color: var(--color-2) !important; /* Blanco al pasar el mouse */
+}
+
+/* El botón de contacto resaltado */
+.btn-contacto {
+  background-color: var(--color-5);
+  color: var(--color-2) !important;
+  border-radius: 5px;
+  padding: 8px 20px !important;
+}
+
+.btn-contacto:hover {
+  background-color: var(--color-7);
+}

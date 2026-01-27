@@ -9,5 +9,6 @@ export const routes: Routes = [
     { path: "sedes", component: Sedes },
     { path: "actividades", component: Actividades },
     { path: "contacto", component: Contacto },
-    
+    // Redirección por defecto
+    { path: "", redirectTo: "inicio", pathMatch: "full" },
 ];

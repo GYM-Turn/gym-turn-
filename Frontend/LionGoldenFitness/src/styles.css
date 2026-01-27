@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --color-1: #180000;
+  --color-2: #fafafa;
+  --color-3: #64ab90;
+  --color-4: #024a2a;
+  --color-5: #5bc60f;
+  --color-6: #231acd;
+  --color-7: #c700fe;
+}
+
+body {
+  background-color: var(--color-3); /* El color claro de tu paleta */
+  color: var(--color-1);            /* Texto casi negro para máxima legibilidad */
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Esto asegura que el contenido ocupe el espacio necesario 
+   y el footer siempre se quede abajo */
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1; /* Empuja al footer hacia abajo */
+}
+
+
+.btn-primary {
+  background-color: var(--accent-primary);
+  color: white;
+  border-radius: 4px;
+  padding: 10px 20px;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-secondary);
+}

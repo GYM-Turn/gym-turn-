@@ -5,7 +5,7 @@ import { Footer } from '../../componentes-compartidos/footer/footer';
 
 @Component({
   selector: 'app-inicio',
-  imports: [RouterOutlet,Nav,Footer],
+  imports: [Nav,Footer],
   templateUrl: './inicio.html',
   styleUrl: './inicio.css',
 })
