@@ -1,51 +1,79 @@
 .footer {
-  background-color: var(--color-4);
-  color: var(--color-2);
-  padding: 40px 0 20px 0;
-  margin-top: 50px;
+  background: linear-gradient(180deg, #0f0f0f, #1a1a1a);
+  color: #eaeaea;
+  padding: 50px 20px 20px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .footer-content {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
+  gap: 40px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: auto;
 }
 
-.footer-section h3, .footer-section h4 {
-  color: var(--color-6); /* Naranja óxido para títulos pequeños */
+.footer-section h3 {
+  font-size: 26px;
+  color: #d4af37; /* dorado */
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.footer-section p {
+  max-width: 350px;
+  line-height: 1.6;
+  color: #cfcfcf;
+}
+
+.footer-col h4 {
+  color: #ffffff;
   margin-bottom: 15px;
+  font-size: 18px;
+  position: relative;
 }
 
-.footer-section ul { list-style: none; padding: 0; }
-
-.footer-section ul li a {
-  color: var(--color-4);
-  text-decoration: none;
-  transition: 0.3s;
+.footer-col h4::after {
+  width: 40px;
+  height: 2px;
+  background: #d4af37;
+  position: absolute;
+  bottom: -5px;
+  left: 0;
 }
 
-.footer-section ul li a:hover {
-  color: var(--color-7); /* Rojo vibrante al pasar el mouse */
-  padding-left: 5px;
+.social-icons {
+  display: flex;
+  gap: 15px;
 }
 
-.social-links .social-icon {
-  background: var(--color-1);
-  color: var(--color-2);
-  padding: 8px 12px;
-  text-decoration: none;
+.social-icons .icon {
+  width: 42px;
+  height: 42px;
+  background: #222;
   border-radius: 50%;
-  margin-right: 10px;
-  border: 1px solid var(--color-5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #d4af37;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.social-icons .icon:hover {
+  background: #d4af37;
+  color: #111;
+  transform: translateY(-4px);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
 }
 
 .footer-bottom {
   text-align: center;
-  border-top: 1px solid var(--color-4);
-  margin-top: 30px;
-  padding-top: 20px;
-  font-size: 0.8rem;
-  color: var(--color-4);
+  margin-top: 40px;
+  padding-top: 15px;
+  border-top: 1px solid #333;
+  font-size: 14px;
+  color: #aaa;
 }
