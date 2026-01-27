@@ -7,21 +7,25 @@
   --color-5: #5bc60f;
   --color-6: #231acd;
   --color-7: #c700fe;
-
+  --color-8: #0B3C5D;
+  --color-9:#d4af37
 }
 
 body {
-  background-color: var(--color-3); /* El color claro de tu paleta */
-  color: var(--color-1);            /* Texto casi negro para máxima legibilidad */
+  background-image: url('/img/fondo.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+
+  /* 🔥 Fuente global */
+  font-family: 'Poppins', sans-serif;
 }
 
-/* Esto asegura que el contenido ocupe el espacio necesario 
-   y el footer siempre se quede abajo */
+/* Asegura layout completo */
 app-root {
   display: flex;
   flex-direction: column;
@@ -29,15 +33,15 @@ app-root {
 }
 
 main {
-  flex: 1; /* Empuja al footer hacia abajo */
+  flex: 1;
 }
-
 
 .btn-primary {
   background-color: var(--accent-primary);
   color: white;
   border-radius: 4px;
   padding: 10px 20px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .btn-primary:hover {
