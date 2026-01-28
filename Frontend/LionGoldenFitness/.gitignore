@@ -40,3 +40,7 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Para ignorar y no subir al repo cosas generales desde la raíz
+# Ignorar archivo personal de comandos
+comandos.txt
