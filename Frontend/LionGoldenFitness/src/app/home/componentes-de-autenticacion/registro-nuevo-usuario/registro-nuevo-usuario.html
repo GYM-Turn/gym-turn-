@@ -1,1 +1,50 @@
-<p>registro-nuevo-usuario works!</p>
+<div class="register-container d-flex justify-content-center align-items-center">
+  <div class="formulario-card shadow-lg">
+    <h2 class="text-color-9">Crear Cuenta</h2>
+    <p>Únete a LionGoldenFitness y gestiona tus turnos</p>
+
+    <form>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="dni" class="form-label">DNI</label>
+          <input id="dni" class="form-control-campos" placeholder="Sin puntos">
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input type="text" id="nombre" class="form-control-campos" placeholder="Tu nombre">
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="apellido" class="form-label">Apellido</label>
+          <input type="text" id="apellido" class="form-control-campos" placeholder="Tu apellido">
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+          <input type="date" id="fecha_nacimiento" class="form-control-campos">
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="telefono" class="form-label">Teléfono</label>
+          <input type="tel" id="telefono" class="form-control-campos" placeholder="Ej: 351xxxxxxx">
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" id="email" class="form-control-campos"  placeholder="correo@ejemplo.com">
+        </div>
+
+        <div class="col-12 mb-4">
+          <label for="password" class="form-label">Contraseña</label>
+          <input type="password" id="password" class="form-control-campos" placeholder="Mínimo 8 caracteres">
+        </div>
+      </div>
+
+      <div class="button-stack">
+        <button type="submit" class="btn-uno">Finalizar Registro</button>
+        <button type="button" class="btn-uno" routerLink="/login">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>

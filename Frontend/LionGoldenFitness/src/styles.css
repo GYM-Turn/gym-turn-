@@ -46,6 +46,7 @@ app-footer {
   margin-top: auto;
 }
  /* 🔥 Botones */
+ 
 .btn-uno {
   margin-top: 16px;
   width: 100%;
@@ -62,6 +63,7 @@ app-footer {
   color: var(--color-2);
   transition: all 0.3s ease;
 }
+
 .btn-uno:hover {
   background: linear-gradient(
     135deg,
@@ -74,13 +76,34 @@ app-footer {
 /* Formularios */
 
 .formulario-card {
-  background-color: var(--color-8); /* #fafafa */
+  background-color: var(--color-8); 
   padding: 2.5rem;
   border-radius: 15px;
   width: 100%;
   max-width: 400px;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 0.4rem solid var(--color-4);
   text-align: center;
   color: var(--color-2);
   margin: 4rem;
 }
+
+.form-control-campos {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--color-2);
+  border-radius: 8px;
+  color: white;
+  transition: all 0.3s;
+}
+
+
+
+
+/* Validaciones de formularios */
+
+.ng-valid:not(form).ng-touched {
+ border-left: 5px solid #42A948; /* green */
+ }
+.ng-invalid:not(form).ng-touched {
+  border-left: 5px solid #a94442; /* red */
+ }
