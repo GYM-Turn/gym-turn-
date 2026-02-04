@@ -3,47 +3,78 @@
     <h2 class="text-color-9">Crear Cuenta</h2>
     <p>Únete a LionGoldenFitness y gestiona tus turnos</p>
 
-    <form>
+    <form [formGroup]="form" (ngSubmit)="onRegister()">
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="dni" class="form-label">DNI</label>
-          <input id="dni" class="form-control-campos" placeholder="Sin puntos">
+          <input id="dni" formControlName="dni" class="form-control-campos" placeholder="Sin puntos">
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="user" class="form-label">Nombre de Usuario</label>
+          <input id="user" formControlName="user" class="form-control-campos" placeholder="Ej: lion_fitness">
+        
+          @if (form.get('user')?.invalid && form.get('user')?.touched) {
+          <small class="text-danger" style="font-size: 0.7rem;">Mínimo 4 caracteres.</small>
+          }
+
         </div>
 
         <div class="col-md-6 mb-3">
           <label for="nombre" class="form-label">Nombre</label>
-          <input type="text" id="nombre" class="form-control-campos" placeholder="Tu nombre">
+          <input type="text" id="nombre" formControlName="nombre" class="form-control-campos" placeholder="Tu nombre">
         </div>
 
         <div class="col-md-6 mb-3">
           <label for="apellido" class="form-label">Apellido</label>
-          <input type="text" id="apellido" class="form-control-campos" placeholder="Tu apellido">
+          <input type="text" id="apellido" formControlName="apellido" class="form-control-campos" placeholder="Tu apellido">
         </div>
 
         <div class="col-md-6 mb-3">
           <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
-          <input type="date" id="fecha_nacimiento" class="form-control-campos">
+          <input type="date" id="fecha_nacimiento" formControlName="fecha_nacimiento" class="form-control-campos">
         </div>
 
         <div class="col-md-6 mb-3">
           <label for="telefono" class="form-label">Teléfono</label>
-          <input type="tel" id="telefono" class="form-control-campos" placeholder="Ej: 351xxxxxxx">
+          <input type="tel" id="telefono" formControlName="telefono" class="form-control-campos" placeholder="Ej: 351xxxxxxx">
         </div>
 
         <div class="col-md-6 mb-3">
           <label for="email" class="form-label">Email</label>
-          <input type="email" id="email" class="form-control-campos"  placeholder="correo@ejemplo.com">
+          <input type="email" id="email" formControlName="email" class="form-control-campos" placeholder="correo@ejemplo.com">
+          @if (form.get('email')?.invalid && form.get('email')?.touched) {
+  
+            @if (form.get('email')?.errors?.['email']) {
+            <small class="text-danger d-block" style="font-size: 0.7rem;">Formato de email inválido (falta @ o .).</small>
+            }
+          }
         </div>
 
-        <div class="col-12 mb-4">
+        <div class="col-md-6 mb-3">
           <label for="password" class="form-label">Contraseña</label>
-          <input type="password" id="password" class="form-control-campos" placeholder="Mínimo 8 caracteres">
+          <input type="password" id="password" formControlName="password" class="form-control-campos" placeholder="Mínimo 8 caracteres">
         </div>
-      </div>
+        
+        <div class="col-md-6 mb-3">
+          <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+          <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control-campos" placeholder="Repite tu contraseña">
+        </div>
 
-      <div class="button-stack">
-        <button type="submit" class="btn-uno">Finalizar Registro</button>
-        <button type="button" class="btn-uno" routerLink="/login">Cancelar</button>
+        @if (form.get('confirmPassword')?.value && form.get('password')?.value !== form.get('confirmPassword')?.value) {
+          <div class="col-12">
+            <div class="alert alert-danger py-2" role="alert" style="font-size: 0.85rem;">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>
+              Las contraseñas no coinciden.
+            </div>
+          </div>
+        }
+        
+      </div> 
+
+      <div class="button-stack mt-3">
+        <button type="submit" class="btn-uno" [disabled]="form.invalid">Finalizar Registro</button>
+        <button type="button" class="btn-uno" routerLink="/iniciar-sesion">Volver</button>
       </div>
     </form>
   </div>
