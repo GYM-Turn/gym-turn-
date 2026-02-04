@@ -1,0 +1,53 @@
+.formulario-card {
+  background-color: var(--color-8);
+  padding: 3rem;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 750px; /* Un poco más ancho para los nuevos campos */
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1); /* Sombra para darle profundidad */
+  color: var(--color-2);
+  margin: 2rem auto;
+}
+
+.header-form h2 {
+  margin-bottom: 0.5rem;
+  color: var(--color-3); /* Color de acento */
+}
+
+.header-form p {
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.input-group {
+  text-align: left;
+  margin-bottom: 1.2rem;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--color-2);
+}
+
+.input-group input, 
+.input-group select, 
+.input-group textarea {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: var(--color-3);
+  outline: none;
+}
+

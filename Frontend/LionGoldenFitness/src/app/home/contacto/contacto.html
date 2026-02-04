@@ -1,1 +1,43 @@
-<p>contacto works!</p>
+<div class="contenedor-contacto">
+  <div class="formulario-card">
+    <div class="header-form">
+      <h2>¡Únete a la Manada!</h2>
+      <p>Déjanos tus datos y un asesor se pondrá en contacto contigo.</p>
+    </div>
+
+    <form class="grid-form">
+      <div class="input-group">
+        <label><i class="fas fa-user"></i> Nombre Completo</label>
+        <input type="text" placeholder="Ej. Fran Lion" required>
+      </div>
+
+      <div class="input-group">
+        <label><i class="fas fa-envelope"></i> Correo Electrónico</label>
+        <input type="email" placeholder="fran@ejemplo.com" required>
+      </div>
+
+      <div class="input-group">
+        <label><i class="fas fa-phone"></i> Teléfono</label>
+        <input type="tel" placeholder="+34 600 000 000">
+      </div>
+
+      <div class="input-group">
+        <label><i class="fas fa-dumbbell"></i> Interés principal</label>
+        <select>
+          <option value="" disabled selected>Selecciona una opción</option>
+          <option value="personal">Entrenamiento Personal</option>
+          <option value="clases">Clases Grupales</option>
+          <option value="nutricion">Nutrición Deportiva</option>
+          <option value="otros">Otras consultas</option>
+        </select>
+      </div>
+
+      <div class="input-group full-width">
+        <label><i class="fas fa-comment-alt"></i> Tu mensaje</label>
+        <textarea placeholder="Cuéntanos tus objetivos..." rows="4"></textarea>
+      </div>
+
+      <button type="submit" class="btn-uno">ENVIAR SOLICITUD</button>
+    </form>
+  </div>
+</div>
