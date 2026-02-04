@@ -1,0 +1,29 @@
+.register-container {
+  min-height: 90vh;
+  padding: 2rem 1rem;
+}
+
+.formulario-card {
+  max-width: 600px; /* Un poco más ancho por los campos dobles */
+}
+
+.text-color-9 {
+  color: var(--color-9); /* Dorado */
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.form-label {
+  display: block;
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.button-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 1rem;
+}
+
