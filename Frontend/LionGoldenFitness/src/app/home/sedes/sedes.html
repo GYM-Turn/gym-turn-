@@ -1,1 +1,25 @@
-<p>sedes works!</p>
+<app-nav></app-nav>
+<section class="sedes">
+  <h2 class="titulo">Nuestras Sedes</h2>
+
+  <div class="sedes-grid">
+    @for (sede of sedes; track sede.nombre) {
+      <div class="sede-card">
+
+        <img [src]="sede.imagen" [alt]="sede.nombre">
+
+        <div class="info">
+          <h3>{{ sede.nombre }}</h3>
+          <p>📍 {{ sede.direccion }} – {{ sede.ciudad }}</p>
+          <p>📞 {{ sede.telefono }}</p>
+          <p>⏰ {{ sede.horario }}</p>
+
+          <button class="btn-uno">Ver sede</button>
+        </div>
+         
+      </div>
+    }
+    
+  </div>
+</section>
+<app-footer></app-footer>

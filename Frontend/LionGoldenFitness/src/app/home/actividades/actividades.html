@@ -1,31 +1,23 @@
-<div class="layout">
-  <app-nav></app-nav>
+<app-nav></app-nav>
+<section class="actividades">
+  <h2 class="titulo">Actividades</h2>
 
-  <main>
-    <section class="carousel-container">
-      <div class="carousel">
-        @for (actividad of actividades; track actividad.nombre) {
-          <div class="card">
-            <!-- Contenedor de la imagen para mantener tamaño uniforme -->
-            <div class="card-image-container">
-              <img [src]="actividad.imagen" [alt]="actividad.nombre" />
-            </div>
+  <div class="actividades-grid">
+    @for (actividad of actividades; track actividad.nombre) {
+      <div class="actividad-card">
 
-            <!-- Overlay con nombre, descripción y horario -->
-            <div class="card-overlay">
-              <h3>{{ actividad.nombre }}</h3>
-              <p class="descripcion">{{ actividad.descripcion }}</p>
-              <p class="horario">{{ actividad.horario }}</p>
-            </div>
-          </div>
-        } @empty {
-          <div class="no-data">
-            <p>No hay actividades disponibles por el momento.</p>
-          </div>
-        } <!-- 🔹 Cierre correcto del bloque empty -->
+        <img [src]="actividad.imagen" [alt]="actividad.nombre">
+
+        <div class="actividad-info">
+          <h3>{{ actividad.nombre }}</h3>
+          <p class="descripcion">{{ actividad.descripcion }}</p>
+          <p class="horario">⏰ {{ actividad.horario }}</p>
+
+          <button class="btn-uno">Ver actividad</button>
+        </div>
+
       </div>
-    </section>
-  </main>
-
-  <app-footer></app-footer>
-</div>
+    }
+  </div>
+</section>
+<app-footer></app-footer>
