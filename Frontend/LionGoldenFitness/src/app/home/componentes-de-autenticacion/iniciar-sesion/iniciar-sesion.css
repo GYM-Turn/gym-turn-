@@ -2,18 +2,6 @@
   min-height: 80vh; /* Para que se centre respecto al main */
 }
 
-.login-card {
-  background-color: var(--color-8); /* #fafafa */
-  padding: 2.5rem;
-  border-radius: 15px;
-  width: 100%;
-  max-width: 400px;
-  border: 1px solid rgba(0,0,0,0.1);
-  text-align: center;
-  color: var(--color-2);
-  margin: 4rem;
-}
-
 .text-color-8 {
   color: var(--color-9);
   font-weight: 700;
@@ -51,34 +39,6 @@
   margin-top: 1.5rem;
 }
 
-.btn-custom {
-  padding: 0.8rem;
-  border-radius: 8px;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s, opacity 0.2s;
-}
-
-.btn-custom:active {
-  transform: scale(0.98);
-}
-
-/* Botón Ingresar con el Rojo Intenso */
-.btn-main {
-  background-color: var(--color-3);
-  color: white;
-}
-
-/* Botón Volver a Iniciar con el Azul Oscuro */
-.btn-reset {
-  background-color: var(--color-9);
-  color: white;
-}
-
-.btn-main:hover, .btn-reset:hover {
-  opacity: 0.9;
-}
 
 .card-footer-custom {
   margin-top: 2rem;
@@ -92,7 +52,7 @@
 .btn-reg {
   background: none;
   border: none;
-  color: var(--color-3);
+  color: var(--color-9);
   font-weight: 700;
   text-decoration: underline;
   cursor: pointer;

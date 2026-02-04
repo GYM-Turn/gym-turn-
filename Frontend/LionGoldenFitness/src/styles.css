@@ -59,7 +59,7 @@ app-footer {
     var(--color-9),
     var(--color-3)
   );
-  color: var(--color-4);
+  color: var(--color-2);
   transition: all 0.3s ease;
 }
 .btn-uno:hover {
@@ -69,4 +69,18 @@ app-footer {
     var(--color-9)
   );
   color: var(--color-2);
+}
+
+/* Formularios */
+
+.formulario-card {
+  background-color: var(--color-8); /* #fafafa */
+  padding: 2.5rem;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid rgba(0,0,0,0.1);
+  text-align: center;
+  color: var(--color-2);
+  margin: 4rem;
 }
