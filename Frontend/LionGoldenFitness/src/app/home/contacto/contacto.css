@@ -4,7 +4,7 @@
   border-radius: 20px;
   width: 100%;
   max-width: 750px; /* Un poco más ancho para los nuevos campos */
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 0.4rem solid var(--color-4); 
   box-shadow: 0 10px 25px rgba(0,0,0,0.1); /* Sombra para darle profundidad */
   color: var(--color-2);
   margin: 2rem auto;
@@ -51,3 +51,15 @@
   outline: none;
 }
 
+.logo-header {
+  max-width: 150px; 
+  height: auto;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto 15px; 
+  transition: transform 0.3s ease;
+}
+
+.logo-header:hover {
+  transform: scale(1.05); 
+}
