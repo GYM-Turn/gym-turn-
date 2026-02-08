@@ -1,33 +1,36 @@
-<div class="contenedor-contacto">
-  <div class="formulario-card">
-   <div class="header-form">
-  <a href="index.html"> 
-    <img src="\img\favicon.jpeg" alt="Logo de la Manada" class="logo-header">
-  </a>
-  
-  <h2>¡Únete a la Manada!</h2>
-  <p>Déjanos tus datos y un asesor se pondrá en contacto contigo.</p>
-</div>
+<app-nav></app-nav>
+<div class="container-fluid d-flex justify-content-center align-items-center py-5">
+  <div class="formulario-card shadow-lg p-4 p-md-5">
 
-    <form class="grid-form">
-      <div class="input-group">
-        <label><i class="fas fa-user"></i> Nombre Completo</label>
-        <input type="text" placeholder="Ej. Fran Lion" required>
+    <a href="index.html">
+      <img src="\img\favicon.jpeg" alt="Logo de la Manada" class="logo-header">
+    </a>
+    
+    <div class="header-form text-center mb-4">
+      <h2 class="text-color-9">¡Únete a la Manada!</h2>
+      <p>Déjanos tus datos y un asesor se pondrá en contacto contigo.</p>
+    </div>
+
+    <form class="row g-3">
+      
+      <div class="col-md-6">
+        <label class="form-label text-white"><i class="fas fa-user me-2"></i>Nombre Completo</label>
+        <input type="text" class="form-control-campos" placeholder="Ej. Fran Lion" required>
       </div>
 
-      <div class="input-group">
-        <label><i class="fas fa-envelope"></i> Correo Electrónico</label>
-        <input type="email" placeholder="fran@ejemplo.com" required>
+      <div class="col-md-6">
+        <label class="form-label text-white"><i class="fas fa-envelope me-2"></i>Correo Electrónico</label>
+        <input type="email" class="form-control-campos" placeholder="fran@ejemplo.com" required>
       </div>
 
-      <div class="input-group">
-        <label><i class="fas fa-phone"></i> Teléfono</label>
-        <input type="tel" placeholder="+34 600 000 000">
+      <div class="col-md-6">
+        <label class="form-label text-white"><i class="fas fa-phone me-2"></i>Teléfono</label>
+        <input type="tel" class="form-control-campos" placeholder="+54 351 000 0000">
       </div>
 
-      <div class="input-group">
-        <label><i class="fas fa-dumbbell"></i> Interés principal</label>
-        <select>
+      <div class="col-md-6">
+        <label class="form-label text-white"><i class="fas fa-dumbbell me-2"></i>Interés principal</label>
+        <select class="form-control-campos">
           <option value="" disabled selected>Selecciona una opción</option>
           <option value="personal">Entrenamiento Personal</option>
           <option value="clases">Clases Grupales</option>
@@ -36,12 +39,16 @@
         </select>
       </div>
 
-      <div class="input-group full-width">
-        <label><i class="fas fa-comment-alt"></i> Tu mensaje</label>
-        <textarea placeholder="Cuéntanos tus objetivos..." rows="4"></textarea>
+      <div class="col-12">
+        <label class="form-label text-white"><i class="fas fa-comment-alt me-2"></i>Tu mensaje</label>
+        <textarea class="form-control-campos" placeholder="Cuéntanos tus objetivos..." rows="4"></textarea>
       </div>
 
-      <button type="submit" class="btn-uno">ENVIAR SOLICITUD</button>
+      <div class="col-12 mt-4">
+        <button type="submit" class="btn-uno w-100 py-3 fw-bold">ENVIAR SOLICITUD</button>
+      </div>
+
     </form>
   </div>
 </div>
+<app-footer></app-footer>

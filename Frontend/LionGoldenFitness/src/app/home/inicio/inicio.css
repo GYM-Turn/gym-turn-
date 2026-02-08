@@ -1,0 +1,211 @@
+/* Altura total para la portada */
+.hero-section {
+  height: 90vh;
+  background-size: cover !important;
+  background-position: center !important;
+  background-attachment: fixed; /* Efecto Parallax (opcional) */
+}
+
+/* Estilo para las tarjetas de servicios */
+.card-servicio {
+  height: 350px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  border: 2px solid var(--color-4);
+  transition: transform 0.4s ease;
+  cursor: pointer;
+}
+
+.card-servicio:hover {
+  transform: scale(1.03);
+}
+
+/* El degradado oscuro sobre la imagen */
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 10%, rgba(0,0,0,0.1) 90%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  color: white;
+  transition: background 0.3s;
+}
+
+.overlay h3 {
+  color: var(--color-9); /* Dorado */
+  font-weight: bold;
+}
+
+.overlay:hover {
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 20%, rgba(0,0,0,0.3) 100%);
+}
+
+/* css PARA LA SECCION PLANES */
+
+.card-plan {
+  background-color: var(--color-8); /* Fondo oscuro */
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card-plan:hover {
+  transform: translateY(-10px);
+  border-color: var(--color-9);
+}
+
+.destacado {
+  border: 2px solid var(--color-9);
+  transform: scale(1.05);
+}
+
+.plan-header {
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.plan-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.precio {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-9);
+}
+
+.precio span {
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.plan-body {
+  padding: 2rem;
+  color: white;
+}
+
+.plan-body ul li {
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+.badge-recomendado {
+  background-color: var(--color-9);
+  color: black;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+
+
+/* Seccion membresia *****************************/
+.plan-selector-card {
+  background: rgba(20, 20, 20, 0.6); /* Fondo oscuro semitransparente */
+  backdrop-filter: blur(15px);      /* Efecto de desenfoque pro */
+  border: 1px solid rgba(212, 175, 55, 0.3); /* Borde dorado sutil */
+  border-radius: 25px;
+  padding: 40px;
+  margin-bottom: 50px;
+  position: relative;
+  overflow: hidden;
+  color: var(--color-2);
+}
+
+/* Un brillo sutil en la esquina de la tarjeta */
+.plan-selector-card::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Estilos para el Switch */
+.custom-switch .form-check-input {
+  width: 3rem;
+  height: 1.5rem;
+  background-color: var(--color-4);
+  border-color: var(--color-9);
+  cursor: pointer;
+}
+
+.custom-switch .form-check-input:checked {
+  background-color: var(--color-9);
+  border-color: var(--color-9);
+}
+
+/* Animación para el badge de ahorro */
+.badge.bg-success {
+  font-size: 0.8rem;
+  padding: 6px 12px;
+  border-radius: 50px;
+  box-shadow: 0 0 15px rgba(40, 167, 69, 0.4);
+}
+
+/* Tarjeta Anual Especial *************************/
+
+.destacado-anual {
+  border: 3px solid var(--color-9);
+  background: var(--color-8);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.plan-header-anual {
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.badge-vip {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--color-9);
+  color: black;
+  font-weight: bold;
+  padding: 5px 15px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+}
+
+/* CSS PARA SECCION PREGUNTAS*****************/
+
+.custom-faq .accordion-button {
+  font-weight: 600;
+  padding: 1.5rem;
+}
+
+.custom-faq .accordion-button:not(.collapsed) {
+  color: var(--color-9);
+  background-color: #1a1a1a;
+}
+
+.custom-faq .accordion-button::after {
+  filter: invert(1); /* Hace que la flechita sea blanca */
+}
