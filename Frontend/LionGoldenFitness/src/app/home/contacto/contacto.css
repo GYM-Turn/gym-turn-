@@ -3,8 +3,7 @@
   padding: 3rem;
   border-radius: 20px;
   width: 100%;
-  max-width: 750px; /* Un poco más ancho para los nuevos campos */
-  border: 0.4rem solid var(--color-4); 
+  max-width: 750px; /* Un poco más ancho para los nuevos campos */ 
   box-shadow: 0 10px 25px rgba(0,0,0,0.1); /* Sombra para darle profundidad */
   color: var(--color-2);
   margin: 2rem auto;
