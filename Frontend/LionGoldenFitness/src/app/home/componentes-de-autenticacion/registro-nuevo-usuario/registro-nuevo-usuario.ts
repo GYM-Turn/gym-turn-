@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../../servicios/auth.service';
 import { Usuario } from '../../../models/usuario.model';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-registro-nuevousuario',
+  selector: 'app-registro-nuevo-usuario',
+  standalone: true, // 👈 MUY IMPORTANTE
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './registro-nuevo-usuario.html',
 })
-export class RegistroNuevousuarioComponent {
+export class RegistroNuevoUsuario {  // 👈 nombre profesional
 
   form: FormGroup;
 
@@ -30,14 +33,17 @@ export class RegistroNuevousuarioComponent {
     });
   }
 
-  onRegister() {
+  onRegister(): void {
 
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
-    if (this.form.value.password !== this.form.value.confirmPassword) {
+    const { password, confirmPassword } = this.form.value;
+
+    if (password !== confirmPassword) {
+      alert('Las contraseñas no coinciden');
       return;
     }
 
@@ -49,8 +55,8 @@ export class RegistroNuevousuarioComponent {
       fecha_nacimiento: this.form.value.fecha_nacimiento,
       telefono: this.form.value.telefono,
       email: this.form.value.email,
-      password: this.form.value.password,
-      rol: 1 // siempre usuario normal
+      password: password,
+      rol: 1
     };
 
     this.authService.registrar(nuevoUsuario).subscribe({
