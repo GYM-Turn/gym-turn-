@@ -1,0 +1,49 @@
+<div class="formulario-card mx-auto">
+
+  <h4 class="mb-4">
+    {{ usuario ? 'Editar Usuario' : 'Nuevo Usuario' }}
+  </h4>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+
+    <input class="form-control-campos mb-3"
+           formControlName="dni"
+           placeholder="DNI">
+
+    <input class="form-control-campos mb-3"
+           formControlName="nombre"
+           placeholder="Nombre">
+
+    <input class="form-control-campos mb-3"
+           formControlName="apellido"
+           placeholder="Apellido">
+
+    <input class="form-control-campos mb-3"
+           formControlName="email"
+           placeholder="Email">
+
+    <!-- Rol fijo -->
+    <div class="mb-3">
+      <label class="form-label">Rol</label>
+      <input class="form-control"
+             value="Usuario"
+             disabled>
+    </div>
+
+    <input type="number"
+           class="form-control-campos mb-3"
+           formControlName="creditos"
+           placeholder="Créditos">
+
+    <button type="submit" class="btn-uno">
+      Guardar
+    </button>
+
+    <button type="button"
+            class="btn btn-light mt-3 w-100"
+            (click)="cancelar()">
+      Cancelar
+    </button>
+
+  </form>
+</div>

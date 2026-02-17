@@ -6,6 +6,8 @@ import { Actividades } from './home/actividades/actividades';
 import { Contacto } from './home/contacto/contacto';
 import { IniciarSesion } from './home/componentes-de-autenticacion/iniciar-sesion/iniciar-sesion';
 import { RegistroNuevoUsuario } from './home/componentes-de-autenticacion/registro-nuevo-usuario/registro-nuevo-usuario';
+import { Turnero } from './usuario/turnero/turnero';
+import { Usuarios } from './admin/usuarios/usuarios';
 
 export const routes: Routes = [
     // Redirección por defecto
@@ -17,5 +19,13 @@ export const routes: Routes = [
     { path: "iniciar-sesion", component: IniciarSesion },
     { path: "registro-nuevo-usuario", component: RegistroNuevoUsuario },
     { path: "contacto", component: Contacto },
+    { path: "turnero", component: Turnero},
+    {
+    path: 'admin/usuarios',
+    loadComponent: () =>
+      import('./admin/usuarios/usuarios')
+        .then(m => m.Usuarios)
+  },
+    
     
 ];

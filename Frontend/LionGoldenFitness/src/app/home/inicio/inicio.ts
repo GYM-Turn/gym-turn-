@@ -4,8 +4,8 @@ import { Nav } from '../../componentes-compartidos/nav/nav';
 import { Footer } from '../../componentes-compartidos/footer/footer';
 import { CommonModule } from '@angular/common'; // Necesario para filtros de moneda
 import * as AOS from 'aos';
-
 import { FAQService } from '../../servicios/faq.service';
+
 @Component({
   selector: 'app-inicio',
   standalone: true,

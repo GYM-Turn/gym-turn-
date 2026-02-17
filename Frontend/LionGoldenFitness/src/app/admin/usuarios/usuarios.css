@@ -1,0 +1,49 @@
+/* ========================= */
+/* PANEL ADMIN TABLA */
+/* ========================= */
+
+.tabla-card {
+  background: rgba(11, 60, 93, 0.92);
+  padding: 2rem;
+  border-radius: 20px;
+  border: 3px solid var(--color-9);
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+}
+
+.titulo-admin {
+  color: var(--color-2);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.tabla-admin {
+  color: var(--color-2);
+}
+
+.tabla-admin thead {
+  background: linear-gradient(
+    135deg,
+    var(--color-9),
+    var(--color-3)
+  );
+  color: var(--color-2);
+}
+
+.tabla-admin th {
+  border: none;
+  padding: 1rem;
+}
+
+.tabla-admin td {
+  border-color: rgba(255, 255, 255, 0.1);
+  vertical-align: middle;
+}
+
+.tabla-admin tbody tr {
+  transition: all 0.3s ease;
+}
+
+.tabla-admin tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  transform: scale(1.01);
+}

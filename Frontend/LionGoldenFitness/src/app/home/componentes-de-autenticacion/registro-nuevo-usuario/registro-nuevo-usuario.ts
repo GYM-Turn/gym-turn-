@@ -48,7 +48,7 @@ export class RegistroNuevoUsuario {  // 👈 nombre profesional
     }
 
     const nuevoUsuario: Usuario = {
-      dni: Number(this.form.value.dni),
+      dni: this.form.value.dni,
       user: this.form.value.user,
       nombre: this.form.value.nombre,
       apellido: this.form.value.apellido,
