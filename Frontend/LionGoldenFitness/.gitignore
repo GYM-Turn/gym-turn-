@@ -43,3 +43,6 @@ Thumbs.db
 
 # Ignorar archivo personal de comandos
 comandos.txt
+
+# Ignorar Json
+db.json
