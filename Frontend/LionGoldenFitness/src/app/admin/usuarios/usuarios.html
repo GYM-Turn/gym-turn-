@@ -1,104 +1,107 @@
+<div class="layout">
 <app-nav></app-nav>
-<div class="container mt-5">
+<app-nav-admin></app-nav-admin>
+  <div class="container mt-5">
 
-  <div class="tabla-card">
+    <div class="tabla-card">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="titulo-admin">Gestión de Usuarios</h2>
-      <button class="btn btn-uno w-auto px-4" (click)="nuevoUsuario()">
-        Crear Usuario
-      </button>
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="titulo-admin">Gestión de Usuarios</h2>
+        <button class="btn btn-uno w-auto px-4" (click)="nuevoUsuario()">
+          Crear Usuario
+        </button>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table tabla-admin align-middle text-center">
+          <thead>
+            <tr>
+              <th>DNI</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Créditos</th>
+              <th>Rol</th>
+              <th>Activo</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (u of usuarios; track u.id) {
+              <tr>
+                <td>{{ u.dni }}</td>
+                <td>{{ u.nombre }} {{ u.apellido }}</td>
+                <td>{{ u.email }}</td>
+                <td>
+                  <span class="badge bg-warning text-dark">
+                    {{ u.creditos }}
+                  </span>
+                </td>
+
+                <td>
+                  @switch (u.rol) {
+                    @case (Rol.ADMINISTRADOR) {
+                      <span class="badge bg-danger">Administrador</span>
+                    }
+                    @case (Rol.USUARIO) {
+                      <span class="badge bg-primary">Usuario</span>
+                    }
+                    @default {
+                      <span class="badge bg-secondary">Sin Rol</span>
+                    }
+                  }
+                </td>
+
+                <td>
+                  <span class="badge"
+                        [class.bg-success]="u.activo"
+                        [class.bg-danger]="!u.activo">
+                    @if (u.activo) {
+                      Activo
+                    } @else {
+                      Inactivo
+                    }
+                  </span>
+                </td>
+
+                <td>
+                  <button class="btn btn-sm btn-outline-light me-2"
+                          (click)="editarUsuario(u)">
+                    Editar
+                  </button>
+
+                  <button class="btn btn-sm"
+                          [class.btn-outline-danger]="u.activo"
+                          [class.btn-outline-success]="!u.activo"
+                          (click)="cambiarEstado(u)">
+                    @if (u.activo) {
+                      Desactivar
+                    } @else {
+                      Activar
+                    }
+                  </button>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="7" class="text-muted py-4">
+                  No hay usuarios registrados.
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
     </div>
 
-    <div class="table-responsive">
-      <table class="table tabla-admin align-middle text-center">
-        <thead>
-          <tr>
-            <th>DNI</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Créditos</th>
-            <th>Rol</th>
-            <th>Activo</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          @for (u of usuarios; track u.id) {
-            <tr>
-              <td>{{ u.dni }}</td>
-              <td>{{ u.nombre }} {{ u.apellido }}</td>
-              <td>{{ u.email }}</td>
-              <td>
-                <span class="badge bg-warning text-dark">
-                  {{ u.creditos }}
-                </span>
-              </td>
-
-              <td>
-                @switch (u.rol) {
-                  @case (Rol.ADMINISTRADOR) {
-                    <span class="badge bg-danger">Administrador</span>
-                  }
-                  @case (Rol.USUARIO) {
-                    <span class="badge bg-primary">Usuario</span>
-                  }
-                  @default {
-                    <span class="badge bg-secondary">Sin Rol</span>
-                  }
-                }
-              </td>
-
-              <td>
-                <span class="badge"
-                      [class.bg-success]="u.activo"
-                      [class.bg-danger]="!u.activo">
-                  @if (u.activo) {
-                    Activo
-                  } @else {
-                    Inactivo
-                  }
-                </span>
-              </td>
-
-              <td>
-                <button class="btn btn-sm btn-outline-light me-2"
-                        (click)="editarUsuario(u)">
-                  Editar
-                </button>
-
-                <button class="btn btn-sm"
-                        [class.btn-outline-danger]="u.activo"
-                        [class.btn-outline-success]="!u.activo"
-                        (click)="cambiarEstado(u)">
-                  @if (u.activo) {
-                    Desactivar
-                  } @else {
-                    Activar
-                  }
-                </button>
-              </td>
-            </tr>
-          } @empty {
-            <tr>
-              <td colspan="7" class="text-muted py-4">
-                No hay usuarios registrados.
-              </td>
-            </tr>
-          }
-        </tbody>
-      </table>
-    </div>
+    @if (mostrarFormulario) {
+      <app-usuario-form
+        [usuario]="usuarioSeleccionado"
+        (cerrar)="cerrarFormulario()">
+      </app-usuario-form>
+    }
 
   </div>
-
-  @if (mostrarFormulario) {
-    <app-usuario-form
-      [usuario]="usuarioSeleccionado"
-      (cerrar)="cerrarFormulario()">
-    </app-usuario-form>
-  }
-
-</div>
 <app-footer></app-footer>
+</div>

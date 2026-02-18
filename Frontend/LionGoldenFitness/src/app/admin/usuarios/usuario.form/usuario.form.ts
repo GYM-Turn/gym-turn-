@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnInit, inject } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UsuarioService } from '../../../admin/usuarios/services/usuario.service';
+import { UsuarioService } from '../services/usuario-service';
 import { Rol } from '../../../models/enums/rol';
-import { UsuarioAdminDTO } from '../../../models/usuario-admin.dto';
+import { UsuarioAdminDTO } from '../../../models/usuario-admin-dto';
 
 @Component({
   selector: 'app-usuario-form',

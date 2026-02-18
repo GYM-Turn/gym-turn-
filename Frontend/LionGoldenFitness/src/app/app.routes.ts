@@ -10,22 +10,22 @@ import { Turnero } from './usuario/turnero/turnero';
 import { Usuarios } from './admin/usuarios/usuarios';
 
 export const routes: Routes = [
-    // Redirección por defecto
-    { path: "", redirectTo: "inicio", pathMatch: "full" },
-    { path: "inicio", component: Inicio },
-    { path: "quienes-somos", component: QuienesSomos },
-    { path: "sedes", component: SedesComponent },
-    { path: "actividades", component: Actividades },
-    { path: "iniciar-sesion", component: IniciarSesion },
-    { path: "registro-nuevo-usuario", component: RegistroNuevoUsuario },
-    { path: "contacto", component: Contacto },
-    { path: "turnero", component: Turnero},
-    {
+  // Redirección por defecto
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  { path: 'inicio', component: Inicio },
+  { path: 'quienes-somos', component: QuienesSomos },
+  { path: 'sedes', component: SedesComponent },
+  { path: 'actividades', component: Actividades },
+  { path: 'iniciar-sesion', component: IniciarSesion },
+  { path: 'registro-nuevo-usuario', component: RegistroNuevoUsuario },
+  { path: 'contacto', component: Contacto },
+  { path: 'turnero', component: Turnero },
+  {
     path: 'admin/usuarios',
-    loadComponent: () =>
-      import('./admin/usuarios/usuarios')
-        .then(m => m.Usuarios)
+    loadComponent: () => import('./admin/usuarios/usuarios').then((m) => m.Usuarios),
   },
-    
-    
+  {
+    path: 'admin/actividades',
+    loadComponent: () => import('./admin/actividades/actividades').then((m) => m.Actividades),
+  },
 ];

@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuarioService } from '../../admin/usuarios/services/usuario.service';
+import { UsuarioService } from './services/usuario-service';
 import { Rol } from '../../models/enums/rol';
 import { UsuarioForm } from '../../admin/usuarios/usuario.form/usuario.form';
-import { UsuarioAdminDTO } from '../../models/usuario-admin.dto';
+import { UsuarioAdminDTO } from '../../models/usuario-admin-dto';
 import { Nav } from '../../componentes-compartidos/nav/nav';
 import { Footer } from '../../componentes-compartidos/footer/footer';
+import { NavAdmin } from "../../componentes-compartidos/nav-admin/nav-admin";
+
+
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [UsuarioForm, Nav, Footer],
+  imports: [UsuarioForm, Nav, Footer, NavAdmin],
   templateUrl: './usuarios.html',
   styleUrl: './usuarios.css',
 })

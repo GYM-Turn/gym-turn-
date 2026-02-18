@@ -1,1 +1,94 @@
-<p>actividades works!</p>
+<div class="container my-4" >
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="titulo-admin mb-0">Gestión de Actividades</h2>
+    <button class="btn btn-primary shadow-sm" (click)="nuevaActividad()">
+      <i class="bi bi-plus-lg me-1"></i> Nueva
+    </button>
+  </div>
+
+  <div class="table-responsive shadow-sm rounded-3">
+    <table class="table table-hover align-middle text-center mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Nombre</th>
+          <th>Cupos (Ocupados/Total)</th>
+          <th>Duración</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (a of actividades; track a.id) {
+          @let estado = getEstadoCupos(a);
+          
+          <tr>
+            <td class="fw-bold">{{ a.nombre }}</td>
+
+            <td>
+              <div class="progress" style="height: 20px;">
+                <div class="progress-bar" 
+                     [style.width.%]="(a.cupos_ocupados / a.cupos) * 100">
+                  {{ a.cupos_ocupados }}/{{ a.cupos }}
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <i class="bi bi-clock me-1"></i> {{ a.duracion }} min
+            </td>
+
+            <td>
+              @if (estado === 'Disponible') {
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-3">
+                  Disponible
+                </span>
+              } @else if (estado === 'Completo') {
+                <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3">
+                  Completo
+                </span>
+              } @else {
+                <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3">
+                  Inactiva
+                </span>
+              }
+            </td>
+
+            <td>
+              <div class="btn-group shadow-sm">
+                <button class="btn btn-sm btn-outline-primary" (click)="editarActividad(a)" title="Editar">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm" 
+                        [class.btn-outline-warning]="a.activa"
+                        [class.btn-outline-success]="!a.activa"
+                        (click)="toggleEstado(a)" 
+                        [title]="a.activa ? 'Desactivar' : 'Activar'">
+                  <i class="bi" [class.bi-eye-slash]="a.activa" [class.bi-eye]="!a.activa"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger" (click)="eliminarActividad(a.id!)" title="Eliminar">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="text-muted py-5">
+              No hay actividades registradas actualmente.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  @if (mostrarFormulario) {
+    <div class="mt-4 animate-in">
+      <app-actividades-form
+        [actividad]="actividadSeleccionada"
+        (cerrar)="cerrarFormulario()">
+      </app-actividades-form>
+    </div>
+  }
+</div>

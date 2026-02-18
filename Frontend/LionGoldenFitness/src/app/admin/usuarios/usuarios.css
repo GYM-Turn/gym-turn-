@@ -1,14 +1,19 @@
 /* ========================= */
-/* PANEL ADMIN TABLA */
+/* CONTENEDOR PRINCIPAL */
 /* ========================= */
 
 .tabla-card {
-  background: rgba(11, 60, 93, 0.92);
-  padding: 2rem;
+  background: rgba(11, 60, 93, 0.95);
+  padding: 2.5rem;
   border-radius: 20px;
   border: 3px solid var(--color-9);
-  box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 0 35px rgba(212, 175, 55, 0.35);
+  animation: fadeInAdmin 0.4s ease-in-out;
 }
+
+/* ========================= */
+/* TÍTULO */
+/* ========================= */
 
 .titulo-admin {
   color: var(--color-2);
@@ -16,8 +21,13 @@
   letter-spacing: 1px;
 }
 
+/* ========================= */
+/* TABLA */
+/* ========================= */
+
 .tabla-admin {
   color: var(--color-2);
+  background: transparent;
 }
 
 .tabla-admin thead {
@@ -27,6 +37,8 @@
     var(--color-3)
   );
   color: var(--color-2);
+  font-size: 0.95rem;
+  text-transform: uppercase;
 }
 
 .tabla-admin th {
@@ -35,15 +47,63 @@
 }
 
 .tabla-admin td {
-  border-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.08);
   vertical-align: middle;
+  padding: 0.9rem;
 }
 
+/* Hover filas */
+
 .tabla-admin tbody tr {
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
 }
 
 .tabla-admin tbody tr:hover {
   background-color: rgba(255, 255, 255, 0.05);
   transform: scale(1.01);
+}
+
+/* ========================= */
+/* BOTONES ACCIÓN */
+/* ========================= */
+
+.btn-outline-light {
+  border: 1px solid var(--color-2);
+  color: var(--color-2);
+}
+
+.btn-outline-light:hover {
+  background-color: var(--color-2);
+  color: var(--color-4);
+}
+
+.btn-outline-danger,
+.btn-outline-success {
+  border-width: 2px;
+  font-weight: 500;
+}
+
+/* ========================= */
+/* BADGES PERSONALIZADOS */
+/* ========================= */
+
+.badge {
+  padding: 0.5em 0.8em;
+  font-size: 0.75rem;
+  border-radius: 8px;
+}
+
+/* ========================= */
+/* ANIMACIÓN */
+/* ========================= */
+
+@keyframes fadeInAdmin {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -1,0 +1,62 @@
+.container {
+  padding: 30px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  background: #111;
+  color: white;
+  font-size: 14px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+th, td {
+  padding: 14px;
+  text-align: left;
+}
+
+th {
+  background: #f7f7f7;
+}
+
+tr:hover {
+  background: #fafafa;
+}
+
+.badge-disponible {
+  background: #e6f8ec;
+  color: #1a7f37;
+  padding: 4px 8px;
+  border-radius: 20px;
+}
+
+.badge-completo {
+  background: #fde8e8;
+  color: #b91c1c;
+  padding: 4px 8px;
+  border-radius: 20px;
+}
+
+.badge-inactiva {
+  background: #f1f1f1;
+  color: #666;
+  padding: 4px 8px;
+  border-radius: 20px;
+}
