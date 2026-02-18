@@ -73,6 +73,19 @@ app-footer {
   color: var(--color-2);
 }
 
+
+/* CONTENEDOR PRINCIPAL ADMIN*/
+
+
+.tabla-card {
+  background: rgba(11, 60, 93, 0.95);
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 3px solid var(--color-9);
+  box-shadow: 0 0 35px rgba(212, 175, 55, 0.35);
+  animation: fadeInAdmin 0.4s ease-in-out;
+}
+
 /* Formularios */
 
 .formulario-card {

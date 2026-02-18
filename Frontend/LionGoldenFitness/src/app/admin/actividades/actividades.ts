@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common'; // Imprescindible para standalon
 import { ActividadesService } from './services/actividades-service'; // Ojo: verifica el nombre del archivo .ts
 import { ActividadAdminDTO } from '../../models/actividad-admin-dto';
 import { ActividadesForm } from './actividades-form/actividades-form';
+import { NavAdmin } from '../../componentes-compartidos/nav-admin/nav-admin';
+import { Footer } from '../../componentes-compartidos/footer/footer';
 
 
 
 @Component({
   selector: 'app-actividades',
   standalone: true,
-  imports: [CommonModule, ActividadesForm], // Agregamos CommonModule aquí
+  imports: [CommonModule, ActividadesForm,NavAdmin,Footer], // Agregamos CommonModule aquí
   templateUrl: './actividades.html',
   styleUrl: './actividades.css',
 })
