@@ -7,25 +7,58 @@ import { Contacto } from './home/contacto/contacto';
 import { IniciarSesion } from './home/componentes-de-autenticacion/iniciar-sesion/iniciar-sesion';
 import { RegistroNuevoUsuario } from './home/componentes-de-autenticacion/registro-nuevo-usuario/registro-nuevo-usuario';
 import { Turnero } from './usuario/turnero/turnero';
-import { Usuarios } from './admin/usuarios/usuarios';
+import { authGuard } from './guards/auth-guard';
+import { Rol } from './models/enums/rol';
 
 export const routes: Routes = [
-  // Redirección por defecto
+
+  // ===============================
+  // 🔁 REDIRECCIÓN INICIAL
+  // ===============================
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+
+  // ===============================
+  // 🌐 RUTAS PÚBLICAS
+  // ===============================
   { path: 'inicio', component: Inicio },
   { path: 'quienes-somos', component: QuienesSomos },
   { path: 'sedes', component: SedesComponent },
   { path: 'actividades', component: Actividades },
+  { path: 'contacto', component: Contacto },
   { path: 'iniciar-sesion', component: IniciarSesion },
   { path: 'registro-nuevo-usuario', component: RegistroNuevoUsuario },
-  { path: 'contacto', component: Contacto },
-  { path: 'turnero', component: Turnero },
+
+  // ===============================
+  // 👤 RUTA USUARIO
+  // ===============================
+  {
+    path: 'turnero',
+    component: Turnero,
+    canActivate: [authGuard],
+    data: { rol: Rol.USUARIO }
+  },
+
+  // ===============================
+  // 🔴 RUTAS ADMIN
+  // ===============================
   {
     path: 'admin/usuarios',
-    loadComponent: () => import('./admin/usuarios/usuarios').then((m) => m.Usuarios),
+    loadComponent: () =>
+      import('./admin/usuarios/usuarios').then(m => m.Usuarios),
+    canActivate: [authGuard],
+    data: { rol: Rol.ADMINISTRADOR }
   },
   {
     path: 'admin/actividades',
-    loadComponent: () => import('./admin/actividades/actividades').then((m) => m.Actividades),
+    loadComponent: () =>
+      import('./admin/actividades/actividades').then(m => m.Actividades),
+    canActivate: [authGuard],
+    data: { rol: Rol.ADMINISTRADOR }
   },
+
+  // ===============================
+  // 🚫 RUTA NO ENCONTRADA
+  // ===============================
+  { path: '**', redirectTo: 'inicio' }
+
 ];

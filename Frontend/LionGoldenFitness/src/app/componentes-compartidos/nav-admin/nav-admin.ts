@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../servicios/auth.service';
 
 
 @Component({
@@ -10,4 +11,9 @@ import { RouterLink } from '@angular/router';
 })
 export class NavAdmin {
 
+  constructor(public authService: AuthService) {}
+
+  logout() {
+    this.authService.logout();
+  }
 }

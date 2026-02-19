@@ -12,7 +12,7 @@ import { NavAdmin } from "../../componentes-compartidos/nav-admin/nav-admin";
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [UsuarioForm, Nav, Footer, NavAdmin],
+  imports: [UsuarioForm, Footer, NavAdmin],
   templateUrl: './usuarios.html',
   styleUrl: './usuarios.css',
 })
