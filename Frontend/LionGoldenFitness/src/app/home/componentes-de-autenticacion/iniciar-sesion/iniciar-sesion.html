@@ -40,11 +40,24 @@
       </div>
 
       <!-- ERROR GENERAL -->
-      @if (error) {
-        <div class="alert alert-danger mt-3">
-          {{ error }}
-        </div>
-      }
+     @if (form.get('password')?.touched && form.get('password')?.errors) {
+  <small class="text-danger">
+    
+    @if (form.get('password')?.errors?.['required']) {
+      La contraseña es obligatoria.
+    }
+
+    @if (form.get('password')?.errors?.['minlength']) {
+      Debe tener al menos 8 caracteres.
+    }
+
+    @if (form.get('password')?.errors?.['pattern']) {
+      Debe incluir al menos un carácter especial.
+    }
+
+  </small>
+}
+
 
       <!-- BOTONES -->
       <div class="button-stack">

@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../../servicios/auth.service';
 import { Usuario } from '../../../models/usuario.model';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-registro-nuevo-usuario',
   standalone: true, // 👈 MUY IMPORTANTE
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,RouterLink],
   templateUrl: './registro-nuevo-usuario.html',
+   styleUrl: './registro-nuevo-usuario.css',
 })
 export class RegistroNuevoUsuario {  // 👈 nombre profesional
 

@@ -12,7 +12,11 @@ import { AuthService } from '../../servicios/auth.service';
 export class NavAdmin {
 
   constructor(public authService: AuthService) {}
+  menuOpen = false;
 
+toggleMenu() {
+  this.menuOpen = !this.menuOpen;
+}
   logout() {
     this.authService.logout();
   }

@@ -1,8 +1,8 @@
 @if (authService.isAdmin()) {
 
-<nav class="navbar navbar-expand-lg custom-nav">
-  <div class="container-fluid">
+<nav class="navbar custom-nav">
 
+  <div class="nav-header">
     <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/inicio">
       <img src="/img/favicon.jpeg" 
            alt="Logo LionGoldenFitness" 
@@ -10,35 +10,22 @@
       <span>LionGoldenFitness</span>
     </a>
 
-    <button 
-      class="navbar-toggler" 
-      type="button" 
-      data-bs-toggle="collapse" 
-      data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
+    <!-- Botón hamburguesa -->
+    <button class="hamburger" (click)="toggleMenu()">
+      ☰
     </button>
-
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <div class="navbar-nav ms-auto">
-
-        <a class="nav-link" routerLink="/admin/usuarios">
-          Usuarios
-        </a>
-
-        <a class="nav-link" routerLink="/admin/actividades">
-          Actividades
-        </a>
-
-        <button 
-          class="btn btn-outline-light ms-3"
-          (click)="logout()">
-          Cerrar sesión
-        </button>
-
-      </div>
-    </div>
-
   </div>
+
+  <!-- Menú desplegable -->
+  <div class="nav-links" [class.active]="menuOpen">
+    <a class="nav-link" routerLink="/admin/usuarios">Usuarios</a>
+    <a class="nav-link" routerLink="/admin/actividades">Actividades</a>
+
+    <button class="btn-uno" (click)="logout()">
+      Cerrar sesión
+    </button>
+  </div>
+
 </nav>
 
 }
