@@ -55,7 +55,14 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: { rol: Rol.ADMINISTRADOR }
   },
-
+{
+  path: 'admin/turnos',
+  loadComponent: () =>
+    import('./admin/turnos/turnos')
+      .then(m => m.AdminTurnosComponent),
+  canActivate: [authGuard],
+  data: { rol: Rol.ADMINISTRADOR }
+},
   // ===============================
   // 🚫 RUTA NO ENCONTRADA
   // ===============================

@@ -1,0 +1,56 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.lion-card {
+  background: #1c1c1c;
+  border-radius: 18px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.lion-header {
+  background: linear-gradient(90deg, #d4af37, #b9972f);
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  padding: 15px;
+}
+
+.lion-title {
+  margin: 0;
+  color: #000;
+  font-weight: 600;
+}
+
+.lion-label {
+  color: #d4af37;
+  font-weight: 500;
+}
+
+.lion-input {
+  background: #2b2b2b;
+  border: 1px solid #444;
+  color: #fff;
+}
+
+.lion-input:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+}
+
+.lion-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}

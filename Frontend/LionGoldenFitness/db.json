@@ -100,6 +100,31 @@
       "cupos_ocupados": 0,
       "duracion": 30,
       "activa": false
+    },
+    {
+      "id": "6364",
+      "nombre": "funcional",
+      "descripcion": "lo bien que hace ",
+      "cupos": 22,
+      "cupos_ocupados": 0,
+      "duracion": 30,
+      "activa": true
+    }
+  ],
+  "turnos": [
+    {
+      "actividad": {
+        "id": "b544",
+        "nombre": "boxeo "
+      },
+      "sucursal": {
+        "id_sucursal": 2,
+        "nombre_sucursal": "Nueva Córdoba"
+      },
+      "fecha_hora": "2020-06-12T11:00",
+      "cupo_maximo": 13,
+      "cupos_disponibles": 13,
+      "id": "3570"
     }
   ]
 }

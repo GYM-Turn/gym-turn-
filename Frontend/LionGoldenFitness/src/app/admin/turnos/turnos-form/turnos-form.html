@@ -1,0 +1,69 @@
+<div class="overlay">
+  <div class="card lion-card w-100" style="max-width: 500px;">
+
+    <div class="card-header lion-header">
+      <h3 class="lion-title">
+        {{ turno ? 'Editar Turno' : 'Nuevo Turno' }}
+      </h3>
+    </div>
+
+    <div class="card-body p-4">
+      <form [formGroup]="form" (ngSubmit)="guardarTurno()">
+
+        <!-- ACTIVIDAD -->
+        <div class="mb-3">
+          <label class="form-label lion-label">Actividad</label>
+          <select class="form-select lion-input"
+                  formControlName="actividadId">
+            @for (a of actividades; track a.id) {
+              <option [value]="a.id">{{ a.nombre }}</option>
+            }
+          </select>
+        </div>
+
+        <!-- SUCURSAL -->
+        <div class="mb-3">
+          <label class="form-label lion-label">Sucursal</label>
+          <select class="form-select lion-input"
+                  formControlName="sucursalId">
+            @for (s of sucursales; track s.id_sucursal) {
+              <option [value]="s.id_sucursal">{{ s.nombre_sucursal }}</option>
+            }
+          </select>
+        </div>
+
+        <!-- FECHA -->
+        <div class="mb-3">
+          <label class="form-label lion-label">Fecha y Hora</label>
+          <input type="datetime-local"
+                 class="form-control lion-input"
+                 formControlName="fecha_hora">
+        </div>
+
+        <!-- CUPOS -->
+        <div class="mb-4">
+          <label class="form-label lion-label">Cupo Máximo</label>
+          <input type="number"
+                 class="form-control lion-input"
+                 formControlName="cupo_maximo">
+        </div>
+
+        <!-- BOTONES -->
+        <div class="lion-actions">
+          <button type="button"
+                  class="btn-uno"
+                  (click)="cancelar()">
+            Cancelar
+          </button>
+
+          <button type="submit"
+                  class="btn-uno"
+                  [disabled]="form.invalid">
+            Guardar
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

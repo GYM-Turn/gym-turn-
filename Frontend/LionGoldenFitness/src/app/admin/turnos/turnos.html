@@ -1,1 +1,87 @@
-<p>turnos works!</p>
+<div class="container mt-5">
+
+  <div class="tabla-card">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="titulo-admin">Gestión de Turnos</h2>
+
+      <button class="btn-uno" (click)="crearTurno()">
+        Crear Turno
+      </button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Actividad</th>
+            <th>Sucursal</th>
+            <th>Fecha y Hora</th>
+            <th>Cupo Máx</th>
+            <th>Disponibles</th>
+            <th>Estado</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (turno of turnos; track turno.id) {
+          <tr>
+            <td>{{ turno.actividad.nombre }}</td>
+            <td>{{ turno.sucursal.nombre_sucursal }}</td>
+            <td>{{ turno.fecha_hora | date:'short' }}</td>
+            <td>{{ turno.cupo_maximo }}</td>
+            <td>
+              <div class="progress">
+                <div
+                  class="progress-bar"
+                  role="progressbar"
+                  [style.width.%]="(turno.cupos_disponibles / turno.cupo_maximo) * 100">
+                  {{ turno.cupos_disponibles }}
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <span
+                class="badge"
+                [ngClass]="{
+                  'bg-success': turno.cupos_disponibles > 0,
+                  'bg-danger': turno.cupos_disponibles === 0
+                }">
+                {{ turno.cupos_disponibles > 0 ? 'Disponible' : 'Completo' }}
+              </span>
+            </td>
+
+            <td class="text-center">
+              <button
+                class="btn btn-sm btn-uno me-2"
+                (click)="editarTurno(turno)">
+                Editar
+              </button>
+
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="eliminarTurno(turno.id)">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- 🔥 NUEVO CONTROL DE FLUJO -->
+  @if (mostrarFormulario) {
+    <div class="mt-4 tabla-card">
+      <app-turnos-form
+        [turno]="turnoSeleccionado"
+        (guardar)="recargarTurnos()">
+      </app-turnos-form>
+    </div>
+  }
+
+</div>
