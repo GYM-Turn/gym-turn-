@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { Turno } from '../../models/turno';
 import { TurnoService } from '../../admin/turnos/services/turnos-services';
 import { TurnosFormComponent } from './turnos-form/turnos-form';
+import { NavAdmin } from "../../componentes-compartidos/nav-admin/nav-admin";
+import { Footer } from "../../componentes-compartidos/footer/footer";
 
 @Component({
   selector: 'app-admin-turnos',
   standalone: true,
-  imports: [CommonModule, TurnosFormComponent],
+  imports: [CommonModule, TurnosFormComponent, NavAdmin, Footer],
   templateUrl: './turnos.html',
   styleUrls: ['./turnos.css']
 })

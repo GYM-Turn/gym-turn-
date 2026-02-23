@@ -4,8 +4,8 @@
 
   <div class="nav-header">
     <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/inicio">
-      <img src="/img/favicon.jpeg" 
-           alt="Logo LionGoldenFitness" 
+      <img src="/img/favicon.jpeg"
+           alt="Logo LionGoldenFitness"
            class="logo-nav">
       <span>LionGoldenFitness</span>
     </a>
@@ -20,7 +20,8 @@
   <div class="nav-links" [class.active]="menuOpen">
     <a class="nav-link" routerLink="/admin/usuarios">Usuarios</a>
     <a class="nav-link" routerLink="/admin/actividades">Actividades</a>
-     <a class="nav-link" routerLink="/admin/turnos">Turnos</a>
+    <a class="nav-link" routerLink="/admin/turnos">Turnos</a>
+    <a class="nav-link" routerLink="/admin/sucursales">Sucursales</a> 
 
     <button class="btn-uno" (click)="logout()">
       Cerrar sesión
@@ -28,5 +29,4 @@
   </div>
 
 </nav>
-
 }

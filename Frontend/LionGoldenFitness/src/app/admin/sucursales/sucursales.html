@@ -1,0 +1,62 @@
+<div class="layout">
+  <app-nav-admin></app-nav-admin>
+
+  <div class="container mt-5">
+    <div class="tabla-card">
+
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="titulo-admin">Gestión de Sucursales</h2>
+
+        <button class="btn-uno" (click)="crearSucursal()">
+          Crear Sucursal
+        </button>
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Dirección</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (sucursal of sucursales; track sucursal.id) {
+          <tr>
+            <td>{{ sucursal.nombre_sucursal }}</td>
+            <td>{{ sucursal.direccion }}</td>
+
+            <td class="text-center">
+              <button
+                class="btn btn-warning btn-sm me-2"
+                (click)="editarSucursal(sucursal)">
+                Editar
+              </button>
+
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="eliminarSucursal(sucursal.id!)">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+
+    </div>
+
+    @if (mostrarFormulario) {
+      <div class="mt-4 tabla-card">
+        <app-sucursales-form
+          [sucursal]="sucursalSeleccionada"
+          (guardar)="recargarSucursales()">
+        </app-sucursales-form>
+      </div>
+    }
+
+  </div>
+
+  <app-footer></app-footer>
+</div>

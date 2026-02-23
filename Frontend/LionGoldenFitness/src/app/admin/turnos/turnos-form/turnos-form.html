@@ -26,8 +26,8 @@
           <label class="form-label lion-label">Sucursal</label>
           <select class="form-select lion-input"
                   formControlName="sucursalId">
-            @for (s of sucursales; track s.id_sucursal) {
-              <option [value]="s.id_sucursal">{{ s.nombre_sucursal }}</option>
+            @for (s of sucursales; track s.id) {
+              <option [value]="s.id">{{ s.nombre_sucursal }}</option>
             }
           </select>
         </div>
@@ -38,14 +38,6 @@
           <input type="datetime-local"
                  class="form-control lion-input"
                  formControlName="fecha_hora">
-        </div>
-
-        <!-- CUPOS -->
-        <div class="mb-4">
-          <label class="form-label lion-label">Cupo Máximo</label>
-          <input type="number"
-                 class="form-control lion-input"
-                 formControlName="cupo_maximo">
         </div>
 
         <!-- BOTONES -->

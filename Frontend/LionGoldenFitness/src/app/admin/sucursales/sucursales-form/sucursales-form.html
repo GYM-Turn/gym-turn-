@@ -1,0 +1,53 @@
+<div class="overlay">
+  <div class="card lion-card w-100" style="max-width: 500px;">
+
+    <div class="card-header lion-header">
+      <h3 class="lion-title">
+        {{ sucursal ? 'Editar Sucursal' : 'Nueva Sucursal' }}
+      </h3>
+    </div>
+
+    <div class="card-body p-4">
+
+      <form [formGroup]="form" (ngSubmit)="guardarSucursal()">
+
+        <!-- NOMBRE -->
+        <div class="mb-3">
+          <label class="form-label lion-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control lion-input"
+            formControlName="nombre_sucursal">
+        </div>
+
+        <!-- DIRECCIÓN -->
+        <div class="mb-4">
+          <label class="form-label lion-label">Dirección</label>
+          <input
+            type="text"
+            class="form-control lion-input"
+            formControlName="direccion">
+        </div>
+
+        <!-- BOTONES -->
+        <div class="lion-actions">
+          <button
+            type="button"
+            class="btn-uno"
+            (click)="cancelar()">
+            Cancelar
+          </button>
+
+          <button
+            type="submit"
+            class="btn-uno"
+            [disabled]="form.invalid">
+            Guardar
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>

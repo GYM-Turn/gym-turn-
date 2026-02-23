@@ -57,18 +57,18 @@
               </td>
 
               <td>
-                <div class="btn-group shadow-sm">
-                  <button class="btn btn-sm btn-outline-primary" (click)="editarActividad(a)" title="Editar">
+                <div class="btn-group btn-lg">
+                  <button class="btn btn-warning" (click)="editarActividad(a)" title="Editar">
                     <i class="bi bi-pencil"></i>
                   </button>
-                  <button class="btn btn-sm" 
-                          [class.btn-outline-warning]="a.activa"
-                          [class.btn-outline-success]="!a.activa"
+                  <button class="btn " 
+                          [class.btn-secondary]="a.activa"
+                          [class.btn-success]="!a.activa"
                           (click)="toggleEstado(a)" 
                           [title]="a.activa ? 'Desactivar' : 'Activar'">
                     <i class="bi" [class.bi-eye-slash]="a.activa" [class.bi-eye]="!a.activa"></i>
                   </button>
-                  <button class="btn btn-sm btn-outline-danger" (click)="eliminarActividad(a.id!)" title="Eliminar">
+                  <button class="btn btn-danger" (click)="eliminarActividad(a.id!)" title="Eliminar">
                     <i class="bi bi-trash"></i>
                   </button>
                 </div>

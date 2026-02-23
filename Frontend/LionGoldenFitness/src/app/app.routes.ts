@@ -11,7 +11,6 @@ import { authGuard } from './guards/auth-guard';
 import { Rol } from './models/enums/rol';
 
 export const routes: Routes = [
-
   // ===============================
   // 🔁 REDIRECCIÓN INICIAL
   // ===============================
@@ -35,7 +34,7 @@ export const routes: Routes = [
     path: 'turnero',
     component: Turnero,
     canActivate: [authGuard],
-    data: { rol: Rol.USUARIO }
+    data: { rol: Rol.USUARIO },
   },
 
   // ===============================
@@ -43,29 +42,30 @@ export const routes: Routes = [
   // ===============================
   {
     path: 'admin/usuarios',
-    loadComponent: () =>
-      import('./admin/usuarios/usuarios').then(m => m.Usuarios),
+    loadComponent: () => import('./admin/usuarios/usuarios').then((m) => m.Usuarios),
     canActivate: [authGuard],
-    data: { rol: Rol.ADMINISTRADOR }
+    data: { rol: Rol.ADMINISTRADOR },
   },
   {
     path: 'admin/actividades',
-    loadComponent: () =>
-      import('./admin/actividades/actividades').then(m => m.Actividades),
+    loadComponent: () => import('./admin/actividades/actividades').then((m) => m.Actividades),
     canActivate: [authGuard],
-    data: { rol: Rol.ADMINISTRADOR }
+    data: { rol: Rol.ADMINISTRADOR },
   },
-{
-  path: 'admin/turnos',
-  loadComponent: () =>
-    import('./admin/turnos/turnos')
-      .then(m => m.AdminTurnosComponent),
-  canActivate: [authGuard],
-  data: { rol: Rol.ADMINISTRADOR }
-},
+  {
+    path: 'admin/turnos',
+    loadComponent: () => import('./admin/turnos/turnos').then((m) => m.AdminTurnosComponent),
+    canActivate: [authGuard],
+    data: { rol: Rol.ADMINISTRADOR },
+  },
+  {
+    path: 'admin/sucursales',
+    loadComponent: () => import('./admin/sucursales/sucursales').then((m) => m.Sucursales),
+    canActivate: [authGuard],
+    data: { rol: Rol.ADMINISTRADOR },
+  },
   // ===============================
   // 🚫 RUTA NO ENCONTRADA
   // ===============================
-  { path: '**', redirectTo: 'inicio' }
-
+  { path: '**', redirectTo: 'inicio' },
 ];

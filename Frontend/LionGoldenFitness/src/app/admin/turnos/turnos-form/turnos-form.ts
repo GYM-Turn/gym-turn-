@@ -37,19 +37,17 @@ export class TurnosFormComponent implements OnInit {
     this.form = this.fb.group({
       actividadId: ['', Validators.required],
       sucursalId: ['', Validators.required],
-      fecha_hora: ['', Validators.required],
-      cupo_maximo: ['', [Validators.required, Validators.min(1)]]
+      fecha_hora: ['', Validators.required]
     });
 
     this.cargarDatos();
 
-    // 🔥 Modo edición
+    // Modo edición
     if (this.turno) {
       this.form.patchValue({
         actividadId: this.turno.actividad?.id,
-        sucursalId: this.turno.sucursal?.id_sucursal,
-        fecha_hora: this.turno.fecha_hora?.substring(0, 16),
-        cupo_maximo: this.turno.cupo_maximo
+        sucursalId: this.turno.sucursal?.id,
+        fecha_hora: this.turno.fecha_hora?.substring(0, 16)
       });
     }
   }
@@ -64,15 +62,6 @@ export class TurnosFormComponent implements OnInit {
     });
   }
 
-  onActividadChange(actividadId: number) {
-    const actividad = this.actividades.find(a => a.id == actividadId);
-    if (actividad) {
-      this.form.patchValue({
-        cupo_maximo: actividad.cupos
-      });
-    }
-  }
-
   guardarTurno() {
 
     if (this.form.invalid) return;
@@ -84,7 +73,7 @@ export class TurnosFormComponent implements OnInit {
     );
 
     const sucursalSeleccionada = this.sucursales.find(
-      s => s.id_sucursal == formValue.sucursalId
+      s => s.id == formValue.sucursalId
     );
 
     if (!actividadSeleccionada || !sucursalSeleccionada) return;
@@ -92,15 +81,15 @@ export class TurnosFormComponent implements OnInit {
     const turnoPayload = {
       actividad: {
         id: actividadSeleccionada.id,
-        nombre: actividadSeleccionada.nombre
+        nombre: actividadSeleccionada.nombre,
       },
       sucursal: {
-        id_sucursal: sucursalSeleccionada.id_sucursal,
-        nombre_sucursal: sucursalSeleccionada.nombre_sucursal
+        id: sucursalSeleccionada.id,
+        nombre_sucursal: sucursalSeleccionada.nombre_sucursal,
       },
       fecha_hora: formValue.fecha_hora,
-      cupo_maximo: formValue.cupo_maximo,
-      cupos_disponibles: formValue.cupo_maximo
+      cupo_maximo: actividadSeleccionada.cupos, // 🔥 heredado
+      cupos_disponibles: actividadSeleccionada.cupos, // 🔥 heredado
     };
 
     if (this.turno) {
