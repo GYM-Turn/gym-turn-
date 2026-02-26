@@ -1,1 +1,33 @@
-<p>dashboard works!</p>
+<div class="layout">
+  <app-nav-admin></app-nav-admin>
+
+  <div class="dashboard-container">
+
+    <div class="dashboard-card">
+      <img src="img\usuario.png" alt="Usuarios" class="card-img">
+      <h3>Usuarios</h3>
+      <p>{{ totalUsuarios }}</p>
+    </div>
+
+    <div class="dashboard-card">
+      <img src="img\entrenador.png" alt="Actividades" class="card-img">
+      <h3>Actividades</h3>
+      <p>{{ totalActividades }}</p>
+    </div>
+
+    <div class="dashboard-card">
+      <img src="img\ubicacion.png" alt="Sucursales" class="card-img">
+      <h3>Sucursales</h3>
+      <p>{{ totalSucursales }}</p>
+    </div>
+
+    <div class="dashboard-card">
+      <img src="img\disponibilidad.png" alt="Turnos" class="card-img">
+      <h3>Turnos</h3>
+      <p class="uno">{{ totalTurnos }}</p>
+    </div>
+
+  </div>
+</div>
+
+<app-footer></app-footer>

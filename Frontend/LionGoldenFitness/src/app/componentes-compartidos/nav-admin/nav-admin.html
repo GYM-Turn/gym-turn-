@@ -18,10 +18,12 @@
 
   <!-- Menú desplegable -->
   <div class="nav-links" [class.active]="menuOpen">
+    <a class="nav-link" routerLink="/admin/dashboard">Dashboard</a>
     <a class="nav-link" routerLink="/admin/usuarios">Usuarios</a>
     <a class="nav-link" routerLink="/admin/actividades">Actividades</a>
     <a class="nav-link" routerLink="/admin/turnos">Turnos</a>
     <a class="nav-link" routerLink="/admin/sucursales">Sucursales</a> 
+    
 
     <button class="btn-uno" (click)="logout()">
       Cerrar sesión

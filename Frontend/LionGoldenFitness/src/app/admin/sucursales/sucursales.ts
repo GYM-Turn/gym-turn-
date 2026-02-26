@@ -5,6 +5,7 @@ import { SucursalService } from '../../servicios/sucursal.service';
 import { SucursalesForm } from './sucursales-form/sucursales-form';
 import { NavAdmin } from "../../componentes-compartidos/nav-admin/nav-admin";
 import { Footer } from "../../componentes-compartidos/footer/footer";
+import { TurnoService } from '../turnos/services/turnos-services';
 
 @Component({
   selector: 'app-admin-sucursales',
@@ -19,7 +20,8 @@ export class Sucursales implements OnInit {
   mostrarFormulario = false;
   sucursalSeleccionada?: Sucursal;
 
-  constructor(private sucursalService: SucursalService) {}
+  constructor(private sucursalService: SucursalService, private turnoService: TurnoService) { }
+  
 
   ngOnInit(): void {
     this.cargarSucursales();
@@ -41,11 +43,28 @@ export class Sucursales implements OnInit {
     this.mostrarFormulario = true;
   }
 
-  eliminarSucursal(id: string) {
+eliminarSucursal(id: string) {
+
+  const confirmar = confirm('¿Estás seguro que querés eliminar esta sucursal?');
+  if (!confirmar) return;
+
+  this.turnoService.getTurnos().subscribe(turnos => {
+
+    const tieneTurnos = turnos.some(
+      t => t.sucursal?.id === id
+    );
+
+    if (tieneTurnos) {
+      alert('No podés eliminar esta sucursal porque tiene turnos asociados.');
+      return;
+    }
+
     this.sucursalService.deleteSucursal(id).subscribe(() => {
       this.cargarSucursales();
     });
-  }
+
+  });
+}
 
   recargarSucursales() {
     this.mostrarFormulario = false;

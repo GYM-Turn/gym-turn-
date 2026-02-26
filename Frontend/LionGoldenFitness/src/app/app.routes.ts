@@ -64,6 +64,14 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: { rol: Rol.ADMINISTRADOR },
   },
+  {
+    path: 'admin/dashboard',
+    loadComponent: () =>
+      import('./admin/dashboard/dashboard')
+        .then(m => m.Dashboard),
+    canActivate: [authGuard],
+    data: { rol: Rol.ADMINISTRADOR }
+  },
   // ===============================
   // 🚫 RUTA NO ENCONTRADA
   // ===============================

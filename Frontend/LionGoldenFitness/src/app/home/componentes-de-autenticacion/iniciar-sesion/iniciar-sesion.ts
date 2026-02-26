@@ -49,7 +49,7 @@ export class IniciarSesion {
         this.loading = false;
 
         if (usuario.rol === Rol.ADMINISTRADOR) {
-          this.router.navigate(['/admin/usuarios']);
+          this.router.navigate(['/admin/dashboard']);
         } else if (usuario.rol === Rol.USUARIO) {
           this.router.navigate(['/usuario']);
         }
