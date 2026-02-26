@@ -4,10 +4,9 @@ import { Observable } from 'rxjs';
 import { Turno } from '../../../models/turno';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TurnoService {
-
   private apiUrl = 'http://localhost:3000/turnos'; // ajustar a tu backend
 
   constructor(private http: HttpClient) {}
@@ -18,6 +17,10 @@ export class TurnoService {
 
   getTurnoById(id: number): Observable<Turno> {
     return this.http.get<Turno>(`${this.apiUrl}/${id}`);
+  }
+
+  getTurnosByUsuario(usuarioId: number): Observable<Turno[]> {
+    return this.http.get<Turno[]>(`${this.apiUrl}?usuarioId=${usuarioId}`);
   }
 
   createTurno(turno: any): Observable<Turno> {

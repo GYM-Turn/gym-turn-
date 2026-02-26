@@ -1,0 +1,30 @@
+@if (authService.isUsuario()) {
+
+<nav class="navbar custom-nav">
+
+  <div class="nav-header">
+    <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/inicio">
+      <img src="/img/favicon.jpeg"
+           alt="Logo LionGoldenFitness"
+           class="logo-nav">
+      <span>LionGoldenFitness</span>
+    </a>
+
+    <button class="hamburger" (click)="toggleMenu()">
+      ☰
+    </button>
+  </div>
+
+  <div class="nav-links" [class.active]="menuOpen">
+    <a class="nav-link" routerLink="/usuario/dashboard">Mi Dashboard</a>
+    <a class="nav-link" routerLink="/usuario/editar-perfil">Editar perfil</a>
+    <a class="nav-link" routerLink="/usuario/mis-turnos">Mis turnos</a>
+
+    <button class="btn-uno" (click)="logout()">
+      Cerrar sesión
+    </button>
+  </div>
+
+</nav>
+
+}

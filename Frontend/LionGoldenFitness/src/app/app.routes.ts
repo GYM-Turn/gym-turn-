@@ -6,7 +6,6 @@ import { Actividades } from './home/actividades/actividades';
 import { Contacto } from './home/contacto/contacto';
 import { IniciarSesion } from './home/componentes-de-autenticacion/iniciar-sesion/iniciar-sesion';
 import { RegistroNuevoUsuario } from './home/componentes-de-autenticacion/registro-nuevo-usuario/registro-nuevo-usuario';
-import { Turnero } from './usuario/turnero/turnero';
 import { authGuard } from './guards/auth-guard';
 import { Rol } from './models/enums/rol';
 
@@ -31,12 +30,12 @@ export const routes: Routes = [
   // 👤 RUTA USUARIO
   // ===============================
   {
-    path: 'turnero',
-    component: Turnero,
+    path: 'usuario/dashboard',
+    loadComponent: () =>
+      import('./usuario/dashboard/dashboard').then((m) => m.DashboardUsuario),
     canActivate: [authGuard],
     data: { rol: Rol.USUARIO },
   },
-
   // ===============================
   // 🔴 RUTAS ADMIN
   // ===============================
@@ -66,11 +65,9 @@ export const routes: Routes = [
   },
   {
     path: 'admin/dashboard',
-    loadComponent: () =>
-      import('./admin/dashboard/dashboard')
-        .then(m => m.Dashboard),
+    loadComponent: () => import('./admin/dashboard/dashboard').then((m) => m.Dashboard),
     canActivate: [authGuard],
-    data: { rol: Rol.ADMINISTRADOR }
+    data: { rol: Rol.ADMINISTRADOR },
   },
   // ===============================
   // 🚫 RUTA NO ENCONTRADA

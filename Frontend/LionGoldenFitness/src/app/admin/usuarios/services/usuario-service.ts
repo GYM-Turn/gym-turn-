@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { Usuario } from '../../../models/usuario.model';
 import { UsuarioAdminDTO } from '../../../models/usuario-admin-dto';
 
@@ -44,7 +43,7 @@ export class UsuarioService {
   // 🗑 ELIMINAR (ADMIN)
   // ============================
 
-  deleteUsuario(id: string | number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  deleteUsuario(id: string | number): Observable<Usuario> {
+    return this.http.delete<Usuario>(`${this.apiUrl}/${id}`);
   }
 }

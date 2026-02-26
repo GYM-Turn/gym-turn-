@@ -51,7 +51,7 @@ export class IniciarSesion {
         if (usuario.rol === Rol.ADMINISTRADOR) {
           this.router.navigate(['/admin/dashboard']);
         } else if (usuario.rol === Rol.USUARIO) {
-          this.router.navigate(['/usuario']);
+          this.router.navigate(['/usuario/dashboard']);
         }
 
       },

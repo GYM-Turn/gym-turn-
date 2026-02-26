@@ -1,0 +1,29 @@
+<app-nav-usuario></app-nav-usuario>
+<div class="usuario-container">
+
+  <h2 class="titulo">
+    Bienvenido {{ usuarioNombre }}
+  </h2>
+
+  <div class="resumen-card">
+    <h3>Turnos Activos</h3>
+    <p>{{ totalTurnos }}</p>
+  </div>
+
+  <div class="turnos-lista">
+    @for (turno of turnos; track turno.id) {
+      <div class="turno-card">
+        <h4>{{ turno.actividad }}</h4>
+        <p>{{ turno.fecha_hora }}</p>
+
+        <button (click)="cancelarInscripcion(turno.id)">
+          Cancelar
+        </button>
+      </div>
+    } @empty {
+      <p>No tienes turnos programados actualmente.</p>
+    }
+  </div>
+
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,63 @@
+.custom-nav {
+  background: #0f3b57;
+  padding: 15px 20px;
+  color: white;
+  position: relative;
+  z-index: 1000;
+}
+
+/* Contenedor logo + botón */
+.nav-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* 🔥 Empuja el botón al extremo derecho */
+.hamburger {
+  margin-left: auto;
+  font-size: 26px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* 🔥 Dropdown alineado al botón */
+.nav-links {
+  position: absolute;
+  top: 100%;
+  right: 20px;
+
+  background: #0f3b57;
+  border-radius: 12px;
+  padding: 15px;
+  width: 220px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.nav-links.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Links */
+.nav-link {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: gold;
+}

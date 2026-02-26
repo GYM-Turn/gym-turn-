@@ -3,7 +3,6 @@ import { UsuarioService } from './services/usuario-service';
 import { Rol } from '../../models/enums/rol';
 import { UsuarioForm } from '../../admin/usuarios/usuario.form/usuario.form';
 import { UsuarioAdminDTO } from '../../models/usuario-admin-dto';
-import { Nav } from '../../componentes-compartidos/nav/nav';
 import { Footer } from '../../componentes-compartidos/footer/footer';
 import { NavAdmin } from "../../componentes-compartidos/nav-admin/nav-admin";
 
