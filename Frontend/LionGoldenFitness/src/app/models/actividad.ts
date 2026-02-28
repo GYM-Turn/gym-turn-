@@ -1,7 +1,9 @@
 export interface Actividad {
-  id: number;
+  id?: string;
   nombre: string;
   descripcion: string;
-  creditos_necesarios: number;
+  cupos: number;           // cupos máximos
+  cupos_ocupados: number;  // para cálculo dinámico
+  duracion: number;        // minutos
   activa: boolean;
 }

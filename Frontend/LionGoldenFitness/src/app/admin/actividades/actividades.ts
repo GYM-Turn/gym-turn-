@@ -5,6 +5,7 @@ import { ActividadAdminDTO } from '../../models/actividad-admin-dto';
 import { ActividadesForm } from './actividades-form/actividades-form';
 import { NavAdmin } from '../../componentes-compartidos/nav-admin/nav-admin';
 import { Footer } from '../../componentes-compartidos/footer/footer';
+import { TurnoService } from '../turnos/services/turnos-services';
 
 
 
@@ -17,6 +18,7 @@ import { Footer } from '../../componentes-compartidos/footer/footer';
 })
 export class Actividades implements OnInit {
   private actividadService = inject(ActividadesService);
+private turnoService = inject(TurnoService);
 
   actividades: ActividadAdminDTO[] = [];
   mostrarFormulario = false;
@@ -41,13 +43,39 @@ export class Actividades implements OnInit {
     this.mostrarFormulario = true;
   }
 
-  toggleEstado(a: ActividadAdminDTO) {
-    const actualizada = { ...a, activa: !a.activa };
-    this.actividadService.updateActividad(a.id!, actualizada)
-      .subscribe(() => this.cargarActividades());
-  }
+toggleEstado(a: ActividadAdminDTO) {
 
-  eliminarActividad(id: number) {
+  const nuevaActiva = !a.activa;
+
+  const actualizada = { ...a, activa: nuevaActiva };
+
+  this.actividadService.updateActividad(a.id!, actualizada)
+    .subscribe(() => {
+
+      // 🔥 Si la desactivamos
+      if (!nuevaActiva) {
+
+        this.turnoService.getTurnos()
+          .subscribe(turnos => {
+
+            const turnosDeActividad = turnos.filter(t => t.actividad.id === a.id);
+
+            turnosDeActividad.forEach(t => {
+
+              const turnoActualizado = { ...t, activo: false };
+
+              this.turnoService.updateTurno(t.id, turnoActualizado)
+                .subscribe();
+
+            });
+
+          });
+      }
+
+      this.cargarActividades();
+    });
+}
+  eliminarActividad(id: string) {
     this.actividadService.deleteActividad(id)
       .subscribe(() => this.cargarActividades());
   }

@@ -1,0 +1,38 @@
+.contenedor {
+  padding: 2rem;
+}
+
+.cards {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #1f1f1f;
+  color: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 250px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+button {
+  margin-top: 1rem;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: gold;
+  font-weight: bold;
+}
+
+button:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+.formulario-card {
+  width: 100%;
+  
+
+}

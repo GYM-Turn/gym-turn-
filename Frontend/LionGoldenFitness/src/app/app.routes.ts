@@ -36,6 +36,14 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: { rol: Rol.USUARIO },
   },
+    {
+  path: 'usuario/reservas',
+  loadComponent: () =>
+    import('./usuario/reservas/reservas').then(m => m.Reservas),
+  canActivate: [authGuard],
+  data: { rol: Rol.USUARIO }
+},
+  
   // ===============================
   // 🔴 RUTAS ADMIN
   // ===============================
@@ -63,6 +71,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: { rol: Rol.ADMINISTRADOR },
   },
+
   {
     path: 'admin/dashboard',
     loadComponent: () => import('./admin/dashboard/dashboard').then((m) => m.Dashboard),

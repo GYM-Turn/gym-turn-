@@ -20,11 +20,11 @@ export class ActividadesService { // Corregido: ActividadesService
     return this.http.post<ActividadAdminDTO>(this.apiUrl, a);
   }
 
-  updateActividad(id: number, a: Partial<ActividadAdminDTO>): Observable<ActividadAdminDTO> {
+  updateActividad(id: string, a: Partial<ActividadAdminDTO>): Observable<ActividadAdminDTO> {
     return this.http.put<ActividadAdminDTO>(`${this.apiUrl}/${id}`, a);
   }
 
-  deleteActividad(id: number): Observable<void> {
+  deleteActividad(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

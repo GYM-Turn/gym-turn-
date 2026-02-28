@@ -1,5 +1,5 @@
 export interface ActividadAdminDTO {
-  id?: number;
+  id?: string;
   nombre: string;
   descripcion: string;
   cupos: number;           // cupos máximos

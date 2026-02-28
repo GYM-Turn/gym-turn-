@@ -93,7 +93,6 @@ app-footer {
   padding: 2.5rem;
   border-radius: 15px;
   width: 100%;
-  max-width: 400px;
   border: 0.4rem solid var(--color-9);
   text-align: center;
   color: var(--color-2);
