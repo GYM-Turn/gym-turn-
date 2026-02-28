@@ -11,4 +11,5 @@ export interface Usuario {
   email: string;
   password: string;
   rol: Rol;
+  foto?: string; // 👈 agregamos esto
 }

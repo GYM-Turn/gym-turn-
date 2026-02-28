@@ -20,12 +20,12 @@ export class UsuarioService {
     return this.http.get<UsuarioAdminDTO[]>(this.apiUrl);
   }
 
-  getUsuarioById(id: string | number): Observable<UsuarioAdminDTO> {
+  getUsuarioById(id: string): Observable<UsuarioAdminDTO> {
     return this.http.get<UsuarioAdminDTO>(`${this.apiUrl}/${id}`);
   }
 
   updateUsuario(
-    id: string | number,
+    id: string,
     usuario: Partial<UsuarioAdminDTO>
   ): Observable<UsuarioAdminDTO> {
     return this.http.put<UsuarioAdminDTO>(`${this.apiUrl}/${id}`, usuario);
@@ -43,7 +43,7 @@ export class UsuarioService {
   // 🗑 ELIMINAR (ADMIN)
   // ============================
 
-  deleteUsuario(id: string | number): Observable<Usuario> {
+  deleteUsuario(id: string ): Observable<Usuario> {
     return this.http.delete<Usuario>(`${this.apiUrl}/${id}`);
   }
 }

@@ -10,5 +10,4 @@ export interface Turno {
   fecha_hora: string;
   cupo_maximo: number;
   cupos_disponibles: number;
-  activo: boolean;
 }

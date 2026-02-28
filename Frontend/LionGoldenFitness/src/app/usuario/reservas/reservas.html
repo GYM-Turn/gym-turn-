@@ -52,14 +52,13 @@
                 <span
                   class="badge align-self-start mb-3"
                   [ngClass]="{
-                    'bg-secondary': !turno.actividad.activa || !turno.activo,
-                    'bg-danger': turno.activo && turno.actividad.activa && turno.cupos_disponibles === 0,
-                    'bg-success': turno.activo && turno.actividad.activa && turno.cupos_disponibles > 0
+                    'bg-secondary': !turno.actividad.activa,
+                    'bg-danger': turno.actividad.activa && turno.cupos_disponibles === 0,
+                    'bg-success': turno.actividad.activa && turno.cupos_disponibles > 0
                   }">
 
                   {{
-                    !turno.actividad.activa ? 'Actividad inactiva' :
-                    !turno.activo ? 'Turno desactivado' :
+                    !turno.actividad.activa ? 'Actividad desactivada' :
                     turno.cupos_disponibles === 0 ? 'Completo' :
                     'Disponible'
                   }}
@@ -68,22 +67,11 @@
 
                 <!-- BOTÓN -->
                 <div class="mt-auto d-grid">
-                  <button
+                  <button 
                     class="btn btn-primary"
-                    (click)="reservar(turno)"
-                    [disabled]="
-                      turno.cupos_disponibles === 0 ||
-                      !turno.activo ||
-                      !turno.actividad.activa
-                    ">
-
-                    {{
-                      !turno.actividad.activa ? 'Actividad inactiva' :
-                      !turno.activo ? 'Desactivado' :
-                      turno.cupos_disponibles === 0 ? 'Sin cupo' :
-                      'Reservar'
-                    }}
-
+                    [disabled]="!turno.actividad.activa || turno.cupos_disponibles === 0"
+                    (click)="reservar(turno)">
+                    Reservar
                   </button>
                 </div>
 

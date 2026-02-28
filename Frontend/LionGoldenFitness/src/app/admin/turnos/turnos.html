@@ -1,5 +1,6 @@
 <div class="layout">
-<app-nav-admin></app-nav-admin>
+  <app-nav-admin></app-nav-admin>
+
   <div class="container mt-5">
 
     <div class="tabla-card">
@@ -33,6 +34,7 @@
               <td>{{ turno.sucursal.nombre_sucursal }}</td>
               <td>{{ turno.fecha_hora | date:'short' }}</td>
               <td>{{ turno.cupo_maximo }}</td>
+
               <td>
                 <div class="progress">
                   <div
@@ -44,20 +46,26 @@
                 </div>
               </td>
 
+              <!-- 🔥 ESTADO CORREGIDO -->
               <td>
-                <span
-                  class="badge"
-                  [ngClass]="{
-                    'bg-success': turno.cupos_disponibles > 0,
-                    'bg-danger': turno.cupos_disponibles === 0
+                <span class="badge" [ngClass]="{
+                    'bg-secondary': !turno.actividad.activa,
+                    'bg-danger': turno.actividad.activa && turno.cupos_disponibles === 0,
+                    'bg-success': turno.actividad.activa && turno.cupos_disponibles > 0
                   }">
-                  {{ turno.cupos_disponibles > 0 ? 'Disponible' : 'Completo' }}
+              
+                  {{
+                  !turno.actividad.activa ? 'Actividad Desactivada' :
+                  turno.cupos_disponibles === 0 ? 'Completo' :
+                  'Disponible'
+                  }}
+              
                 </span>
               </td>
 
               <td class="text-center">
                 <button
-                  class="btn btn-sm btn btn-warning me-2"
+                  class="btn btn-sm btn-warning me-2"
                   (click)="editarTurno(turno)">
                   Editar
                 </button>
@@ -87,5 +95,6 @@
     }
 
   </div>
-<app-footer></app-footer>
+
+  <app-footer></app-footer>
 </div>

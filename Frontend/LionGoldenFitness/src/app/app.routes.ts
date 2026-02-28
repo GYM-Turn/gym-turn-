@@ -43,6 +43,13 @@ export const routes: Routes = [
   canActivate: [authGuard],
   data: { rol: Rol.USUARIO }
 },
+{
+  path: 'usuario/mis-turnos',
+  loadComponent: () =>
+    import('./usuario/mis-turnos/mis-turnos').then(m => m.MisTurnos),
+  canActivate: [authGuard],
+  data: { rol: Rol.USUARIO }
+},
   
   // ===============================
   // 🔴 RUTAS ADMIN
