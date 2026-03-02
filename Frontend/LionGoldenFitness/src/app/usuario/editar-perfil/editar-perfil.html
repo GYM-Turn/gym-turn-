@@ -1,1 +1,36 @@
+<div class="layout">
 
+  <app-nav-usuario></app-nav-usuario>
+
+  <div class="content">
+    <div class="container-perfil">
+
+      <form class="formulario-card" [formGroup]="form" (ngSubmit)="guardarCambios()">
+
+        <h2>Editar Perfil</h2>
+
+        <div class="foto-section">
+          @if (previewFoto) {
+            <img [src]="previewFoto" class="foto-preview">
+          }
+
+          <input type="file" (change)="onFileSelected($event)">
+        </div>
+
+        
+        <input formControlName="nombre" placeholder="Nombre">
+        <input formControlName="apellido" placeholder="Apellido">
+        <input formControlName="email" placeholder="Email">
+        <input formControlName="password" type="password" placeholder="Contraseña">
+        <input formControlName="telefono" placeholder="Teléfono">
+
+        <button class="btn-uno" type="submit">Guardar cambios</button>
+
+      </form>
+
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+
+</div>

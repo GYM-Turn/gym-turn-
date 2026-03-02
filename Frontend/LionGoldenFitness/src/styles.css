@@ -4,7 +4,7 @@
   --color-2: #fafafa;
   --color-3: #b62c2c;
   --color-4: #000000f5;
-  --color-5: #5bc60f;
+  --color-5:#111c2b;
   --color-6: #231acd;
   --color-7: #4f575a;
   --color-8: #0B3C5D;
@@ -93,7 +93,7 @@ app-footer {
   padding: 2.5rem;
   border-radius: 15px;
   width: 100%;
-  border: 0.4rem solid var(--color-9);
+  border: 0.2rem solid var(--color-9);
   text-align: center;
   color: var(--color-2);
   margin: 4rem;
@@ -101,13 +101,15 @@ app-footer {
 
 .form-control-campos {
   width: 100%;
-  padding: 0.75rem;
-  background-color: var(--color-2);
-  border-radius: 8px;
-  color:var(--color-4) ;
-  transition: all 0.3s;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #2c3e50;
+  background-color: #0f1b2a;
+  color: white;
+  font-size: 14px;
+  transition: all 0.3s ease;
 }
-
+ 
 
 
 

@@ -31,26 +31,30 @@ export const routes: Routes = [
   // ===============================
   {
     path: 'usuario/dashboard',
-    loadComponent: () =>
-      import('./usuario/dashboard/dashboard').then((m) => m.DashboardUsuario),
+    loadComponent: () => import('./usuario/dashboard/dashboard').then((m) => m.DashboardUsuario),
     canActivate: [authGuard],
     data: { rol: Rol.USUARIO },
   },
-    {
-  path: 'usuario/reservas',
-  loadComponent: () =>
-    import('./usuario/reservas/reservas').then(m => m.Reservas),
-  canActivate: [authGuard],
-  data: { rol: Rol.USUARIO }
-},
-{
-  path: 'usuario/mis-turnos',
-  loadComponent: () =>
-    import('./usuario/mis-turnos/mis-turnos').then(m => m.MisTurnos),
-  canActivate: [authGuard],
-  data: { rol: Rol.USUARIO }
-},
-  
+  {
+    path: 'usuario/reservas',
+    loadComponent: () => import('./usuario/reservas/reservas').then((m) => m.Reservas),
+    canActivate: [authGuard],
+    data: { rol: Rol.USUARIO },
+  },
+  {
+    path: 'usuario/mis-turnos',
+    loadComponent: () => import('./usuario/mis-turnos/mis-turnos').then((m) => m.MisTurnos),
+    canActivate: [authGuard],
+    data: { rol: Rol.USUARIO },
+  },
+  {
+    path: 'usuario/editar-perfil',
+    loadComponent: () =>
+      import('./usuario/editar-perfil/editar-perfil').then((m) => m.EditarPerfil),
+    canActivate: [authGuard],
+    data: { rol: Rol.USUARIO },
+  },
+
   // ===============================
   // 🔴 RUTAS ADMIN
   // ===============================
