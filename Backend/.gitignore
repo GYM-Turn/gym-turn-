@@ -1,0 +1,53 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Entornos virtuales (MUY IMPORTANTE)
+venv/
+env/
+ENV/
+.venv/
+
+# Base de datos local (No se suele subir a Git)
+db.sqlite3
+db.sqlite3-journal
+
+# Archivos de configuración sensible
+.env
+*.env
+
+# Distribución / Paquetes
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# VS Code / IDEs
+.vscode/
+.idea/
+*.swp
