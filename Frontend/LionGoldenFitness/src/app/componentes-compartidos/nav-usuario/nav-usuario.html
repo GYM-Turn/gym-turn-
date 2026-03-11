@@ -16,19 +16,11 @@
     @if (usuario$ | async; as usuario) {
       <div class="user-toggler" (click)="toggleMenu()">
 
-        @if (usuario?.foto) {
-          <img
-            [src]="usuario.foto"
-            class="user-avatar"
-            alt="Foto usuario"
-          />
-        } @else {
-          <img
-            src="/img/default-user.png"
-            class="user-avatar"
-            alt="Usuario"
-          />
-        }
+      @if (usuario?.foto) {
+      <img [src]="'http://localhost:8000' + usuario.foto" class="user-avatar" alt="Foto usuario" />
+      } @else {
+      <img src="/img/default-user.png" class="user-avatar" alt="Usuario" />
+      }
 
         <span class="user-name">
           {{ usuario?.nombre }}

@@ -8,7 +8,7 @@ import { ActividadAdminDTO } from '../../../models/actividad-admin-dto'; // Ajus
 })
 export class ActividadesService { // Corregido: ActividadesService
 
-  private apiUrl = 'http://localhost:3000/actividades';
+  private apiUrl = 'http://localhost:8000/api/actividades/';
 
   constructor(private http: HttpClient) {}
 

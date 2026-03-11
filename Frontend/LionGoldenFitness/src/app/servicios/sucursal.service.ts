@@ -8,7 +8,7 @@ import { Sucursal } from '../models/sucursal.model';
 })
 export class SucursalService {
 
-  private apiUrl = 'http://localhost:3000/sucursales';
+  private apiUrl = 'http://localhost:8000/api/sucursal/';
 
   constructor(private http: HttpClient) {}
 

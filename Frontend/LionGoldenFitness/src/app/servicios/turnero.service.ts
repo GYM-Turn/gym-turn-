@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TurneroService {
-   private apiUrl = 'http://localhost:3000/inscripciones';
+   private apiUrl = 'http://localhost:8000/api/inscripciones/';
 
   constructor(private http: HttpClient) {}
 

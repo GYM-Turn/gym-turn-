@@ -4,11 +4,10 @@ import { Observable } from 'rxjs';
 import { Usuario } from '../../../models/usuario.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsuarioServiceUsuario {
-
-  private apiUrl = 'http://localhost:3000/usuarios';
+  private apiUrl = 'http://localhost:8000/api/usuarios';
 
   constructor(private http: HttpClient) {}
 
@@ -23,7 +22,7 @@ export class UsuarioServiceUsuario {
   // 📌 OBTENER POR ID (STRING)
   // ==============================
   getUsuarioById(id: string): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.apiUrl}/${id}`);
+    return this.http.get<Usuario>(`${this.apiUrl}/${id}/`);
   }
 
   // ==============================
@@ -37,21 +36,21 @@ export class UsuarioServiceUsuario {
   // 📌 ACTUALIZAR COMPLETO (PUT)
   // ==============================
   updateUsuario(id: string, usuario: Usuario): Observable<Usuario> {
-    return this.http.put<Usuario>(`${this.apiUrl}/${id}`, usuario);
+    return this.http.put<Usuario>(`${this.apiUrl}/${id}/`, usuario);
   }
 
   // ==============================
   // 📌 ACTUALIZAR PARCIAL (PATCH)
   // ==============================
-  patchUsuario(id: string, datos: Partial<Usuario>): Observable<Usuario> {
-    return this.http.patch<Usuario>(`${this.apiUrl}/${id}`, datos);
+  patchUsuario(id: string, datos: any): Observable<Usuario> {
+    return this.http.patch<Usuario>(`${this.apiUrl}/${id}/`, datos);
   }
 
   // ==============================
   // 📌 ELIMINAR
   // ==============================
   deleteUsuario(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUrl}/${id}/`);
   }
 
   // ==============================
@@ -67,5 +66,4 @@ export class UsuarioServiceUsuario {
   buscarPorUsername(user: string): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(`${this.apiUrl}?user=${user}`);
   }
-
 }

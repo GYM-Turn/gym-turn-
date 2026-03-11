@@ -7,7 +7,7 @@ import { Turno } from '../../../models/turno';
   providedIn: 'root',
 })
 export class TurnoService {
-  private apiUrl = 'http://localhost:3000/turnos'; // ajustar a tu backend
+  private apiUrl = 'http://localhost:8000/api/turnos/'; // ajustar a tu backend
 
   constructor(private http: HttpClient) {}
 

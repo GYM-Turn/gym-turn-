@@ -18,6 +18,7 @@ export class EditarPerfil implements OnInit {
   form!: FormGroup;
   usuarioActual!: Usuario;
   previewFoto: string | null = null;
+  selectedFile: File | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -44,7 +45,9 @@ export class EditarPerfil implements OnInit {
       foto: [usuario.foto || null],
     });
 
-    this.previewFoto = usuario.foto || null;
+    this.previewFoto = usuario.foto
+      ? 'http://localhost:8000' + usuario.foto
+      : 'assets/default-user.png';
   }
 
   // ===============================
@@ -55,12 +58,8 @@ export class EditarPerfil implements OnInit {
     const file = event.target.files[0];
     if (!file) return;
 
-    if (file.size > 2_000_000) {
-      alert('La imagen es demasiado grande (máx 2MB)');
-      return;
-    }
+    this.selectedFile = file;
 
-    // 🔥 Solo mostramos preview (no guardamos base64 en backend)
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -68,9 +67,6 @@ export class EditarPerfil implements OnInit {
     };
 
     reader.readAsDataURL(file);
-
-    // 🔥 Guardamos SOLO el nombre del archivo en el form
-    this.form.patchValue({ foto: file.name });
   }
 
   // ===============================
@@ -78,37 +74,36 @@ export class EditarPerfil implements OnInit {
   // ===============================
 
   guardarCambios() {
-    if (this.form.invalid) {
-      alert('Complete los campos correctamente');
-      return;
+    const formData = new FormData();
+
+    formData.append('nombre', this.form.value.nombre);
+    formData.append('apellido', this.form.value.apellido);
+    formData.append('email', this.form.value.email);
+    formData.append('telefono', this.form.value.telefono);
+
+    if (this.form.value.password) {
+      formData.append('password', this.form.value.password);
     }
 
-    // 🔥 Clonamos datos del form
-    const datosActualizados: Partial<Usuario> = { ...this.form.value };
-
-    // ❌ No enviar password vacío
-    if (!datosActualizados.password || datosActualizados.password.trim() === '') {
-      delete datosActualizados.password;
+    if (this.selectedFile) {
+      formData.append('foto', this.selectedFile);
     }
 
-    // 🔥 IMPORTANTE: asegurar que el ID sea STRING
     const id = String(this.usuarioActual.id);
 
-    console.log('ID enviado:', id);
-    console.log('Datos enviados:', datosActualizados);
-
-    this.usuarioService.patchUsuario(id, datosActualizados).subscribe({
+    this.usuarioService.patchUsuario(id, formData).subscribe({
       next: (usuarioActualizado) => {
-        console.log('Respuesta backend:', usuarioActualizado);
-
-        // 🔥 Actualizamos sesión manteniendo ID como string
         this.authService.setUsuarioActual(usuarioActualizado);
 
-        alert('Perfil actualizado correctamente');
+        if (usuarioActualizado.foto) {
+          this.previewFoto = 'http://localhost:8000' + usuarioActualizado.foto;
+        }
+
+        alert('Perfil actualizado');
       },
       error: (err) => {
-        console.error('ERROR PATCH:', err);
-        alert('Error al guardar cambios');
+        console.error(err);
+        alert('Error al actualizar');
       },
     });
   }

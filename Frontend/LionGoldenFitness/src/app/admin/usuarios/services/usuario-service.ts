@@ -8,7 +8,7 @@ import { UsuarioAdminDTO } from '../../../models/usuario-admin-dto';
   providedIn: 'root',
 })
 export class UsuarioService {
-  private apiUrl = 'http://localhost:3000/usuarios';
+  private apiUrl = 'http://localhost:8000/api/usuarios/';
 
   constructor(private http: HttpClient) {}
 

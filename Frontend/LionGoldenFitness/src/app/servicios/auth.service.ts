@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../models/usuario.model';
-import { Observable, tap, map, BehaviorSubject } from 'rxjs';
+import { Observable, tap, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Rol } from '../models/enums/rol';
 
@@ -10,7 +10,8 @@ import { Rol } from '../models/enums/rol';
 })
 export class AuthService {
 
-  private apiUrl = 'http://localhost:3000/usuarios';
+  private apiLoginUrl = 'http://localhost:8000/api/login/';
+  private apiUsuariosUrl = 'http://localhost:8000/api/usuarios/';
 
   // 🔥 Usuario reactivo
   private currentUserSubject = new BehaviorSubject<Usuario | null>(null);
@@ -24,26 +25,25 @@ export class AuthService {
   }
 
   // ===============================
-  // 🔐 LOGIN
+  // 🔐 LOGIN (NUEVO)
   // ===============================
 
   login(email: string, password: string): Observable<Usuario> {
-    return this.http
-      .get<Usuario[]>(`${this.apiUrl}?email=${email}&password=${password}`)
-      .pipe(
-        map(users => {
-          if (!users.length) {
-            throw new Error('Credenciales incorrectas');
-          }
 
-          // 🔥 NO convertimos el id
-          return users[0];
-        }),
-        tap(user => {
-          this.setUsuarioActual(user);
-        })
-      );
+    return this.http.post<Usuario>(this.apiLoginUrl, {
+      email,
+      password
+    }).pipe(
+      tap(user => {
+        this.setUsuarioActual(user);
+      })
+    );
+
   }
+
+  // ===============================
+  // 🚪 LOGOUT
+  // ===============================
 
   logout(): void {
     localStorage.removeItem('user');
@@ -56,12 +56,18 @@ export class AuthService {
   // ===============================
 
   private cargarUsuarioDesdeStorage(): void {
+
     const stored = localStorage.getItem('user');
 
     if (stored) {
       const usuario: Usuario = JSON.parse(stored);
+
+      // 🔥 asegurar que rol sea número
+      usuario.rol = Number(usuario.rol);
+
       this.currentUserSubject.next(usuario);
     }
+
   }
 
   getUsuarioActual(): Usuario | null {
@@ -69,12 +75,17 @@ export class AuthService {
   }
 
   setUsuarioActual(usuario: Usuario): void {
-    // 🔥 Guardamos exactamente como viene (id string)
+
+    // 🔥 asegurar tipo correcto
+    usuario.rol = Number(usuario.rol);
+
     localStorage.setItem('user', JSON.stringify(usuario));
+
     this.currentUserSubject.next(usuario);
   }
 
   actualizarSesion(cambios: Partial<Usuario>): void {
+
     const usuarioActual = this.getUsuarioActual();
     if (!usuarioActual) return;
 
@@ -85,6 +96,10 @@ export class AuthService {
 
     this.setUsuarioActual(usuarioActualizado);
   }
+
+  // ===============================
+  // 🔎 ESTADO DE SESIÓN
+  // ===============================
 
   isLoggedIn(): boolean {
     return !!this.getUsuarioActual();
@@ -103,26 +118,27 @@ export class AuthService {
   // ===============================
 
   registrar(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(this.apiUrl, usuario);
+    return this.http.post<Usuario>(this.apiUsuariosUrl, usuario);
   }
 
   getUsuarios(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(this.apiUrl);
+    return this.http.get<Usuario[]>(this.apiUsuariosUrl);
   }
 
   getUsuarioById(id: string): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.apiUrl}/${id}`);
+    return this.http.get<Usuario>(`${this.apiUsuariosUrl}${id}/`);
   }
 
   updateUsuario(id: string, usuario: Usuario): Observable<Usuario> {
-    return this.http.put<Usuario>(`${this.apiUrl}/${id}`, usuario);
+    return this.http.put<Usuario>(`${this.apiUsuariosUrl}${id}/`, usuario);
   }
 
   patchUsuario(id: string, cambios: Partial<Usuario>): Observable<Usuario> {
-    return this.http.patch<Usuario>(`${this.apiUrl}/${id}`, cambios);
+    return this.http.patch<Usuario>(`${this.apiUsuariosUrl}${id}/`, cambios);
   }
 
   deleteUsuario(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.apiUsuariosUrl}${id}/`);
   }
+
 }
