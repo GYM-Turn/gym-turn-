@@ -3,7 +3,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Actividad, Sucursal, Turno
 from .serializers import ActividadSerializer, SucursalSerializer, TurnoSerializer
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
 
+
+class ActividadDetail(RetrieveUpdateDestroyAPIView):
+    queryset = Actividad.objects.all()
+    serializer_class = ActividadSerializer
 class ActividadList(APIView):
 
     def get(self, request):
@@ -31,7 +36,10 @@ class SucursalList(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
-    
+
+class SucursalDetail(RetrieveUpdateDestroyAPIView):
+    queryset = Sucursal.objects.all()
+    serializer_class = SucursalSerializer
 class TurnoList(APIView):
 
     def get(self, request):
