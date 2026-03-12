@@ -49,10 +49,15 @@ export class Usuarios implements OnInit {
     this.cargarUsuarios();
   }
 
-  cambiarEstado(usuario: UsuarioAdminDTO) {
-    usuario.activo = !usuario.activo;
-    this.usuarioService
-      .updateUsuario(usuario.id!, usuario)
-      .subscribe();
-  }
+cambiarEstado(usuario: UsuarioAdminDTO) {
+
+  const nuevoEstado = !usuario.activo;
+
+  this.usuarioService
+    .updateUsuario(usuario.id!, { activo: nuevoEstado })
+    .subscribe(() => {
+      usuario.activo = nuevoEstado;
+    });
+
+}
 }

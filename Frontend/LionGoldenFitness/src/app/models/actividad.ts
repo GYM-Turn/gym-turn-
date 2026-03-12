@@ -1,5 +1,5 @@
 export interface Actividad {
-  id?: string;
+  id?: number;
   nombre: string;
   descripcion: string;
   cupos: number;           // cupos máximos

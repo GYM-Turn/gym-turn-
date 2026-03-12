@@ -50,7 +50,7 @@ export class AdminTurnosComponent implements OnInit {
     });
   }
 
-  eliminarTurno(id: string): void {
+  eliminarTurno(id: number): void {
     this.turnoService.deleteTurno(id).subscribe(() => {
       this.cargarTurnos();
     });

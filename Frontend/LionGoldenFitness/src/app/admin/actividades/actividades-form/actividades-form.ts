@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit, inject } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { NonNullableFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActividadAdminDTO } from '../../../models/actividad-admin-dto';
 import { ActividadesService } from '../services/actividades-service';
@@ -12,10 +12,11 @@ import { ActividadesService } from '../services/actividades-service';
   styleUrl: './actividades-form.css',
 })
 export class ActividadesForm implements OnInit {
+
   @Input() actividad?: ActividadAdminDTO;
   @Output() cerrar = new EventEmitter<void>();
 
-  private fb = inject(FormBuilder);
+  private fb = inject(NonNullableFormBuilder);
   private actividadService = inject(ActividadesService);
 
   form = this.fb.group({
@@ -34,18 +35,24 @@ export class ActividadesForm implements OnInit {
   }
 
   guardar() {
+
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
-    const data = this.form.value as ActividadAdminDTO;
+    const data: ActividadAdminDTO = {
+      ...this.form.getRawValue(),
+      id: this.actividad?.id
+    };
 
     if (this.actividad?.id) {
-      this.actividadService.updateActividad(this.actividad.id, data)
+      this.actividadService
+        .updateActividad(this.actividad.id, data)
         .subscribe(() => this.cerrar.emit());
     } else {
-      this.actividadService.createActividad(data)
+      this.actividadService
+        .createActividad(data)
         .subscribe(() => this.cerrar.emit());
     }
   }
@@ -53,5 +60,4 @@ export class ActividadesForm implements OnInit {
   cancelar() {
     this.cerrar.emit();
   }
-
 }

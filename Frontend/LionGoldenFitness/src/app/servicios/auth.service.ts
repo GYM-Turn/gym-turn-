@@ -125,19 +125,19 @@ export class AuthService {
     return this.http.get<Usuario[]>(this.apiUsuariosUrl);
   }
 
-  getUsuarioById(id: string): Observable<Usuario> {
+  getUsuarioById(id: number): Observable<Usuario> {
     return this.http.get<Usuario>(`${this.apiUsuariosUrl}${id}/`);
   }
 
-  updateUsuario(id: string, usuario: Usuario): Observable<Usuario> {
+  updateUsuario(id: number, usuario: Usuario): Observable<Usuario> {
     return this.http.put<Usuario>(`${this.apiUsuariosUrl}${id}/`, usuario);
   }
 
-  patchUsuario(id: string, cambios: Partial<Usuario>): Observable<Usuario> {
+  patchUsuario(id: number, cambios: Partial<Usuario>): Observable<Usuario> {
     return this.http.patch<Usuario>(`${this.apiUsuariosUrl}${id}/`, cambios);
   }
 
-  deleteUsuario(id: string): Observable<void> {
+  deleteUsuario(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUsuariosUrl}${id}/`);
   }
 

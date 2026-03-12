@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Sucursal } from '../../../models/sucursal.model';
@@ -11,7 +11,8 @@ import { SucursalService } from '../../../servicios/sucursal.service';
   templateUrl: './sucursales-form.html',
   styleUrls: ['./sucursales-form.css'],
 })
-export class SucursalesForm implements OnInit {
+export class SucursalesForm implements OnInit, OnChanges {
+
   @Input() sucursal?: Sucursal;
   @Output() guardar = new EventEmitter<void>();
 
@@ -19,16 +20,17 @@ export class SucursalesForm implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private sucursalService: SucursalService,
+    private sucursalService: SucursalService
   ) {}
 
   ngOnInit(): void {
+
     this.form = this.fb.group({
       nombre_sucursal: ['', Validators.required],
       direccion: ['', Validators.required],
     });
 
-    // Modo edición
+    // si llega una sucursal al iniciar
     if (this.sucursal) {
       this.form.patchValue({
         nombre_sucursal: this.sucursal.nombre_sucursal,
@@ -37,7 +39,20 @@ export class SucursalesForm implements OnInit {
     }
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+
+    // evitar error cuando el form todavía no existe
+    if (changes['sucursal'] && this.sucursal && this.form) {
+      this.form.patchValue({
+        nombre_sucursal: this.sucursal.nombre_sucursal,
+        direccion: this.sucursal.direccion,
+      });
+    }
+
+  }
+
   guardarSucursal() {
+
     if (this.form.invalid) return;
 
     const sucursalPayload = {
@@ -46,16 +61,20 @@ export class SucursalesForm implements OnInit {
     };
 
     if (this.sucursal) {
-      // 🔥 EDITAR
+
       this.sucursalService
         .updateSucursal(this.sucursal.id!, {
           ...sucursalPayload,
           id: this.sucursal.id,
         })
         .subscribe(() => this.guardar.emit());
+
     } else {
-      // 🔥 CREAR (IMPORTANTE)
-      this.sucursalService.createSucursal(sucursalPayload).subscribe(() => this.guardar.emit());
+
+      this.sucursalService
+        .createSucursal(sucursalPayload)
+        .subscribe(() => this.guardar.emit());
+
     }
   }
 

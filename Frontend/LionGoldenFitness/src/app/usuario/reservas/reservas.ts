@@ -31,13 +31,14 @@ export class Reservas implements OnInit {
   }
 
   cargarTurnos(): void {
+
     this.turnoService.getTurnos().subscribe(turnos => {
 
       this.actividadService.getActividades().subscribe(actividades => {
 
         this.turnos = turnos.map(turno => {
 
-          const actividadReal = actividades.find(a => a.id === turno.actividad.id);
+          const actividadReal = actividades.find(a => a.id === turno.actividad?.id);
 
           return {
             ...turno,
@@ -49,6 +50,7 @@ export class Reservas implements OnInit {
       });
 
     });
+
   }
 
   reservar(turno: Turno): void {
@@ -60,7 +62,7 @@ export class Reservas implements OnInit {
       return;
     }
 
-    const userId: string = usuario.id;
+    const userId: number = usuario.id;
 
     // 🔴 Validar actividad activa
     if (!turno.actividad?.activa) {
@@ -85,13 +87,13 @@ export class Reservas implements OnInit {
         }
 
         const nuevaInscripcion = {
-          id: Date.now().toString(),
           estado: 1,
           id_usuario: userId,
           id_turno: turno.id
         };
 
-        this.inscripcionService.crearInscripcion(nuevaInscripcion)
+        this.inscripcionService
+          .crearInscripcion(nuevaInscripcion)
           .subscribe(() => {
 
             const turnoActualizado: Turno = {
@@ -99,14 +101,19 @@ export class Reservas implements OnInit {
               cupos_disponibles: turno.cupos_disponibles - 1
             };
 
-            this.turnoService.updateTurno(turno.id, turnoActualizado)
+            this.turnoService
+              .updateTurno(turno.id, turnoActualizado)
               .subscribe(() => {
+
                 alert('Reserva realizada con éxito');
                 this.cargarTurnos();
+
               });
 
           });
 
       });
+
   }
+
 }

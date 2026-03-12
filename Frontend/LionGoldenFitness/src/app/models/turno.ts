@@ -4,7 +4,7 @@ import { Sucursal } from "./sucursal.model";
 
 
 export interface Turno {
-  id: string;
+  id: number;
   actividad: Actividad;
   sucursal: Sucursal;
   fecha_hora: string;

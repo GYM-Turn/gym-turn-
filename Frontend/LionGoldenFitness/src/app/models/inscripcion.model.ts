@@ -2,8 +2,8 @@ import { Estado } from './enums/estado';
 
 
 export interface Inscripcion {
-  id: string; 
+  id?: number; 
   estado: Estado;
-  id_turno: string;
-  id_usuario: string;
+  id_turno: number;
+  id_usuario: number;
 }

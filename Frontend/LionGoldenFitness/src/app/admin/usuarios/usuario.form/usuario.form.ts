@@ -42,9 +42,9 @@ export class UsuarioForm implements OnInit {
   guardar() {
     if (this.form.invalid) return;
 
-    const usuarioData: UsuarioAdminDTO = {
+    const usuarioData = {
       ...this.form.getRawValue(),
-      id: this.usuario?.id // 🔥 preservamos id en edición
+      id: this.usuario?.id
     };
 
     if (this.usuario) {

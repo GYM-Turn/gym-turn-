@@ -8,7 +8,8 @@ import { Sucursal } from '../models/sucursal.model';
 })
 export class SucursalService {
 
-  private apiUrl = 'http://localhost:8000/api/sucursal/';
+  // ⚠️ IMPORTANTE: barra al final
+  private apiUrl = 'http://localhost:8000/api/sucursales/';
 
   constructor(private http: HttpClient) {}
 
@@ -16,19 +17,19 @@ export class SucursalService {
     return this.http.get<Sucursal[]>(this.apiUrl);
   }
 
-  getSucursalById(id: string): Observable<Sucursal> {
-    return this.http.get<Sucursal>(`${this.apiUrl}/${id}`);
+  getSucursalById(id: number): Observable<Sucursal> {
+    return this.http.get<Sucursal>(`${this.apiUrl}${id}/`);
   }
 
-  createSucursal(sucursal: Sucursal): Observable<Sucursal> {
+  createSucursal(sucursal: any): Observable<Sucursal> {
     return this.http.post<Sucursal>(this.apiUrl, sucursal);
   }
 
-  updateSucursal(id: string, sucursal: Sucursal): Observable<Sucursal> {
-    return this.http.put<Sucursal>(`${this.apiUrl}/${id}`, sucursal);
+  updateSucursal(id: number, sucursal: any): Observable<Sucursal> {
+    return this.http.put<Sucursal>(`${this.apiUrl}${id}/`, sucursal);
   }
 
-  deleteSucursal(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  deleteSucursal(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}${id}/`);
   }
 }

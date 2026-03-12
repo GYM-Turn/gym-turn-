@@ -15,7 +15,7 @@ import { NavUsuario } from "../../componentes-compartidos/nav-usuario/nav-usuari
 })
 export class DashboardUsuario implements OnInit {
 
-  usuarioId!: string;
+  usuarioId!: number;
   usuarioNombre: string = '';
 
   inscripciones: Inscripcion[] = [];
@@ -34,7 +34,7 @@ export class DashboardUsuario implements OnInit {
     const usuario = this.authService.getUsuarioActual();
     if (!usuario) return;
 
-    this.usuarioId = String(usuario.id);
+    this.usuarioId = Number(usuario.id);
     this.usuarioNombre = usuario.nombre;
 
     this.cargarInscripciones();
@@ -68,7 +68,7 @@ export class DashboardUsuario implements OnInit {
     });
   }
 
-  cancelarInscripcion(id: string): void {
+  cancelarInscripcion(id: number): void {
 
     this.inscripcionService
       .cancelarInscripcion(id)

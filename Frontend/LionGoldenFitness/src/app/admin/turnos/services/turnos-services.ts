@@ -15,11 +15,11 @@ export class TurnoService {
     return this.http.get<Turno[]>(this.apiUrl);
   }
 
-  getTurnoById(id: string): Observable<Turno> {
+  getTurnoById(id: number): Observable<Turno> {
     return this.http.get<Turno>(`${this.apiUrl}/${id}`);
   }
 
-  getTurnosByUsuario(usuarioId: string): Observable<Turno[]> {
+  getTurnosByUsuario(usuarioId: number): Observable<Turno[]> {
     return this.http.get<Turno[]>(`${this.apiUrl}?usuarioId=${usuarioId}`);
   }
 
@@ -27,11 +27,11 @@ export class TurnoService {
     return this.http.post<Turno>(this.apiUrl, turno);
   }
 
-  updateTurno(id: string, turno: any): Observable<Turno> {
+  updateTurno(id: number, turno: any): Observable<Turno> {
     return this.http.put<Turno>(`${this.apiUrl}/${id}`, turno);
   }
 
-  deleteTurno(id: string): Observable<void> {
+  deleteTurno(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

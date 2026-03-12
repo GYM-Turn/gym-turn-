@@ -15,7 +15,7 @@ export class InscripcionService {
     return this.http.get<Inscripcion[]>(this.apiUrl);
   }
 
-  getInscripcionesByUsuario(idUsuario: string): Observable<Inscripcion[]> {
+  getInscripcionesByUsuario(idUsuario: number): Observable<Inscripcion[]> {
     return this.http.get<Inscripcion[]>(`${this.apiUrl}?id_usuario=${idUsuario}&estado=1`);
   }
 
@@ -23,13 +23,13 @@ export class InscripcionService {
     return this.http.post<Inscripcion>(this.apiUrl, inscripcion);
   }
 
-  getInscripcionesPorUsuarioYTurno(idUsuario: string, idTurno: string) {
+  getInscripcionesPorUsuarioYTurno(idUsuario: number, idTurno: number) {
     return this.http.get<Inscripcion[]>(
       `${this.apiUrl}?id_usuario=${idUsuario}&id_turno=${idTurno}&estado=1`,
     );
   }
 
-  cancelarInscripcion(id: string): Observable<void> {
+  cancelarInscripcion(id: number): Observable<void> {
     return this.http.patch<void>(`${this.apiUrl}/${id}`, {
       estado: 2,
     });

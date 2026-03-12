@@ -17,7 +17,7 @@ import { TurnoService } from '../turnos/services/turnos-services';
 export class Sucursales implements OnInit {
 
   sucursales: Sucursal[] = [];
-  mostrarFormulario = false;
+  mostrarFormulario : boolean = false;
   sucursalSeleccionada?: Sucursal;
 
   constructor(private sucursalService: SucursalService, private turnoService: TurnoService) { }
@@ -34,16 +34,18 @@ export class Sucursales implements OnInit {
   }
 
   crearSucursal() {
-    this.sucursalSeleccionada = undefined;
-    this.mostrarFormulario = true;
-  }
+  this.sucursalSeleccionada = undefined;
 
+  setTimeout(() => {
+    this.mostrarFormulario = true;
+  });
+}
   editarSucursal(sucursal: Sucursal) {
     this.sucursalSeleccionada = sucursal;
     this.mostrarFormulario = true;
   }
 
-eliminarSucursal(id: string) {
+eliminarSucursal(id: number) {
 
   const confirmar = confirm('¿Estás seguro que querés eliminar esta sucursal?');
   if (!confirmar) return;

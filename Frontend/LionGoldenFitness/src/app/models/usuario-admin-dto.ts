@@ -1,7 +1,7 @@
 import { Rol } from '../models/enums/rol'
 
 export interface UsuarioAdminDTO {
-  id?: string;
+  id?: number;
   dni: string;
   nombre: string;
   apellido: string;

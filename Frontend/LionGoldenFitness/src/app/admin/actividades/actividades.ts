@@ -75,7 +75,7 @@ toggleEstado(a: ActividadAdminDTO) {
       this.cargarActividades();
     });
 }
-  eliminarActividad(id: string) {
+  eliminarActividad(id: number) {
     this.actividadService.deleteActividad(id)
       .subscribe(() => this.cargarActividades());
   }
