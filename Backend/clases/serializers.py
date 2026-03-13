@@ -15,6 +15,31 @@ class SucursalSerializer(serializers.ModelSerializer):
 
 
 class TurnoSerializer(serializers.ModelSerializer):
+
+    actividad = ActividadSerializer(read_only=True)
+    sucursal = SucursalSerializer(read_only=True)
+
+    actividad_id = serializers.PrimaryKeyRelatedField(
+        queryset=Actividad.objects.all(),
+        source="actividad",
+        write_only=True
+    )
+
+    sucursal_id = serializers.PrimaryKeyRelatedField(
+        queryset=Sucursal.objects.all(),
+        source="sucursal",
+        write_only=True
+    )
+
     class Meta:
         model = Turno
-        fields = "__all__"
+        fields = [
+            "id",
+            "actividad",
+            "sucursal",
+            "actividad_id",
+            "sucursal_id",
+            "fecha_hora",
+            "cupo_maximo",
+            "cupos_disponibles"
+        ]

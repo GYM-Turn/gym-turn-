@@ -40,6 +40,7 @@ class SucursalList(APIView):
 class SucursalDetail(RetrieveUpdateDestroyAPIView):
     queryset = Sucursal.objects.all()
     serializer_class = SucursalSerializer
+    
 class TurnoList(APIView):
 
     def get(self, request):
@@ -53,3 +54,7 @@ class TurnoList(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
+
+class TurnoDetail(RetrieveUpdateDestroyAPIView):
+    queryset = Turno.objects.all()
+    serializer_class = TurnoSerializer

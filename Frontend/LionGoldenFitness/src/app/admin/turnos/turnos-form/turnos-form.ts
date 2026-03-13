@@ -79,17 +79,11 @@ export class TurnosFormComponent implements OnInit {
     if (!actividadSeleccionada || !sucursalSeleccionada) return;
 
     const turnoPayload = {
-      actividad: {
-        id: actividadSeleccionada.id,
-        nombre: actividadSeleccionada.nombre,
-      },
-      sucursal: {
-        id: sucursalSeleccionada.id,
-        nombre_sucursal: sucursalSeleccionada.nombre_sucursal,
-      },
-      fecha_hora: formValue.fecha_hora,
-      cupo_maximo: actividadSeleccionada.cupos, // 🔥 heredado
-      cupos_disponibles: actividadSeleccionada.cupos, // 🔥 heredado
+      actividad_id: actividadSeleccionada.id,
+      sucursal_id: sucursalSeleccionada.id,
+      fecha_hora: new Date(formValue.fecha_hora).toISOString(),
+      cupo_maximo: actividadSeleccionada.cupos,
+      cupos_disponibles: actividadSeleccionada.cupos,
     };
 
     if (this.turno) {

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ActividadList, ActividadDetail, SucursalList, SucursalDetail, TurnoList
+from .views import ActividadList, ActividadDetail, SucursalList, SucursalDetail, TurnoList, TurnoDetail
 
 urlpatterns = [
 
@@ -10,4 +10,5 @@ urlpatterns = [
     path("sucursales/<int:pk>/", SucursalDetail.as_view()),
 
     path("turnos/", TurnoList.as_view()),
+    path("turnos/<int:pk>/", TurnoDetail.as_view()),
 ]

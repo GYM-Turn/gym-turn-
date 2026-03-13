@@ -8,7 +8,7 @@ import { UsuarioAdminDTO } from '../../../models/usuario-admin-dto';
   providedIn: 'root',
 })
 export class UsuarioService {
-  private apiUrl = 'http://localhost:8000/api/usuarios';
+  private apiUrl = 'http://localhost:8000/api/usuarios/';
 
   constructor(private http: HttpClient) {}
 
@@ -21,14 +21,14 @@ export class UsuarioService {
   }
 
   getUsuarioById(id: number): Observable<UsuarioAdminDTO> {
-    return this.http.get<UsuarioAdminDTO>(`${this.apiUrl}/${id}/`);
+    return this.http.get<UsuarioAdminDTO>(`${this.apiUrl}${id}/`);
   }
 
   updateUsuario(
     id: number,
     usuario: Partial<UsuarioAdminDTO>
   ): Observable<UsuarioAdminDTO> {
-    return this.http.put<UsuarioAdminDTO>(`${this.apiUrl}/${id}/`, usuario);
+    return this.http.put<UsuarioAdminDTO>(`${this.apiUrl}${id}/`, usuario);
   }
 
   // ============================
@@ -44,6 +44,6 @@ export class UsuarioService {
   // ============================
 
   deleteUsuario(id: number ): Observable<Usuario> {
-    return this.http.delete<Usuario>(`${this.apiUrl}/${id}/`);
+    return this.http.delete<Usuario>(`${this.apiUrl}${id}/`);
   }
 }
