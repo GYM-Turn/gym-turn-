@@ -28,3 +28,9 @@ class Inscripcion(models.Model):
     )
 
     fecha = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ["usuario", "turno"]
+
+    def __str__(self):
+        return f"{self.usuario} - {self.turno}"

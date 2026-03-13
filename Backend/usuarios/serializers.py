@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Usuario
+from django.contrib.auth.hashers import make_password
 
 class UsuarioSerializer(serializers.ModelSerializer):
 
@@ -37,3 +38,16 @@ class UsuarioAdminSerializer(serializers.ModelSerializer):
             "creditos",
             "activo"
         ]
+
+    def create(self, validated_data):
+
+        dni = validated_data.get("dni")
+
+        usuario = Usuario(**validated_data)
+
+        # 🔥 contraseña automática = DNI
+        usuario.password = make_password(dni)
+
+        usuario.save()
+
+        return usuario

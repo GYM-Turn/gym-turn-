@@ -28,7 +28,10 @@ class UsuarioListCreateView(APIView):
 
         # valores por defecto para campos que no vienen del admin
         data["user"] = data.get("email")
-        data["password"] = make_password("123456")
+
+        # 🔐 contraseña automática = DNI
+        data["password"] = make_password(data["dni"])
+
         data["telefono"] = "000000000"
         data["fecha_nacimiento"] = "2000-01-01"
 
@@ -39,6 +42,7 @@ class UsuarioListCreateView(APIView):
             return Response(serializer.data, status=201)
 
         return Response(serializer.errors, status=400)
+
 
 class UsuarioDetailView(APIView):
 
@@ -124,6 +128,14 @@ class LoginView(APIView):
                 status=404
             )
 
+        # 🚫 usuario desactivado no puede entrar
+        if not usuario.activo:
+            return Response(
+                {"error": "Usuario desactivado"},
+                status=403
+            )
+
+        # 🔐 validar contraseña hasheada
         if check_password(password, usuario.password):
 
             serializer = UsuarioSerializer(usuario)

@@ -1,8 +1,6 @@
 from django.urls import path
-from .views import CrearReserva
+from .views import ReservaListCreate
 
 urlpatterns = [
-
-    path("inscripcion/", CrearReserva.as_view()),
-
+    path("inscripciones/", ReservaListCreate.as_view()),
 ]
