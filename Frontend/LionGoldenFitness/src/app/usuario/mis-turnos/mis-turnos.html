@@ -11,6 +11,7 @@
         @for (turno of misTurnos; track turno.id) {
 
           <div class="col-sm-10 col-md-6 col-lg-4 d-flex">
+
             <div class="card shadow-sm w-100 h-100">
 
               <div class="card-body d-flex flex-column">
@@ -19,12 +20,20 @@
                   {{ turno.actividad.nombre }}
                 </h5>
 
-                <p><strong>Sucursal:</strong> {{ turno.sucursal.nombre_sucursal }}</p>
-                <p><strong>Fecha:</strong> {{ turno.fecha_hora | date:'fullDate' }}</p>
+                <p>
+                  <strong>Sucursal:</strong>
+                  {{ turno.sucursal.nombre_sucursal }}
+                </p>
+
+                <p>
+                  <strong>Fecha:</strong>
+                  {{ turno.fecha_hora | date:'fullDate' }}
+                </p>
 
                 <div class="mt-auto d-grid">
-                  <button class="btn btn-danger"
-                          (click)="cancelarTurno(turno)">
+                  <button
+                    class="btn btn-danger"
+                    (click)="cancelarTurno(turno)">
                     Cancelar turno
                   </button>
                 </div>
@@ -32,6 +41,7 @@
               </div>
 
             </div>
+
           </div>
 
         }

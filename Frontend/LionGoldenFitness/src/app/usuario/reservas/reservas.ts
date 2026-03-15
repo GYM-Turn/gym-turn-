@@ -53,67 +53,44 @@ export class Reservas implements OnInit {
 
   }
 
-  reservar(turno: Turno): void {
+ reservar(turno: Turno) {
 
-    const usuario = this.authService.getUsuarioActual();
+  const usuario = this.authService.getUsuarioActual();
 
-    if (!usuario?.id) {
-      alert('Debe iniciar sesión');
-      return;
-    }
-
-    const userId: number = usuario.id;
-
-    // 🔴 Validar actividad activa
-    if (!turno.actividad?.activa) {
-      alert('La actividad está desactivada');
-      return;
-    }
-
-    // 🔴 Validar cupos disponibles
-    if (turno.cupos_disponibles <= 0) {
-      alert('No hay cupos disponibles');
-      return;
-    }
-
-    // 🔴 Validar inscripción duplicada
-    this.inscripcionService
-      .getInscripcionesPorUsuarioYTurno(userId, turno.id)
-      .subscribe(inscripciones => {
-
-        if (inscripciones.length > 0) {
-          alert('Ya estás inscripto en este turno');
-          return;
-        }
-
-        const nuevaInscripcion = {
-          estado: 1,
-          id_usuario: userId,
-          id_turno: turno.id
-        };
-
-        this.inscripcionService
-          .crearInscripcion(nuevaInscripcion)
-          .subscribe(() => {
-
-            const turnoActualizado: Turno = {
-              ...turno,
-              cupos_disponibles: turno.cupos_disponibles - 1
-            };
-
-            this.turnoService
-              .updateTurno(turno.id, turnoActualizado)
-              .subscribe(() => {
-
-                alert('Reserva realizada con éxito');
-                this.cargarTurnos();
-
-              });
-
-          });
-
-      });
-
+  if (!usuario?.id) {
+    alert("Debe iniciar sesión");
+    return;
   }
+
+  const reserva = {
+    id_usuario: usuario.id!,   // ! asegura que no es undefined
+    id_turno: turno.id!,
+    estado: 1                  // CONFIRMADA
+  };
+
+  this.inscripcionService.crearInscripcion(reserva).subscribe({
+
+    next: () => {
+      alert("Turno reservado correctamente");
+      this.cargarTurnos();
+    },
+
+    error: (error) => {
+      console.error("ERROR AL RESERVAR:", error);
+
+      if (error.error?.error) {
+        alert(error.error.error);
+      } else {
+        alert("Error al reservar turno");
+      }
+
+    }
+
+  });
+
+}
+
+
+
 
 }
