@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'clave-secreta-de-emergencia-123')
 
 # En Railway, pon la variable DEBUG=False en el panel de Variables
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
 # Permitimos hosts dinámicos para Railway
 ALLOWED_HOSTS = ['*'] 

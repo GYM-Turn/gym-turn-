@@ -21,3 +21,4 @@ python-dotenv==1.2.2
 sqlparse==0.5.5
 tomlkit==0.14.0
 tzdata==2025.3
+whitenoise==6.9.0
