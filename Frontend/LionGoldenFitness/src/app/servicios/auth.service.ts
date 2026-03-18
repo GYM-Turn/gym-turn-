@@ -4,14 +4,15 @@ import { Usuario } from '../models/usuario.model';
 import { Observable, tap, BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { Rol } from '../models/enums/rol';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
 
-  private apiLoginUrl = 'http://localhost:8000/api/login/';
-  private apiUsuariosUrl = 'http://localhost:8000/api/usuarios/';
+  private apiLoginUrl = `${environment.apiUrl}/api/login/`;
+  private apiUsuariosUrl = `${environment.apiUrl}/api/usuarios/`;
 
   // 🔥 Usuario reactivo
   private currentUserSubject = new BehaviorSubject<Usuario | null>(null);
@@ -19,7 +20,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
   ) {
     this.cargarUsuarioDesdeStorage();
   }
@@ -29,16 +30,16 @@ export class AuthService {
   // ===============================
 
   login(email: string, password: string): Observable<Usuario> {
-
-    return this.http.post<Usuario>(this.apiLoginUrl, {
-      email,
-      password
-    }).pipe(
-      tap(user => {
-        this.setUsuarioActual(user);
+    return this.http
+      .post<Usuario>(this.apiLoginUrl, {
+        email,
+        password,
       })
-    );
-
+      .pipe(
+        tap((user) => {
+          this.setUsuarioActual(user);
+        }),
+      );
   }
 
   // ===============================
@@ -56,7 +57,6 @@ export class AuthService {
   // ===============================
 
   private cargarUsuarioDesdeStorage(): void {
-
     const stored = localStorage.getItem('user');
 
     if (stored) {
@@ -67,7 +67,6 @@ export class AuthService {
 
       this.currentUserSubject.next(usuario);
     }
-
   }
 
   getUsuarioActual(): Usuario | null {
@@ -75,7 +74,6 @@ export class AuthService {
   }
 
   setUsuarioActual(usuario: Usuario): void {
-
     // 🔥 asegurar tipo correcto
     usuario.rol = Number(usuario.rol);
 
@@ -85,13 +83,12 @@ export class AuthService {
   }
 
   actualizarSesion(cambios: Partial<Usuario>): void {
-
     const usuarioActual = this.getUsuarioActual();
     if (!usuarioActual) return;
 
     const usuarioActualizado: Usuario = {
       ...usuarioActual,
-      ...cambios
+      ...cambios,
     };
 
     this.setUsuarioActual(usuarioActualizado);
@@ -140,5 +137,4 @@ export class AuthService {
   deleteUsuario(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUsuariosUrl}${id}/`);
   }
-
 }

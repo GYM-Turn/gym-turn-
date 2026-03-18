@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Sucursal } from '../models/sucursal.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { Sucursal } from '../models/sucursal.model';
 export class SucursalService {
 
   // ⚠️ IMPORTANTE: barra al final
-  private apiUrl = 'http://localhost:8000/api/sucursales/';
+  private apiUrl = `${environment.apiUrl}/api/sucursales/`;
 
   constructor(private http: HttpClient) {}
 

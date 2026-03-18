@@ -2,30 +2,30 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ActividadAdminDTO } from '../../../models/actividad-admin-dto';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ActividadesService {
 
-  private apiUrl = 'http://localhost:8000/api/actividades';
+  private apiUrl = `${environment.apiUrl}/api/actividades/`;
 
   constructor(private http: HttpClient) {}
 
   getActividades(): Observable<ActividadAdminDTO[]> {
-    return this.http.get<ActividadAdminDTO[]>(`${this.apiUrl}/`);
+    return this.http.get<ActividadAdminDTO[]>(this.apiUrl);
   }
 
   createActividad(a: Partial<ActividadAdminDTO>): Observable<ActividadAdminDTO> {
-    return this.http.post<ActividadAdminDTO>(`${this.apiUrl}/`, a);
+    return this.http.post<ActividadAdminDTO>(this.apiUrl, a);
   }
 
   updateActividad(id: number, a: Partial<ActividadAdminDTO>): Observable<ActividadAdminDTO> {
-    return this.http.put<ActividadAdminDTO>(`${this.apiUrl}/${id}/`, a);
+    return this.http.put<ActividadAdminDTO>(`${this.apiUrl}${id}/`, a);
   }
 
   deleteActividad(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}/`);
+    return this.http.delete<void>(`${this.apiUrl}${id}/`);
   }
-
 }

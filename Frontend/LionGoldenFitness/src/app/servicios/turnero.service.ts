@@ -2,36 +2,38 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Inscripcion } from '../models/inscripcion.model';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class TurneroService {
-   private apiUrl = 'http://localhost:8000/api/inscripciones/';
+
+  private apiUrl = `${environment.apiUrl}/api/inscripciones/`;
 
   constructor(private http: HttpClient) {}
 
-  // Obtener todas las inscripciones
+  // Obtener todas
   obtenerInscripciones(): Observable<Inscripcion[]> {
     return this.http.get<Inscripcion[]>(this.apiUrl);
   }
 
-  // Obtener por DNI
+  // Por DNI
   obtenerPorUsuario(dni: number): Observable<Inscripcion[]> {
     return this.http.get<Inscripcion[]>(
       `${this.apiUrl}?dni=${dni}`
     );
   }
 
-  // Crear inscripción
+  // Crear
   crearInscripcion(inscripcion: Inscripcion): Observable<Inscripcion> {
     return this.http.post<Inscripcion>(this.apiUrl, inscripcion);
   }
 
-  // Cancelar inscripción (cambiar estado)
+  // Cancelar
   cancelarInscripcion(id: number) {
-    return this.http.patch(`${this.apiUrl}/${id}`, {
-      estado: 2 // CANCELADA
+    return this.http.patch(`${this.apiUrl}${id}/`, {
+      estado: 2
     });
   }
 }
-  

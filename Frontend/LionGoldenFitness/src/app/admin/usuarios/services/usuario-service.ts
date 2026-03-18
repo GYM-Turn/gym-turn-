@@ -3,17 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Usuario } from '../../../models/usuario.model';
 import { UsuarioAdminDTO } from '../../../models/usuario-admin-dto';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
-  private apiUrl = 'http://localhost:8000/api/usuarios/';
+
+  private apiUrl = `${environment.apiUrl}/api/usuarios/`;
 
   constructor(private http: HttpClient) {}
 
   // ============================
-  // 👤 MÉTODOS PARA ADMIN (DTO)
+  // 👤 ADMIN
   // ============================
 
   getUsuarios(): Observable<UsuarioAdminDTO[]> {
@@ -32,7 +34,7 @@ export class UsuarioService {
   }
 
   // ============================
-  // 👤 MÉTODOS PARA REGISTRO
+  // 👤 REGISTRO
   // ============================
 
   createUsuario(usuario: Partial<Usuario>): Observable<Usuario> {
@@ -40,10 +42,10 @@ export class UsuarioService {
   }
 
   // ============================
-  // 🗑 ELIMINAR (ADMIN)
+  // 🗑 ELIMINAR
   // ============================
 
-  deleteUsuario(id: number ): Observable<Usuario> {
+  deleteUsuario(id: number): Observable<Usuario> {
     return this.http.delete<Usuario>(`${this.apiUrl}${id}/`);
   }
 }
