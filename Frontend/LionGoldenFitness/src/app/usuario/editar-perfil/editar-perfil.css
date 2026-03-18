@@ -38,7 +38,6 @@
   flex-direction: column;
   gap: 18px;
   animation: fadeIn 0.4s ease-in-out;
-
 }
 
 /* ============================= */
@@ -54,19 +53,44 @@
 }
 
 /* ============================= */
+/* CAMPOS */
+/* ============================= */
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* LABELS */
+
+.campo label {
+  text-align: left ;
+  font-size: 18px;
+  color: var(--color-2);
+  font-weight: 500;
+}
+
+/* ============================= */
 /* INPUTS */
 /* ============================= */
 
 .container-perfil input {
   padding: 12px 14px;
   border-radius: 10px;
-  border: 1px solid #2c3e50;
   background-color: #0f1b2a;
   color: white;
   font-size: 14px;
   transition: all 0.3s ease;
 }
 
+/* focus moderno */
+
+.container-perfil input:focus {
+  outline: none;
+  border-color: #d4af37;
+  box-shadow: 0 0 6px rgba(212, 175, 55, 0.4);
+}
 
 
 /* ============================= */
@@ -90,7 +114,6 @@
   box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
 }
 
-
 /* ============================= */
 /* ANIMACION */
 /* ============================= */
@@ -111,7 +134,7 @@
 /* ============================= */
 
 @media (max-width: 600px) {
-  .container-perfil form {
+  .formulario-card {
     padding: 25px;
   }
 
@@ -120,3 +143,16 @@
     height: 100px;
   }
 }
+
+/* ============================= */
+/* validador de contraseña */
+/* ============================= */
+
+.error{
+  color: #ff4d4d;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+
+
