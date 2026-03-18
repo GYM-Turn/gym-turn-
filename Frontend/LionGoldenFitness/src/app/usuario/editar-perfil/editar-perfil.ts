@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { NavUsuario } from '../../componentes-compartidos/nav-usuario/nav-usuario';
 import { Footer } from '../../componentes-compartidos/footer/footer';
 import { AuthService } from '../../servicios/auth.service';
@@ -14,7 +14,9 @@ import { Usuario } from '../../models/usuario.model';
   templateUrl: './editar-perfil.html',
   styleUrls: ['./editar-perfil.css'],
 })
+
 export class EditarPerfil implements OnInit {
+
   form!: FormGroup;
   usuarioActual!: Usuario;
   previewFoto: string | null = null;
@@ -27,6 +29,7 @@ export class EditarPerfil implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     const usuario = this.authService.getUsuarioActual();
 
     if (!usuario?.id) {
@@ -37,12 +40,18 @@ export class EditarPerfil implements OnInit {
     this.usuarioActual = usuario;
 
     this.form = this.fb.group({
+
+      dni: [usuario.dni, Validators.required],
       nombre: [usuario.nombre, Validators.required],
       apellido: [usuario.apellido, Validators.required],
       email: [usuario.email, [Validators.required, Validators.email]],
-      password: [''],
       telefono: [usuario.telefono],
+      password: [''],
+      confirmPassword: [''],
       foto: [usuario.foto || null],
+
+    }, {
+      validators: this.passwordMatchValidator
     });
 
     this.previewFoto = usuario.foto
@@ -51,10 +60,27 @@ export class EditarPerfil implements OnInit {
   }
 
   // ===============================
-  // 📸 FOTO
+  // VALIDAR CONTRASEÑAS
+  // ===============================
+
+  passwordMatchValidator(form: AbstractControl): ValidationErrors | null {
+
+    const password = form.get('password')?.value;
+    const confirmPassword = form.get('confirmPassword')?.value;
+
+    if (!password && !confirmPassword) return null;
+
+    return password === confirmPassword
+      ? null
+      : { passwordMismatch: true };
+  }
+
+  // ===============================
+  // FOTO
   // ===============================
 
   onFileSelected(event: any) {
+
     const file = event.target.files[0];
     if (!file) return;
 
@@ -70,12 +96,19 @@ export class EditarPerfil implements OnInit {
   }
 
   // ===============================
-  // 💾 GUARDAR
+  // GUARDAR
   // ===============================
 
   guardarCambios() {
+
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
     const formData = new FormData();
 
+    formData.append('dni', this.form.value.dni);
     formData.append('nombre', this.form.value.nombre);
     formData.append('apellido', this.form.value.apellido);
     formData.append('email', this.form.value.email);
@@ -92,7 +125,9 @@ export class EditarPerfil implements OnInit {
     const id = String(this.usuarioActual.id);
 
     this.usuarioService.patchUsuario(id, formData).subscribe({
+
       next: (usuarioActualizado) => {
+
         this.authService.setUsuarioActual(usuarioActualizado);
 
         if (usuarioActualizado.foto) {
@@ -100,11 +135,15 @@ export class EditarPerfil implements OnInit {
         }
 
         alert('Perfil actualizado');
+
       },
-      error: (err) => {
-        console.error(err);
+
+      error: () => {
         alert('Error al actualizar');
-      },
+      }
+
     });
+
   }
+
 }
