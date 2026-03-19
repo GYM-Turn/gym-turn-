@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-import dj_database_url # <--- IMPORTANTE: Instalar con pip
+import dj_database_url
 
 # 1. Cargar variables de entorno
 load_dotenv()
@@ -12,11 +12,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # --- SEGURIDAD ---
 SECRET_KEY = os.getenv('SECRET_KEY', 'clave-secreta-de-emergencia-123')
 
-# En Railway, pon la variable DEBUG=False en el panel de Variables
+# En Railway, la variable DEBUG debe ser False en producción
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-# Permitimos hosts dinámicos para Railway
-ALLOWED_HOSTS = ['*'] 
+# Configuración de Hosts permitidos
+ALLOWED_HOSTS = [
+    'gym-turn-production.up.railway.app', # Tu dominio de Railway
+    'localhost', 
+    '127.0.0.1',
+    '*' # Mantenemos el asterisco para evitar bloqueos iniciales en Railway
+]
 
 # --- APLICACIONES ---
 INSTALLED_APPS = [
@@ -31,14 +36,14 @@ INSTALLED_APPS = [
     'clases',
     'pagos',
     'rest_framework',
-    "corsheaders",
+    "corsheaders", # Necesario para la conexión con Angular
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # <--- AGREGA ESTO para archivos estáticos
+    'whitenoise.middleware.WhiteNoiseMiddleware', # Debe ir después de SecurityMiddleware
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # Debe ir antes de CommonMiddleware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -67,7 +72,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'LionGoldenFitness.wsgi.application'
 
 # --- BASE DE DATOS (POSTGRESQL) ---
-# Si Railway detecta DATABASE_URL, la usa. Si no, usa tu local.
+# Se conecta automáticamente usando la variable DATABASE_URL de Railway
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL', 'postgres://postgres:Lafiesta@localhost:5432/gym_db'),
@@ -85,11 +90,23 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Esto permite que Django sirva los archivos estáticos en Railway
+# Configuración de WhiteNoise para servir estáticos en producción
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CORS_ALLOW_ALL_ORIGINS = True
+# --- CONFIGURACIÓN DE CORS ---
+# Permitimos específicamente tu dominio de Vercel
+CORS_ALLOWED_ORIGINS = [
+    "https://gym-turn-omega.vercel.app",
+    "http://localhost:4200",
+]
+
+# Permitir credenciales (útil si manejas login con cookies/tokens)
+CORS_ALLOW_CREDENTIALS = True
+
+# Si prefieres dejarlo abierto totalmente durante pruebas:
+# CORS_ALLOW_ALL_ORIGINS = True 
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
