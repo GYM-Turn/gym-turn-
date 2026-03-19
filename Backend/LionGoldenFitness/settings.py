@@ -97,7 +97,12 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # --- CONFIGURACIÓN DE CORS ---
-# Permitimos específicamente tu dominio de Vercel
+# Esta expresión regular permite cualquier subdominio que termine en .vercel.app
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.vercel\.app$",
+]
+
+# Mantenemos los orígenes fijos por seguridad y para desarrollo local
 CORS_ALLOWED_ORIGINS = [
     "https://gym-turn-omega.vercel.app",
     "http://localhost:4200",
@@ -105,8 +110,5 @@ CORS_ALLOWED_ORIGINS = [
 
 # Permitir credenciales (útil si manejas login con cookies/tokens)
 CORS_ALLOW_CREDENTIALS = True
-
-# Si prefieres dejarlo abierto totalmente durante pruebas:
-# CORS_ALLOW_ALL_ORIGINS = True 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
