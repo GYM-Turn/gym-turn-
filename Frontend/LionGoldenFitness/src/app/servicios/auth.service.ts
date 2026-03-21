@@ -13,8 +13,9 @@ export class AuthService {
 
   private apiLoginUrl = `${environment.apiUrl}/api/login/`;
   private apiUsuariosUrl = `${environment.apiUrl}/api/usuarios/`;
+  private apiRegisterUrl = `${environment.apiUrl}/api/register/`;
 
-  // 🔥 Usuario reactivo
+  // 🔥 estado reactivo del usuario
   private currentUserSubject = new BehaviorSubject<Usuario | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
 
@@ -26,26 +27,26 @@ export class AuthService {
   }
 
   // ===============================
-  // 🔐 LOGIN (NUEVO)
+  // 🔐 LOGIN
   // ===============================
-
   login(email: string, password: string): Observable<Usuario> {
     return this.http
-      .post<Usuario>(this.apiLoginUrl, {
-        email,
-        password,
-      })
+      .post<Usuario>(this.apiLoginUrl, { email, password })
       .pipe(
-        tap((user) => {
-          this.setUsuarioActual(user);
-        }),
+        tap((user) => this.setUsuarioActual(user))
       );
+  }
+
+  // ===============================
+  // 🆕 REGISTER (USUARIO REAL)
+  // ===============================
+  registrar(usuario: Usuario): Observable<Usuario> {
+    return this.http.post<Usuario>(this.apiRegisterUrl, usuario);
   }
 
   // ===============================
   // 🚪 LOGOUT
   // ===============================
-
   logout(): void {
     localStorage.removeItem('user');
     this.currentUserSubject.next(null);
@@ -55,14 +56,13 @@ export class AuthService {
   // ===============================
   // 👤 USUARIO ACTUAL
   // ===============================
-
   private cargarUsuarioDesdeStorage(): void {
     const stored = localStorage.getItem('user');
 
     if (stored) {
       const usuario: Usuario = JSON.parse(stored);
 
-      // 🔥 asegurar que rol sea número
+      // 🔥 asegurar tipo correcto
       usuario.rol = Number(usuario.rol);
 
       this.currentUserSubject.next(usuario);
@@ -74,11 +74,9 @@ export class AuthService {
   }
 
   setUsuarioActual(usuario: Usuario): void {
-    // 🔥 asegurar tipo correcto
     usuario.rol = Number(usuario.rol);
 
     localStorage.setItem('user', JSON.stringify(usuario));
-
     this.currentUserSubject.next(usuario);
   }
 
@@ -97,7 +95,6 @@ export class AuthService {
   // ===============================
   // 🔎 ESTADO DE SESIÓN
   // ===============================
-
   isLoggedIn(): boolean {
     return !!this.getUsuarioActual();
   }
@@ -111,13 +108,8 @@ export class AuthService {
   }
 
   // ===============================
-  // 👥 CRUD USUARIOS
+  // 👥 CRUD USUARIOS (ADMIN)
   // ===============================
-
-  registrar(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(this.apiUsuariosUrl, usuario);
-  }
-
   getUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.apiUsuariosUrl);
   }

@@ -4,64 +4,65 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import Usuario
-from .serializers import UsuarioSerializer, UsuarioAdminSerializer
+from .serializers import UsuarioSerializer, UsuarioAdminSerializer, RegisterSerializer
 
-from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth.hashers import check_password
 
+
+# ==========================
+# 👤 LISTAR Y CREAR (ADMIN)
+# ==========================
 
 class UsuarioListCreateView(APIView):
 
-    # ==========================
-    # 👤 LISTAR USUARIOS (ADMIN)
-    # ==========================
     def get(self, request):
         usuarios = Usuario.objects.all()
         serializer = UsuarioAdminSerializer(usuarios, many=True)
         return Response(serializer.data)
 
-    # ==========================
-    # 👤 CREAR USUARIO
-    # ==========================
     def post(self, request):
-
-        data = request.data.copy()
-
-        # valores por defecto para campos que no vienen del admin
-        data["user"] = data.get("email")
-
-        # 🔐 contraseña automática = DNI
-        data["password"] = make_password(data["dni"])
-
-        data["telefono"] = "000000000"
-        data["fecha_nacimiento"] = "2000-01-01"
-
-        serializer = UsuarioSerializer(data=data)
+        serializer = UsuarioAdminSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
+            usuario = serializer.save()
+            return Response(UsuarioAdminSerializer(usuario).data, status=201)
 
         return Response(serializer.errors, status=400)
 
 
+# ==========================
+# 🔥 REGISTRO REAL (FRONT)
+# ==========================
+class RegisterView(APIView):
+
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
+
+        if serializer.is_valid():
+            usuario = serializer.save()  # 👈 YA hashea password adentro
+
+            return Response(
+                UsuarioSerializer(usuario).data,
+                status=201
+            )
+
+        return Response(serializer.errors, status=400)
+
+
+# ==========================
+# 👤 DETALLE
+# ==========================
 class UsuarioDetailView(APIView):
 
     def get_object(self, id):
         return get_object_or_404(Usuario, id=id)
 
-    # ==========================
-    # 👤 OBTENER USUARIO
-    # ==========================
     def get(self, request, id):
         usuario = self.get_object(id)
         serializer = UsuarioAdminSerializer(usuario)
         return Response(serializer.data)
 
-    # ==========================
-    # ✏️ ACTUALIZAR USUARIO (ADMIN)
-    # ==========================
     def put(self, request, id):
-
         usuario = self.get_object(id)
 
         serializer = UsuarioAdminSerializer(
@@ -76,17 +77,14 @@ class UsuarioDetailView(APIView):
 
         return Response(serializer.errors, status=400)
 
-    # ==========================
-    # ✏️ PATCH USUARIO
-    # ==========================
     def patch(self, request, id):
-
         usuario = self.get_object(id)
 
         data = request.data.copy()
 
-        # 🔐 Si actualizan password se vuelve a hashear
+        # 🔐 si cambian password
         if 'password' in data:
+            from django.contrib.auth.hashers import make_password
             data['password'] = make_password(data['password'])
 
         serializer = UsuarioSerializer(
@@ -101,9 +99,6 @@ class UsuarioDetailView(APIView):
 
         return Response(serializer.errors, status=400)
 
-    # ==========================
-    # 🗑 ELIMINAR USUARIO
-    # ==========================
     def delete(self, request, id):
         usuario = self.get_object(id)
         usuario.delete()
@@ -123,26 +118,13 @@ class LoginView(APIView):
         try:
             usuario = Usuario.objects.get(email=email)
         except Usuario.DoesNotExist:
-            return Response(
-                {"error": "Usuario no encontrado"},
-                status=404
-            )
+            return Response({"error": "Usuario no encontrado"}, status=404)
 
-        # 🚫 usuario desactivado no puede entrar
         if not usuario.activo:
-            return Response(
-                {"error": "Usuario desactivado"},
-                status=403
-            )
+            return Response({"error": "Usuario desactivado"}, status=403)
 
-        # 🔐 validar contraseña hasheada
         if check_password(password, usuario.password):
-
             serializer = UsuarioSerializer(usuario)
-
             return Response(serializer.data)
 
-        return Response(
-            {"error": "Contraseña incorrecta"},
-            status=401
-        )
+        return Response({"error": "Contraseña incorrecta"}, status=401)

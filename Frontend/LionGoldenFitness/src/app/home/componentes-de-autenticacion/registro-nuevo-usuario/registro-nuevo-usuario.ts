@@ -12,7 +12,7 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './registro-nuevo-usuario.html',
    styleUrl: './registro-nuevo-usuario.css',
 })
-export class RegistroNuevoUsuario {  // 👈 nombre profesional
+export class RegistroNuevoUsuario {
 
   form: FormGroup;
 
@@ -23,7 +23,7 @@ export class RegistroNuevoUsuario {  // 👈 nombre profesional
   ) {
     this.form = this.fb.group({
       dni: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      user: ['', [Validators.required, Validators.minLength(4)]],
+      user: ['', [Validators.required, Validators.minLength(4)]], // opcional dejarlo visual
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       fecha_nacimiento: ['', Validators.required],
@@ -48,19 +48,18 @@ export class RegistroNuevoUsuario {  // 👈 nombre profesional
       return;
     }
 
-    const nuevoUsuario: Usuario = {
+    // 🔥 SOLO datos reales (sin user ni rol)
+    const nuevoUsuario = {
       dni: this.form.value.dni,
-      user: this.form.value.user,
       nombre: this.form.value.nombre,
       apellido: this.form.value.apellido,
       fecha_nacimiento: this.form.value.fecha_nacimiento,
       telefono: this.form.value.telefono,
       email: this.form.value.email,
-      password: password,
-      rol: 1
+      password: password
     };
 
-    this.authService.registrar(nuevoUsuario).subscribe({
+    this.authService.registrar(nuevoUsuario as any).subscribe({
       next: () => {
         alert('Usuario registrado correctamente');
         this.router.navigate(['/iniciar-sesion']);

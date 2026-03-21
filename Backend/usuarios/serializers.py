@@ -23,7 +23,40 @@ class UsuarioSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             "password": {"write_only": True}
         }
-        
+
+# 🔥 REGISTRO (FRONT)
+class RegisterSerializer(serializers.ModelSerializer):
+
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = Usuario
+        fields = [
+            "dni",
+            "nombre",
+            "apellido",
+            "fecha_nacimiento",
+            "telefono",
+            "email",
+            "password"
+        ]
+
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+
+        usuario = Usuario(**validated_data)
+
+        usuario.user = usuario.email
+        usuario.password = make_password(password)
+
+        usuario.rol = 1
+        usuario.activo = True
+
+        usuario.save()
+        return usuario
+
+
+# 🔥 ADMIN (CORREGIDO)
 class UsuarioAdminSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -34,6 +67,7 @@ class UsuarioAdminSerializer(serializers.ModelSerializer):
             "nombre",
             "apellido",
             "email",
+            "fecha_nacimiento",   # 👈 AHORA OBLIGATORIO DESDE FORM
             "rol",
             "creditos",
             "activo"
@@ -45,9 +79,12 @@ class UsuarioAdminSerializer(serializers.ModelSerializer):
 
         usuario = Usuario(**validated_data)
 
-        # 🔥 contraseña automática = DNI
+        # 🔐 contraseña automática
         usuario.password = make_password(dni)
 
-        usuario.save()
+        # 🔥 completar campos faltantes
+        usuario.user = usuario.email
+        usuario.telefono = "000000000"  # 👈 DEFAULT
 
+        usuario.save()
         return usuario

@@ -12,7 +12,6 @@ import { UsuarioAdminDTO } from '../../../models/usuario-admin-dto';
   styleUrls: ['./usuario.form.css'], // 👈 corregido (era styleUrl)
 })
 export class UsuarioForm implements OnInit {
-
   // Angular 20 style
   private fb = inject(NonNullableFormBuilder);
   private usuarioService = inject(UsuarioService);
@@ -28,6 +27,7 @@ export class UsuarioForm implements OnInit {
     nombre: ['', Validators.required],
     apellido: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
+    fecha_nacimiento: ['', Validators.required], // 👈 NUEVO
     rol: [Rol.USUARIO],
     creditos: [0],
     activo: [true],
@@ -44,7 +44,7 @@ export class UsuarioForm implements OnInit {
 
     const usuarioData = {
       ...this.form.getRawValue(),
-      id: this.usuario?.id
+      id: this.usuario?.id,
     };
 
     if (this.usuario) {
@@ -52,9 +52,7 @@ export class UsuarioForm implements OnInit {
         .updateUsuario(this.usuario.id!, usuarioData)
         .subscribe(() => this.cerrar.emit());
     } else {
-      this.usuarioService
-        .createUsuario(usuarioData)
-        .subscribe(() => this.cerrar.emit());
+      this.usuarioService.createUsuario(usuarioData).subscribe(() => this.cerrar.emit());
     }
   }
 
