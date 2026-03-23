@@ -209,3 +209,8 @@
 .custom-faq .accordion-button::after {
   filter: invert(1); /* Hace que la flechita sea blanca */
 }
+
+.formulario-card {
+  width: 50%;
+  margin: 4rem auto;
+}

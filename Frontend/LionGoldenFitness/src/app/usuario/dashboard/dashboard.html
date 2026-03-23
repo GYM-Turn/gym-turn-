@@ -1,35 +1,33 @@
 <app-nav-usuario></app-nav-usuario>
+<div class="layout">
+  <div class="main-container">
 
-<div class="main-container">
+    <div class="formulario-card">
 
-  <div class="formulario-card">
+      <h2 class="titulo">
+        Bienvenido {{ usuarioNombre }}
+      </h2>
 
-    <h2 class="titulo">
-      Bienvenido {{ usuarioNombre }}
-    </h2>
+      <div class="resumen-card">
+        <h3>Turnos Activos</h3>
+        <p>{{ totalTurnos }}</p>
+      </div>
 
-    <div class="resumen-card">
-      <h3>Turnos Activos</h3>
-      <p>{{ totalTurnos }}</p>
-    </div>
+      <div class="turnos-lista">
+        @for (turno of turnos; track turno.id) {
+          <div class="turno-card">
+            <h4>{{ turno.actividad }}</h4>
+            <p>{{ turno.fecha_hora }}</p>
 
-    <div class="turnos-lista">
-      @for (turno of turnos; track turno.id) {
-        <div class="turno-card">
-          <h4>{{ turno.actividad }}</h4>
-          <p>{{ turno.fecha_hora }}</p>
+            <button (click)="cancelarInscripcion(turno.id!)">
+              Cancelar
+            </button>
+          </div>
+        } 
+      </div>
 
-          <button (click)="cancelarInscripcion(turno.id!)">
-            Cancelar
-          </button>
-        </div>
-      } @empty {
-        <p>No tenés turnos activos</p>
-      }
     </div>
 
   </div>
-
 </div>
-
 <app-footer></app-footer>

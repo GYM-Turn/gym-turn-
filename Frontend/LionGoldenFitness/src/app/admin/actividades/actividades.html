@@ -1,66 +1,63 @@
 <div class="layout">
-  <app-nav-admin></app-nav-admin>
+<app-nav-admin></app-nav-admin>
+<div class="container my-4 tabla-card" >
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="titulo-admin mb-0">Gestión de Actividades</h2>
+    <button class="btn-uno shadow-sm" (click)="nuevaActividad()">
+      <i class="bi bi-plus-lg me-1"></i> Nueva
+    </button>
+  </div>
 
-  <div class="container my-4 tabla-card">
+  <div class="table-responsive shadow-sm rounded-3">
+    <table class="table table-hover align-middle text-center mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Nombre</th>
+          <th>Cupos (Ocupados/Total)</th>
+          <th>Duración</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="titulo-admin mb-0">Gestión de Actividades</h2>
-
-      <button class="btn-uno shadow-sm" (click)="nuevaActividad()">
-        Nueva
-      </button>
-    </div>
-
-    <div class="table-responsive shadow-sm rounded-3">
-
-      <table class="table table-hover align-middle text-center mb-0">
-
-        <thead class="table-light">
-          <tr>
-            <th>Nombre</th>
-            <th>Cupos Disponibles</th>
-            <th>Duración</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          @for (a of actividades; track a.id) {
-
+      <tbody>
+        @for (a of actividades; track a.id) {
             @let estado = getEstadoCupos(a);
-
+            
             <tr>
               <td class="fw-bold">{{ a.nombre }}</td>
 
-              <!-- 🔥 FIX DEL ERROR -->
-              <td class="fw-bold text-success">
-                {{ a.id != null ? (cuposDisponiblesPorActividad[a.id] ?? 0) : 0 }}
+              <td>
+                <div class="progress" style="height: 20px;">
+                  <div class="progress-bar" 
+                      [style.width.%]="(a.cupos_ocupados / a.cupos) * 100">
+                    {{ a.cupos_ocupados }}/{{ a.cupos }}
+                  </div>
+                </div>
               </td>
 
               <td>
-                {{ a.duracion }} min
+                <i class="bi bi-clock me-1"></i> {{ a.duracion }} min
               </td>
 
               <td>
                 @if (estado === 'Disponible') {
-                  <span class="badge bg-success-subtle text-success px-3">
+                  <span class="badge bg-success-subtle text-success border border-success-subtle px-3">
                     Disponible
                   </span>
                 } @else if (estado === 'Completo') {
-                  <span class="badge bg-danger-subtle text-danger px-3">
+                  <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3">
                     Completo
                   </span>
                 } @else {
-                  <span class="badge bg-secondary-subtle text-secondary px-3">
+                  <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-3">
                     Inactiva
                   </span>
                 }
               </td>
 
               <td>
-                <div class="btn-group">
-
+                <div class="btn-group btn-lg">
                   <button class="btn btn-warning"
                           (click)="editarActividad(a)">
                     ✏️
@@ -77,21 +74,17 @@
                           (click)="eliminarActividad(a.id!)">
                     🗑
                   </button>
-
                 </div>
               </td>
-
             </tr>
-
           } @empty {
             <tr>
               <td colspan="5" class="text-muted py-5">
-                No hay actividades registradas
+                No hay actividades registradas actualmente.
               </td>
             </tr>
           }
         </tbody>
-
       </table>
     </div>
 
@@ -105,6 +98,5 @@
     }
 
   </div>
-
   <app-footer></app-footer>
 </div>

@@ -1,43 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
 :root {
   --color-1: #c74a4a;
   --color-2: #fafafa;
   --color-3: #b62c2c;
   --color-4: #000000f5;
-  --color-5: #111c2b;
+  --color-5:#111c2b;
   --color-6: #231acd;
   --color-7: #4f575a;
   --color-8: #0B3C5D;
   --color-9: #d4af37;
 }
 
-/* ============================= */
-/* 🌍 BODY + FONDO (FIX MOBILE) */
-/* ============================= */
-
 body {
   background-image: url('/img/fondo.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* desktop */
+  background-attachment: fixed;
 
   margin: 0;
   min-height: 100vh;
+
+  /* 🔥 Fuente global */
   font-family: 'Poppins', sans-serif;
 }
 
-/* 🔥 FIX MOBILE FONDO */
-@media (max-width: 768px) {
-  body {
-    background-attachment: scroll; /* 🔥 clave */
-    background-size: cover;
-  }
-}
-
-/* ============================= */
-/* 📐 LAYOUT */
-/* ============================= */
-
+/* Asegura layout completo */
 app-root {
   display: flex;
   flex-direction: column;
@@ -57,11 +45,8 @@ main {
 app-footer {
   margin-top: auto;
 }
-
-/* ============================= */
-/* 🔘 BOTONES */
-/* ============================= */
-
+ /* 🔥 Botones */
+ 
 .btn-uno {
   margin-top: 16px;
   width: 100%;
@@ -70,106 +55,25 @@ app-footer {
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
-  background: linear-gradient(135deg, var(--color-9), var(--color-3));
+  background: linear-gradient(
+    135deg,
+    var(--color-9),
+    var(--color-3)
+  );
   color: var(--color-2);
   transition: all 0.3s ease;
 }
 
 .btn-uno:hover {
-  background: linear-gradient(135deg, var(--color-3), var(--color-9));
-}
-
-/* ============================= */
-/* 🧾 CARDS / FORMULARIOS */
-/* ============================= */
-
-.formulario-card {
-  background-color: var(--color-8);
-  padding: 2rem;
-  border-radius: 15px;
-  width: 100%;
-  max-width: 500px;
-  border: 0.2rem solid var(--color-9);
-  text-align: center;
+  background: linear-gradient(
+    135deg,
+    var(--color-3),
+    var(--color-9)
+  );
   color: var(--color-2);
-  margin: 2rem auto;
 }
 
-/* 📱 MOBILE */
-@media (max-width: 768px) {
-  .formulario-card {
-    padding: 1.5rem;
-    margin: 1rem;
-  }
-}
 
-@media (max-width: 480px) {
-  .formulario-card {
-    padding: 1.2rem;
-    margin: 0.8rem;
-  }
-}
-
-/* ============================= */
-/* 📥 INPUTS */
-/* ============================= */
-
-.form-control-campos {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid #2c3e50;
-  background-color: #0f1b2a;
-  color: white;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-/* ============================= */
-/* ✅ VALIDACIONES */
-/* ============================= */
-
-.ng-valid:not(form).ng-touched {
-  border: 2px solid #42A948;
-}
-
-.ng-invalid:not(form).ng-touched {
-  border: 2px solid #a94442;
-}
-
-/* ============================= */
-/* 📦 CONTENEDOR GENERAL */
-/* ============================= */
-
-.main-container {
-  width: 100%;
-  max-width: 500px;
-  margin: auto;
-  padding: 10px;
-}
-
-/* ============================= */
-/* 🍔 NAV ICON */
-/* ============================= */
-
-.navbar-toggler-icon {
-  filter: invert(1);
-}
-
-/* ============================= */
-/* 🔥 EXTRA PRO (opcional) */
-/* ============================= */
-
-/* overlay para mejorar lectura en mobile */
-@media (max-width: 768px) {
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.4);
-    z-index: -1;
-  }
-}
 /* CONTENEDOR PRINCIPAL ADMIN*/
 
 
@@ -181,3 +85,107 @@ app-footer {
   box-shadow: 0 0 35px rgba(212, 175, 55, 0.35);
   animation: fadeInAdmin 0.4s ease-in-out;
 }
+
+/* Formularios */
+
+.formulario-card {
+  background-color: var(--color-8); 
+  padding: 2.5rem;
+  border-radius: 15px;
+  width: 100%;
+  border: 0.2rem solid var(--color-9);
+  text-align: center;
+  color: var(--color-2);
+  margin: 4rem;
+}
+
+.form-control-campos {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #2c3e50;
+  background-color: #0f1b2a;
+  color: white;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+ 
+/* formularios admin------------------------ */
+/* Overlay oscuro */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+}
+
+/* Card principal */
+.lion-card {
+  background: var(--color-8);
+  border-radius: 20px;
+  border: 3px solid var(--color-9);
+  box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+  animation: fadeInAdmin 0.3s ease-in-out;
+
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Header */
+.lion-header {
+  background: linear-gradient(
+    135deg,
+    var(--color-9),
+    var(--color-3)
+  );
+  border-radius: 20px 20px 0 0;
+  padding: 1rem;
+  text-align: center;
+}
+
+.lion-title {
+  margin: 0;
+  color: var(--color-2);
+  font-weight: 700;
+}
+
+/* Labels */
+.lion-label {
+  color: var(--color-9);
+  font-weight: 600;
+}
+
+/* Inputs */
+.lion-input {
+  background-color: var(--color-2);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  transition: 0.3s ease;
+}
+
+.lion-input:focus {
+  border-color: var(--color-9);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+/* Botones */
+.lion-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.lion-actions .btn-uno {
+  margin-top: 0;
+}
+
+/* Validaciones de formularios --------------------------*/
+
+.ng-valid:not(form).ng-touched {
+ border: 5px solid #42A948; /* green */
+ }
+.ng-invalid:not(form).ng-touched {
+  border: 5px solid #a94442; /* red */
+ }

@@ -10,7 +10,6 @@
     <div class="card-body p-4">
       <form [formGroup]="form" (ngSubmit)="guardar()">
 
-        <!-- NOMBRE -->
         <div class="mb-3">
           <label class="form-label lion-label">Nombre</label>
           <input type="text"
@@ -18,21 +17,19 @@
                  formControlName="nombre">
 
           @if (form.get('nombre')?.invalid && form.get('nombre')?.touched) {
-            <small class="lion-error">
-              El nombre es obligatorio.
-            </small>
+            <div class="lion-error-container">
+              <small class="lion-error">El nombre es obligatorio.</small>
+            </div>
           }
         </div>
 
-        <!-- DESCRIPCIÓN -->
         <div class="mb-3">
           <label class="form-label lion-label">Descripción</label>
           <textarea class="form-control lion-input"
                     formControlName="descripcion"
-                    rows="3"></textarea>
+                    rows="2"></textarea>
         </div>
 
-        <!-- CUPOS Y DURACIÓN -->
         <div class="row g-3 mb-3">
           <div class="col-6">
             <label class="form-label lion-label">Cupos</label>
@@ -49,16 +46,14 @@
           </div>
         </div>
 
-        <!-- ACTIVA -->
-        <div class="mb-4 lion-switch">
-          <label class="switch-label">
+        <div class="mb-4">
+          <label class="lion-switch">
             <input type="checkbox" formControlName="activa">
             <span class="slider"></span>
-            Activa
+            <span class="lion-label ms-2">Activa</span>
           </label>
         </div>
 
-        <!-- BOTONES -->
         <div class="lion-actions">
           <button type="button"
                   class="btn-uno"

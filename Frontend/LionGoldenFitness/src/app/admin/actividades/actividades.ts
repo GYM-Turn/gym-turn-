@@ -1,64 +1,36 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ActividadesService } from './services/actividades-service';
+import { CommonModule } from '@angular/common'; // Imprescindible para standalone
+import { ActividadesService } from './services/actividades-service'; // Ojo: verifica el nombre del archivo .ts
 import { ActividadAdminDTO } from '../../models/actividad-admin-dto';
 import { ActividadesForm } from './actividades-form/actividades-form';
 import { NavAdmin } from '../../componentes-compartidos/nav-admin/nav-admin';
 import { Footer } from '../../componentes-compartidos/footer/footer';
 import { TurnoService } from '../turnos/services/turnos-services';
 
+
+
 @Component({
   selector: 'app-actividades',
   standalone: true,
-  imports: [CommonModule, ActividadesForm, NavAdmin, Footer],
+  imports: [CommonModule, ActividadesForm,NavAdmin,Footer], // Agregamos CommonModule aquí
   templateUrl: './actividades.html',
   styleUrl: './actividades.css',
 })
 export class Actividades implements OnInit {
-
   private actividadService = inject(ActividadesService);
-  private turnoService = inject(TurnoService);
+private turnoService = inject(TurnoService);
 
   actividades: ActividadAdminDTO[] = [];
   mostrarFormulario = false;
   actividadSeleccionada?: ActividadAdminDTO;
-
-  // 🔥 tipado seguro
-  cuposDisponiblesPorActividad: Record<number, number> = {};
 
   ngOnInit(): void {
     this.cargarActividades();
   }
 
   cargarActividades() {
-    this.actividadService.getActividades().subscribe(actividades => {
-
-      this.turnoService.getTurnos().subscribe(turnos => {
-
-        this.actividades = actividades;
-        this.cuposDisponiblesPorActividad = {};
-
-        actividades.forEach(a => {
-
-          // 🔥 protección total contra undefined
-          const id = a.id;
-          if (id === undefined || id === null) return;
-
-          const turnosDeActividad = turnos.filter(
-            t => t.actividad.id === id
-          );
-
-          const disponibles = turnosDeActividad.reduce(
-            (acc, t) => acc + t.cupos_disponibles,
-            0
-          );
-
-          this.cuposDisponiblesPorActividad[id] = disponibles;
-        });
-
-      });
-
-    });
+    this.actividadService.getActividades()
+      .subscribe(data => this.actividades = data);
   }
 
   nuevaActividad() {
@@ -71,39 +43,38 @@ export class Actividades implements OnInit {
     this.mostrarFormulario = true;
   }
 
-  toggleEstado(a: ActividadAdminDTO) {
+toggleEstado(a: ActividadAdminDTO) {
 
-    const id = a.id;
-    if (id === undefined || id === null) return;
+  const nuevaActiva = !a.activa;
 
-    const nuevaActiva = !a.activa;
-    const actualizada = { ...a, activa: nuevaActiva };
+  const actualizada = { ...a, activa: nuevaActiva };
 
-    this.actividadService.updateActividad(id, actualizada)
-      .subscribe(() => {
+  this.actividadService.updateActividad(a.id!, actualizada)
+    .subscribe(() => {
 
-        if (!nuevaActiva) {
-          this.turnoService.getTurnos()
-            .subscribe(turnos => {
+      // 🔥 Si la desactivamos
+      if (!nuevaActiva) {
 
-              const turnosDeActividad = turnos.filter(
-                t => t.actividad.id === id
-              );
+        this.turnoService.getTurnos()
+          .subscribe(turnos => {
 
-              turnosDeActividad.forEach(t => {
-                const turnoActualizado = { ...t, activo: false };
+            const turnosDeActividad = turnos.filter(t => t.actividad.id === a.id);
 
-                this.turnoService.updateTurno(t.id, turnoActualizado)
-                  .subscribe();
-              });
+            turnosDeActividad.forEach(t => {
+
+              const turnoActualizado = { ...t, activo: false };
+
+              this.turnoService.updateTurno(t.id, turnoActualizado)
+                .subscribe();
 
             });
-        }
 
-        this.cargarActividades();
-      });
-  }
+          });
+      }
 
+      this.cargarActividades();
+    });
+}
   eliminarActividad(id: number) {
     this.actividadService.deleteActividad(id)
       .subscribe(() => this.cargarActividades());
@@ -115,17 +86,8 @@ export class Actividades implements OnInit {
   }
 
   getEstadoCupos(a: ActividadAdminDTO): string {
-
-    const id = a.id;
-
-    if (!a.activa || id === undefined || id === null) {
-      return 'Inactiva';
-    }
-
-    const disponibles = this.cuposDisponiblesPorActividad[id] ?? 0;
-
-    if (disponibles === 0) return 'Completo';
-
+    if (!a.activa) return 'Inactiva';
+    if (a.cupos_ocupados >= a.cupos) return 'Completo';
     return 'Disponible';
   }
 }

@@ -10,46 +10,40 @@
     <div class="card-body p-4">
       <form [formGroup]="form" (ngSubmit)="guardarTurno()">
 
-        <!-- ACTIVIDAD -->
         <div class="mb-3">
           <label class="form-label lion-label">Actividad</label>
-          <select class="form-select lion-input"
-                  formControlName="actividadId">
+          <select class="form-select lion-input" formControlName="actividadId">
             @for (a of actividades; track a.id) {
               <option [value]="a.id">{{ a.nombre }}</option>
             }
           </select>
         </div>
 
-        <!-- SUCURSAL -->
         <div class="mb-3">
           <label class="form-label lion-label">Sucursal</label>
-          <select class="form-select lion-input"
-                  formControlName="sucursalId">
+          <select class="form-select lion-input" formControlName="sucursalId">
             @for (s of sucursales; track s.id) {
               <option [value]="s.id">{{ s.nombre_sucursal }}</option>
             }
           </select>
         </div>
 
-        <!-- FECHA -->
-        <div class="mb-3">
+        <div class="mb-4">
           <label class="form-label lion-label">Fecha y Hora</label>
           <input type="datetime-local"
                  class="form-control lion-input"
                  formControlName="fecha_hora">
         </div>
 
-        <!-- BOTONES -->
         <div class="lion-actions">
           <button type="button"
-                  class="btn-uno"
+                  class="btn-uno w-100" 
                   (click)="cancelar()">
             Cancelar
           </button>
 
           <button type="submit"
-                  class="btn-uno"
+                  class="btn-uno w-100"
                   [disabled]="form.invalid">
             Guardar
           </button>
