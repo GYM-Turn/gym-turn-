@@ -1,7 +1,12 @@
-.login-container {
-  min-height: 80vh; /* Para que se centre respecto al main */
+.formulario-card {
+  /* Cambiamos width fijo por un ancho elástico */
+  width: 90%;           /* En celulares ocupa casi todo el ancho */
+  max-width: 450px;     /* En PC no crece más de 450px (aprox el 35% que tenías) */
+  margin: 20px auto;    /* Margen para que no pegue en los bordes */
+  padding: 2rem;
+ 
+  border-radius: 12px;
 }
-
 .text-color-8 {
   color: var(--color-9);
   font-weight: 700;
@@ -43,10 +48,4 @@
   font-weight: 700;
   text-decoration: underline;
   cursor: pointer;
-}
-.formulario-card {
-  width:35%;
-  
-  
-
 }

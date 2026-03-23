@@ -1,74 +1,71 @@
 .custom-nav {
   background: #0f3b57;
-  padding: 15px 20px;
+  padding: 10px 15px; /* Reducido un poco para ganar espacio en móvil */
   color: white;
   position: relative;
   z-index: 1000;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* 🔥 HEADER FLEX COMPLETO */
 .nav-header {
   display: flex;
-  justify-content: space-between; /* separa izquierda y derecha */
+  justify-content: space-between;
   align-items: center;
   width: 100%;
 }
 
-/* 🔥 CONTENEDOR FOTO + NOMBRE + ☰ */
 .user-toggler {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   cursor: pointer;
+  max-width: 70%; /* Evita que el nombre largo rompa el layout */
 }
 
-/* FOTO */
 .user-avatar {
-  width: 38px;
-  height: 38px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid gold;
+  flex-shrink: 0; /* Evita que la foto se aplaste */
 }
 
-/* NOMBRE */
 .user-name {
   font-weight: 600;
   color: white;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Pone "..." si el nombre es muy largo */
 }
 
-/* ICONO HAMBURGUESA */
-.hamburger-icon {
-  font-size: 22px;
-}
-
-/* 🔥 ELIMINAMOS BOTÓN VIEJO */
-.hamburger {
-  display: none;
-}
-
-/* 🔥 DROPDOWN */
+/* DROPDOWN RESPONSIVE */
 .nav-links {
   position: absolute;
   top: 100%;
-  right: 20px;
-
+  right: 15px;
   background: #0f3b57;
   border-radius: 12px;
   padding: 15px;
-  width: 220px;
-
+  width: 200px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-
   box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-
   opacity: 0;
   transform: translateY(-10px);
   pointer-events: none;
   transition: all 0.3s ease;
+}
+
+/* En celulares muy chicos, el menú se centra */
+@media (max-width: 400px) {
+  .nav-links {
+    right: 5%;
+    left: 5%;
+    width: 90%;
+  }
 }
 
 .nav-links.active {
@@ -77,12 +74,45 @@
   pointer-events: auto;
 }
 
-/* LINKS */
 .nav-link {
   color: white;
   text-decoration: none;
+  padding: 5px 0;
 }
 
 .nav-link:hover {
   color: gold;
 }
+
+.logo-nav {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
+.navbar-brand span {
+  font-size: 14px;
+}
+
+/* 🔥 MOBILE FIX */
+@media (max-width: 480px) {
+
+  .navbar-brand span {
+    display: none; /* 👈 oculta texto largo */
+  }
+
+  .user-name {
+    max-width: 80px;
+    font-size: 12px;
+  }
+
+  .hamburger-icon {
+    font-size: 18px;
+  }
+
+  .user-avatar {
+    width: 30px;
+    height: 30px;
+  }
+}
+

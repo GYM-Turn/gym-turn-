@@ -1,63 +1,101 @@
 .custom-nav {
   background-color: var(--color-8) !important;
-  padding: 0.3rem 1.5rem;
+  padding: 0.5rem 1rem;
   min-height: 60px;
 }
 
-.navbar,
+/* CONTENEDOR */
 .container-fluid {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
-/* Marca + logo */
+/* LOGO + TEXTO */
 .navbar-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-
+  gap: 8px;
   color: var(--color-9) !important;
-  font-weight: 800;
-  letter-spacing: 2px;
+  font-weight: 700;
+  letter-spacing: 1px;
   text-decoration: none !important;
-  font-family: 'Montserrat', sans-serif;
-  padding: 0;
-  line-height: 1;
+  font-size: 16px;
 }
 
-/* Links */
-.nav-link {
-  color: var(--color-2) !important;
-  margin: 0 10px;
-  transition: color 0.3s ease;
-  text-decoration: none !important;
-  background: none !important;
-}
-
-/* Estados */
-.nav-link:hover,
-.nav-link:focus,
-.nav-link:active,
-.active-link {
-  color: var(--color-2) !important;
-  background: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
-
-/* Menú a la derecha y centrado */
-.navbar-collapse {
-  display: flex !important;
-}
-
-.navbar-nav {
-  margin-left: auto !important;
-  align-items: center;
-}
-
-/* Logo */
+/* LOGO */
 .logo-nav {
-  height: 68px;   /* ⬅️ mejor proporción */
-  width: 68px;
+  height: 50px;
+  width: 50px;
   object-fit: cover;
   border-radius: 50%;
+}
+
+/* LINKS */
+.nav-link {
+  color: var(--color-2) !important;
+  margin: 0 8px;
+  transition: 0.3s;
+}
+
+.nav-link:hover {
+  color: var(--color-9) !important;
+}
+
+/* BOTÓN HAMBURGUESA */
+.navbar-toggler {
+  border: none;
+  outline: none;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+/* MENÚ MOBILE */
+.navbar-collapse {
+  background-color: var(--color-8);
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* ========================= */
+/* 📱 MOBILE */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  .custom-nav {
+    padding: 0.5rem;
+  }
+
+  .navbar-brand span {
+    font-size: 14px;
+  }
+
+  .logo-nav {
+    height: 40px;
+    width: 40px;
+  }
+
+  .navbar-nav {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .nav-link {
+    width: 100%;
+    padding: 8px 10px;
+  }
+
+}
+
+/* 📱 celulares chicos */
+@media (max-width: 400px) {
+
+  .navbar-brand span {
+    display: none; /* 🔥 solo logo en pantallas muy chicas */
+  }
+
 }

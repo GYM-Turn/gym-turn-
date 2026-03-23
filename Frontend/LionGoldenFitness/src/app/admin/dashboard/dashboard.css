@@ -2,10 +2,9 @@
    CONTENEDOR GENERAL (GLASS)
 ========================= */
 .dashboard-container {
- 
-  padding: 20px 20px;
 
-  /* 🔥 MÁS TRANSPARENCIA */
+  padding: 20px;
+
   background: rgba(0, 0, 0, 0.25);
 
   backdrop-filter: blur(14px);
@@ -15,22 +14,18 @@
   border: 1px solid rgba(255, 215, 0, 0.2);
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
+
+  /* 🔥 GRID INTELIGENTE */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+  gap: 20px;
 
   max-width: 1000px;
-  margin: 40px auto;
+  margin: 30px auto;
 
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
 
-  position: relative;
-  overflow: hidden;
-}
-.uno{
- font-size: 60px;   /* más grande */
-  font-weight: 900;
-  color: gold;
-}
 /* =========================
    TARJETAS
 ========================= */
@@ -40,7 +35,7 @@
   border-radius: 16px;
 
   width: 100%;
-  height: 220px;
+  min-height: 180px; /* 🔥 mejor que height fijo */
   padding: 20px;
 
   display: flex;
@@ -57,9 +52,9 @@
   overflow: hidden;
 }
 
-/* Hover premium */
+/* Hover */
 .dashboard-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-6px);
   border-color: gold;
   box-shadow: 0 10px 35px rgba(255, 215, 0, 0.25);
 }
@@ -68,16 +63,10 @@
    IMAGEN
 ========================= */
 .card-img {
-  width: 60px;
-  height: 60px;
+  width: 55px;
+  height: 55px;
   object-fit: contain;
   margin-bottom: 10px;
-  filter: drop-shadow(0 4px 10px rgba(255, 215, 0, 0.3));
-  transition: transform 0.3s ease;
-}
-
-.dashboard-card:hover .card-img {
-  transform: scale(1.1);
 }
 
 /* =========================
@@ -85,7 +74,7 @@
 ========================= */
 .dashboard-card h3 {
   color: gold;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   margin-bottom: 8px;
   letter-spacing: 1px;
@@ -93,14 +82,19 @@
 }
 
 /* =========================
-   NUMERO GRANDE
+   NUMEROS
 ========================= */
 .dashboard-card p {
-  font-size: 42px;   /* tamaño base */
+  font-size: 36px;
   font-weight: bold;
   color: white;
   margin: 0;
 }
+
+.uno {
+  font-size: 42px; /* especial */
+}
+
 /* =========================
    LINEA DECORATIVA
 ========================= */
@@ -116,14 +110,74 @@
 }
 
 /* =========================
-   RESPONSIVE
+   📱 TABLET
 ========================= */
 @media (max-width: 768px) {
+
   .dashboard-container {
-    padding: 20px;
+    padding: 15px;
+    gap: 15px;
   }
 
   .dashboard-card {
-    height: 200px;
+    min-height: 160px;
+    padding: 15px;
   }
+
+  .card-img {
+    width: 45px;
+    height: 45px;
+  }
+
+  .dashboard-card h3 {
+    font-size: 14px;
+  }
+
+  .dashboard-card p {
+    font-size: 28px;
+  }
+
+}
+
+/* =========================
+   📱 MOBILE
+========================= */
+@media (max-width: 480px) {
+
+  .dashboard-container {
+    grid-template-columns: 1fr 1fr; /* 🔥 2 columnas en celular */
+    gap: 12px;
+  }
+
+  .dashboard-card {
+    min-height: 140px;
+    padding: 12px;
+  }
+
+  .card-img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .dashboard-card h3 {
+    font-size: 12px;
+  }
+
+  .dashboard-card p {
+    font-size: 24px;
+  }
+
+  .uno {
+    font-size: 28px;
+  }
+
+}
+
+/* 📱 celulares muy chicos */
+@media (max-width: 360px) {
+
+  .dashboard-container {
+    grid-template-columns: 1fr; /* 🔥 1 columna si no entra */
+  }
+
 }

@@ -1,33 +1,52 @@
 .custom-nav {
   background: #0f3b57;
-  padding: 15px 20px;
+  padding: 10px 15px;
   color: white;
   position: relative;
   z-index: 1000;
 }
 
-/* Contenedor logo + botón */
+/* HEADER */
 .nav-header {
   display: flex;
   align-items: center;
   width: 100%;
 }
 
-/* 🔥 Empuja el botón al extremo derecho */
+/* LOGO */
+.logo-nav {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* MARCA */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-9) !important;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+/* BOTÓN HAMBURGUESA */
 .hamburger {
   margin-left: auto;
-  font-size: 26px;
+  font-size: 22px;
   background: none;
   border: none;
   color: white;
   cursor: pointer;
 }
 
-/* 🔥 Dropdown alineado al botón */
+/* MENÚ */
 .nav-links {
   position: absolute;
   top: 100%;
-  right: 20px;
+  right: 15px;
 
   background: #0f3b57;
   border-radius: 12px;
@@ -46,18 +65,65 @@
   transition: all 0.3s ease;
 }
 
+/* ACTIVO */
 .nav-links.active {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
 }
 
-/* Links */
+/* LINKS */
 .nav-link {
   color: white;
   text-decoration: none;
+  padding: 5px 0;
 }
 
 .nav-link:hover {
   color: gold;
+}
+
+/* ========================= */
+/* 📱 MOBILE */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  .custom-nav {
+    padding: 8px 10px;
+  }
+
+  .logo-nav {
+    height: 38px;
+    width: 38px;
+  }
+
+  .navbar-brand span {
+    font-size: 14px;
+  }
+
+  .hamburger {
+    font-size: 20px;
+  }
+
+  /* 🔥 menú ocupa mejor pantalla */
+  .nav-links {
+    right: 5%;
+    left: 5%;
+    width: 90%;
+  }
+
+}
+
+/* 📱 celulares muy chicos */
+@media (max-width: 400px) {
+
+  .navbar-brand span {
+    display: none; /* solo logo */
+  }
+
+  .nav-links {
+    padding: 12px;
+  }
+
 }

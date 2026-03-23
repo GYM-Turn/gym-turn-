@@ -2,18 +2,17 @@
   padding: 30px;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+.titulo-admin {
+  color: white;
 }
-.btn-uno {
-  width: 15%;
 
+/* 🔥 BOTÓN */
+.btn-uno {
+  width: auto;
+  padding: 10px 16px;
 }
-.titulo-admin{
-  color:white ;}
-  
+
+/* TABLA */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -35,6 +34,7 @@ tr:hover {
   background: #fafafa;
 }
 
+/* BADGES */
 .badge-disponible {
   background: #e6f8ec;
   color: #1a7f37;
@@ -55,8 +55,80 @@ tr:hover {
   padding: 4px 8px;
   border-radius: 20px;
 }
+
+/* BOTONES ACCIONES */
 .btn-group {
   margin-top: 16px;
   width: 100%;
   padding: 12px;
+}
+
+/* ========================= */
+/* 📱 RESPONSIVE */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  /* 🔥 HEADER (titulo + boton) */
+  .d-flex.justify-content-between {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .titulo-admin {
+    text-align: center;
+  }
+
+  /* 🔥 CONTENEDOR */
+  .container {
+    padding: 10px;
+  }
+
+  .tabla-card {
+    padding: 15px;
+  }
+
+  /* 🔥 BOTÓN FULL */
+  .btn-uno {
+    width: 100%;
+  }
+
+  /* 🔥 TABLA MÁS CHICA */
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+
+  /* 🔥 ACCIONES EN COLUMNA */
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0;
+  }
+
+  .btn-group button {
+    width: 100%;
+  }
+}
+
+/* 📱 celulares MUY chicos */
+@media (max-width: 400px) {
+  table {
+    font-size: 11px;
+  }
+
+  th, td {
+    padding: 6px;
+  }
+}
+
+/* 🔥 MEJORA SCROLL */
+.table-responsive {
+  border-radius: 12px;
+  overflow-x: auto;
 }

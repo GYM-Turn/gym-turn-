@@ -4,3 +4,8 @@
     padding: 1.5rem;
     border-radius: 10px;
 }
+
+.formulario-card {
+  max-width: 850px; /* 🔥 controla ancho */
+
+}

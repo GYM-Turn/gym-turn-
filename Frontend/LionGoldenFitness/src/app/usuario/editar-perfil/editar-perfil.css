@@ -22,7 +22,7 @@
 
 .container-perfil {
   width: 100%;
-  max-width: 700px;
+  max-width: 500px; /* 🔥 más compacto */
 }
 
 /* ============================= */
@@ -31,12 +31,12 @@
 
 .formulario-card {
   width: 100%;
-  padding: 40px;
-  border-radius: 18px;
+  padding: 30px;
+  border-radius: 16px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
   animation: fadeIn 0.4s ease-in-out;
 }
 
@@ -47,9 +47,8 @@
 .container-perfil h2 {
   text-align: center;
   color: #d4af37;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   font-weight: 600;
-  letter-spacing: 1px;
 }
 
 /* ============================= */
@@ -59,14 +58,11 @@
 .campo {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }
 
-/* LABELS */
-
 .campo label {
-  text-align: left ;
-  font-size: 18px;
+  font-size: 16px;
   color: var(--color-2);
   font-weight: 500;
 }
@@ -76,7 +72,7 @@
 /* ============================= */
 
 .container-perfil input {
-  padding: 12px 14px;
+  padding: 11px;
   border-radius: 10px;
   background-color: #0f1b2a;
   color: white;
@@ -84,14 +80,24 @@
   transition: all 0.3s ease;
 }
 
-/* focus moderno */
-
 .container-perfil input:focus {
   outline: none;
   border-color: #d4af37;
   box-shadow: 0 0 6px rgba(212, 175, 55, 0.4);
 }
 
+/* ============================= */
+/* INPUT FILE (FIX CLAVE) */
+/* ============================= */
+
+input[type="file"] {
+  width: 100%;
+  font-size: 12px;
+  background: #0f1b2a;
+  color: white;
+  border-radius: 8px;
+  padding: 6px;
+}
 
 /* ============================= */
 /* FOTO */
@@ -101,13 +107,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
   margin-bottom: 10px;
 }
 
 .foto-preview {
-  width: 130px;
-  height: 130px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #d4af37;
@@ -130,29 +136,77 @@
 }
 
 /* ============================= */
-/* RESPONSIVE */
+/* ERROR */
 /* ============================= */
 
-@media (max-width: 600px) {
-  .formulario-card {
-    padding: 25px;
-  }
-
-  .foto-preview {
-    width: 100px;
-    height: 100px;
-  }
-}
-
-/* ============================= */
-/* validador de contraseña */
-/* ============================= */
-
-.error{
+.error {
   color: #ff4d4d;
   font-size: 13px;
   margin-top: 4px;
 }
 
+/* ============================= */
+/* TABLET */
+/* ============================= */
 
+@media (max-width: 768px) {
 
+  .content {
+    padding: 30px 10px;
+  }
+
+  .formulario-card {
+    padding: 20px;
+    border-radius: 12px;
+    gap: 12px;
+  }
+
+  .container-perfil h2 {
+    font-size: 20px;
+  }
+
+  .campo label {
+    font-size: 14px;
+  }
+
+  .container-perfil input {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .foto-preview {
+    width: 90px;
+    height: 90px;
+  }
+
+  .btn-uno {
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+
+@media (max-width: 480px) {
+
+  .content {
+    padding: 20px 5px;
+  }
+
+  .formulario-card {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  .container-perfil h2 {
+    font-size: 18px;
+  }
+
+  .foto-preview {
+    width: 70px;
+    height: 70px;
+  }
+
+}
