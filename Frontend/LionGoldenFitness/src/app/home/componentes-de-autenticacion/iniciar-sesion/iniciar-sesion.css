@@ -4,9 +4,9 @@
   max-width: 450px;     /* En PC no crece más de 450px (aprox el 35% que tenías) */
   margin: 20px auto;    /* Margen para que no pegue en los bordes */
   padding: 2rem;
- 
   border-radius: 12px;
 }
+
 .text-color-8 {
   color: var(--color-9);
   font-weight: 700;

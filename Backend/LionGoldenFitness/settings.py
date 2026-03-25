@@ -20,7 +20,7 @@ ALLOWED_HOSTS = [
     'gym-turn-production.up.railway.app', # Tu dominio de Railway
     'localhost', 
     '127.0.0.1',
-    '*' # Mantenemos el asterisco para evitar bloqueos iniciales en Railway
+    '*' 
 ]
 
 # --- APLICACIONES ---
@@ -36,14 +36,14 @@ INSTALLED_APPS = [
     'clases',
     'pagos',
     'rest_framework',
-    "corsheaders", # Necesario para la conexión con Angular
+    "corsheaders", 
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # Debe ir después de SecurityMiddleware
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware', # Debe ir antes de CommonMiddleware
+    'corsheaders.middleware.CorsMiddleware', 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -72,7 +72,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'LionGoldenFitness.wsgi.application'
 
 # --- BASE DE DATOS (POSTGRESQL) ---
-# Se conecta automáticamente usando la variable DATABASE_URL de Railway
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL', 'postgres://postgres:Lafiesta@localhost:5432/gym_db'),
@@ -87,28 +86,44 @@ USE_I18N = True
 USE_TZ = True
 
 # --- ARCHIVOS ESTÁTICOS Y MEDIA ---
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Configuración de WhiteNoise para servir estáticos en producción
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# MEDIA CONFIGURATION
+# Esto es vital para que las fotos se guarden y sirvan correctamente
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# --- CONFIGURACIÓN DE TAMAÑO DE CARGA (Para fotos de celular) ---
+# Las fotos de smartphones modernos pueden pesar mucho. Permitimos hasta 10MB.
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760 
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760
+
 # --- CONFIGURACIÓN DE CORS ---
-# Esta expresión regular permite cualquier subdominio que termine en .vercel.app
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://.*\.vercel\.app$",
 ]
 
-# Mantenemos los orígenes fijos por seguridad y para desarrollo local
 CORS_ALLOWED_ORIGINS = [
     "https://gym-turn-omega.vercel.app",
     "http://localhost:4200",
+    "http://127.0.0.1:4200",
 ]
 
-# Permitir credenciales (útil si manejas login con cookies/tokens)
+# Permitir que el frontend envíe archivos y headers de autenticación
 CORS_ALLOW_CREDENTIALS = True
+
+# Aseguramos que los métodos necesarios estén permitidos
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
