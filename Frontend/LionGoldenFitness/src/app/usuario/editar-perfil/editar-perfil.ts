@@ -6,7 +6,7 @@ import { Footer } from '../../componentes-compartidos/footer/footer';
 import { AuthService } from '../../servicios/auth.service';
 import { UsuarioServiceUsuario } from '../../usuario/editar-perfil/services/usuario-service-usuario';
 import { Usuario } from '../../models/usuario.model';
-import { environment } from '../../../environments/environment'; // Importación automática
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-editar-perfil',
