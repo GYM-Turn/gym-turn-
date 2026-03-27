@@ -23,14 +23,12 @@ ALLOWED_HOSTS = [
     '*' 
 ]
 
-# --- NUEVA CONFIGURACIÓN CSRF Y COOKIES ---
-# Esto permite que el admin de Django funcione en Railway
+# --- CONFIGURACIÓN CSRF Y COOKIES ---
 CSRF_TRUSTED_ORIGINS = [
     'https://gym-turn-production.up.railway.app',
     'https://gym-turn-omega.vercel.app',
 ]
 
-# Seguridad de cookies para producción
 if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
@@ -44,7 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',  # <-- AGREGADO: Almacenamiento en la nube
     'django.contrib.staticfiles',
+    'cloudinary',           # <-- AGREGADO: Librería Cloudinary
     'usuarios',
     'reservas',
     'clases',
@@ -86,7 +86,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'LionGoldenFitness.wsgi.application'
 
 # --- BASE DE DATOS (POSTGRESQL) ---
-# Usamos la base de datos de Railway configurada por variable de entorno
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL', 'postgres://postgres:Lafiesta@localhost:5432/gym_db'),
@@ -100,15 +99,23 @@ TIME_ZONE = 'America/Argentina/Buenos_Aires'
 USE_I18N = True
 USE_TZ = True
 
-# --- ARCHIVOS ESTÁTICOS Y MEDIA ---
+# --- ARCHIVOS ESTÁTICOS ---
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# Configuración de WhiteNoise para servir estáticos en producción
+# WhiteNoise con compresión para que el admin cargue rápido y con estilos
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# MEDIA CONFIGURATION
+# --- CONFIGURACIÓN DE CLOUDINARY (MEDIA) ---
+# Esto reemplaza el almacenamiento local por el de la nube
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = '/media/'
+# MEDIA_ROOT no es estrictamente necesario con Cloudinary, pero se deja por compatibilidad
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # --- CONFIGURACIÓN DE TAMAÑO DE CARGA ---
@@ -127,14 +134,6 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
-
-CORS_ALLOW_METHODS = [
-    "DELETE",
-    "GET",
-    "OPTIONS",
-    "PATCH",
-    "POST",
-    "PUT",
-]
+CORS_ALLOW_METHODS = ["DELETE", "GET", "OPTIONS", "PATCH", "POST", "PUT"]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
