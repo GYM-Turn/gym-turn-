@@ -37,17 +37,20 @@ export class EditarPerfil implements OnInit {
 
     this.usuarioActual = usuario;
 
-    this.form = this.fb.group({
-      dni: [usuario.dni, Validators.required],
-      nombre: [usuario.nombre, Validators.required],
-      apellido: [usuario.apellido, Validators.required],
-      email: [usuario.email, [Validators.required, Validators.email]],
-      telefono: [usuario.telefono || ''],
-      password: [''],
-      confirmPassword: [''],
-    }, {
-      validators: this.passwordMatchValidator
-    });
+    this.form = this.fb.group(
+      {
+        dni: [usuario.dni, Validators.required],
+        nombre: [usuario.nombre, Validators.required],
+        apellido: [usuario.apellido, Validators.required],
+        email: [usuario.email, [Validators.required, Validators.email]],
+        telefono: [usuario.telefono || ''],
+        password: [''],
+        confirmPassword: [''],
+      },
+      {
+        validators: this.passwordMatchValidator,
+      },
+    );
 
     this.previewFoto = this.resolverUrlFoto(usuario.foto || null);
   }
@@ -55,14 +58,20 @@ export class EditarPerfil implements OnInit {
   // MÉTODO CLAVE: Une la URL del environment (Local o Railway) con el path del backend
   private resolverUrlFoto(path: string | null): string {
     if (!path) return 'assets/default-user.png';
+
+    // Si la base de datos te devuelve un localhost, lo "limpiamos" a la fuerza
+    if (path.includes('localhost:8000')) {
+      return path.replace('http://localhost:8000', environment.apiUrl);
+    }
+
     if (path.startsWith('http')) return path;
-    return `${this.API_URL}${path}`;
+    return `${environment.apiUrl}${path}`;
   }
 
   passwordMatchValidator(form: AbstractControl): ValidationErrors | null {
     const password = form.get('password')?.value;
     const confirmPassword = form.get('confirmPassword')?.value;
-    return (!password || password === confirmPassword) ? null : { passwordMismatch: true };
+    return !password || password === confirmPassword ? null : { passwordMismatch: true };
   }
 
   onFileSelected(event: any) {
@@ -77,7 +86,7 @@ export class EditarPerfil implements OnInit {
 
     this.selectedFile = file;
     const reader = new FileReader();
-    reader.onload = () => this.previewFoto = reader.result as string;
+    reader.onload = () => (this.previewFoto = reader.result as string);
     reader.readAsDataURL(file);
   }
 
@@ -113,7 +122,7 @@ export class EditarPerfil implements OnInit {
       error: (err) => {
         console.error('Error:', err);
         alert('Error al actualizar el perfil. Verifica el tamaño de la imagen.');
-      }
+      },
     });
   }
 }

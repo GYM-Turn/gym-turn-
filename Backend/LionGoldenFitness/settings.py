@@ -23,6 +23,20 @@ ALLOWED_HOSTS = [
     '*' 
 ]
 
+# --- NUEVA CONFIGURACIÓN CSRF Y COOKIES ---
+# Esto permite que el admin de Django funcione en Railway
+CSRF_TRUSTED_ORIGINS = [
+    'https://gym-turn-production.up.railway.app',
+    'https://gym-turn-omega.vercel.app',
+]
+
+# Seguridad de cookies para producción
+if not DEBUG:
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SAMESITE = 'None'
+    SESSION_COOKIE_SAMESITE = 'None'
+
 # --- APLICACIONES ---
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -72,6 +86,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'LionGoldenFitness.wsgi.application'
 
 # --- BASE DE DATOS (POSTGRESQL) ---
+# Usamos la base de datos de Railway configurada por variable de entorno
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL', 'postgres://postgres:Lafiesta@localhost:5432/gym_db'),
@@ -93,12 +108,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # MEDIA CONFIGURATION
-# Esto es vital para que las fotos se guarden y sirvan correctamente
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# --- CONFIGURACIÓN DE TAMAÑO DE CARGA (Para fotos de celular) ---
-# Las fotos de smartphones modernos pueden pesar mucho. Permitimos hasta 10MB.
+# --- CONFIGURACIÓN DE TAMAÑO DE CARGA ---
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760 
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760
 
@@ -113,10 +126,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:4200",
 ]
 
-# Permitir que el frontend envíe archivos y headers de autenticación
 CORS_ALLOW_CREDENTIALS = True
 
-# Aseguramos que los métodos necesarios estén permitidos
 CORS_ALLOW_METHODS = [
     "DELETE",
     "GET",
