@@ -1,38 +1,26 @@
 @if (authService.isUsuario()) {
-
 <nav class="navbar custom-nav">
-
   <div class="nav-header">
-
-    <!-- IZQUIERDA -->
     <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/inicio">
-      <img src="/img/favicon.jpeg"
-           alt="Logo LionGoldenFitness"
-           class="logo-nav">
+      <img src="/img/favicon.jpeg" alt="Logo LionGoldenFitness" class="logo-nav">
       <span>LionGoldenFitness</span>
     </a>
 
-    <!-- DERECHA -->
     @if (usuario$ | async; as usuario) {
       <div class="user-toggler" (click)="toggleMenu()">
-
-      @if (usuario?.foto) {
-      <img [src]="'http://localhost:8000' + usuario.foto" class="user-avatar" alt="Foto usuario" />
-      } @else {
-      <img src="/img/default-user.png" class="user-avatar" alt="Usuario" />
-      }
+        @if (usuario.foto) {
+          <img [src]="resolverUrl(usuario.foto)" class="user-avatar" alt="Foto usuario" />
+        } @else {
+          <img src="/img/default-user.png" class="user-avatar" alt="Usuario" />
+        }
 
         <span class="user-name">
           {{ usuario?.nombre }}
         </span>
 
-        <span class="hamburger-icon">
-          ☰
-        </span>
-
+        <span class="hamburger-icon">☰</span>
       </div>
     }
-
   </div>
 
   <div class="nav-links" [class.active]="menuOpen">
@@ -45,7 +33,5 @@
       Cerrar sesión
     </button>
   </div>
-
 </nav>
-
 }
