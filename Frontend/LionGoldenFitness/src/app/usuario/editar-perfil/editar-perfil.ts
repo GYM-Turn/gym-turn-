@@ -20,7 +20,6 @@ export class EditarPerfil implements OnInit {
   usuarioActual!: Usuario;
   previewFoto: string | null = null;
   selectedFile: File | null = null;
-  private readonly API_URL = environment.apiUrl;
 
   constructor(
     private fb: FormBuilder,
@@ -55,16 +54,17 @@ export class EditarPerfil implements OnInit {
     this.previewFoto = this.resolverUrlFoto(usuario.foto || null);
   }
 
-  // MÉTODO CLAVE: Une la URL del environment (Local o Railway) con el path del backend
-  private resolverUrlFoto(path: string | null): string {
+  // MÉTODO OPTIMIZADO: Maneja Cloudinary (https) o archivos locales/Railway
+  private resolverUrlFoto(path: string | null | undefined): string {
     if (!path) return 'assets/default-user.png';
 
-    // Si la base de datos te devuelve un localhost, lo "limpiamos" a la fuerza
-    if (path.includes('localhost:8000')) {
-      return path.replace('http://localhost:8000', environment.apiUrl);
+    if (path.startsWith('http')) {
+      if (path.includes('localhost:8000')) {
+        return path.replace('http://localhost:8000', environment.apiUrl);
+      }
+      return path;
     }
 
-    if (path.startsWith('http')) return path;
     return `${environment.apiUrl}${path}`;
   }
 
@@ -78,7 +78,6 @@ export class EditarPerfil implements OnInit {
     const file = event.target.files[0];
     if (!file) return;
 
-    // Validación de tamaño para móviles (10MB máx)
     if (file.size > 10 * 1024 * 1024) {
       alert('La foto es demasiado grande. Máximo 10MB.');
       return;
@@ -121,7 +120,7 @@ export class EditarPerfil implements OnInit {
       },
       error: (err) => {
         console.error('Error:', err);
-        alert('Error al actualizar el perfil. Verifica el tamaño de la imagen.');
+        alert('Error al actualizar el perfil.');
       },
     });
   }
