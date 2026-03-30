@@ -1,31 +1,28 @@
 import os
 from pathlib import Path
 import dj_database_url
+from dotenv import load_dotenv
+
+# 🔥 IMPORTANTE: cargar .env
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # --- SEGURIDAD ---
-SECRET_KEY = os.getenv('SECRET_KEY', 'clave-secreta-de-emergencia-123')
-DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+SECRET_KEY = os.getenv('SECRET_KEY', 'fallback')
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = [
     'gym-turn-production.up.railway.app',
     'localhost',
     '127.0.0.1',
-    '*'
 ]
 
-# --- CSRF / COOKIES ---
+# --- CSRF ---
 CSRF_TRUSTED_ORIGINS = [
     'https://gym-turn-production.up.railway.app',
     'https://gym-turn-omega.vercel.app',
 ]
-
-if not DEBUG:
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SAMESITE = 'None'
-    SESSION_COOKIE_SAMESITE = 'None'
 
 # --- APPS ---
 INSTALLED_APPS = [
@@ -35,7 +32,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
 
-    # 🔥 IMPORTANTE ORDEN
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
@@ -63,6 +59,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'LionGoldenFitness.urls'
 
+# 🔥 FIX ADMIN (este era el error)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -73,7 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                'django.contrib.messages.context_processors.messages',  # 🔥 ESTE ES CLAVE
             ],
         },
     },
@@ -81,13 +78,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'LionGoldenFitness.wsgi.application'
 
-# --- DB ---
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
-        conn_max_age=600
-    )
-}
+# --- DB (FIX REAL) ---
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if DATABASE_URL:
+    print("✅ Usando PostgreSQL de Railway")
+    DATABASES = {
+        "default": dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+    }
+else:
+    print("⚠️ DATABASE_URL no encontrada → usando SQLite")
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 # --- INTERNACIONAL ---
 LANGUAGE_CODE = 'es-ar'
@@ -99,7 +105,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# --- 🔥 STORAGE NUEVO (CLAVE DEL FIX) ---
+# --- STORAGE (Django 6 correcto) ---
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
@@ -116,16 +122,9 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
 }
 
-# ❌ ELIMINADO (YA NO VA)
-# DEFAULT_FILE_STORAGE = ...
-
-# --- MEDIA (solo fallback, no se usa realmente) ---
+# --- MEDIA ---
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# --- LIMITES ---
-DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
-FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760
 
 # --- CORS ---
 CORS_ALLOWED_ORIGIN_REGEXES = [
@@ -135,11 +134,9 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
 CORS_ALLOWED_ORIGINS = [
     "https://gym-turn-omega.vercel.app",
     "http://localhost:4200",
-    "http://127.0.0.1:4200",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_METHODS = ["DELETE", "GET", "OPTIONS", "PATCH", "POST", "PUT"]
 
 # --- DEFAULT ---
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
