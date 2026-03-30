@@ -1,24 +1,23 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Imprescindible para standalone
-import { ActividadesService } from './services/actividades-service'; // Ojo: verifica el nombre del archivo .ts
+import { CommonModule } from '@angular/common';
+import { ActividadesService } from './services/actividades-service';
 import { ActividadAdminDTO } from '../../models/actividad-admin-dto';
 import { ActividadesForm } from './actividades-form/actividades-form';
 import { NavAdmin } from '../../componentes-compartidos/nav-admin/nav-admin';
 import { Footer } from '../../componentes-compartidos/footer/footer';
 import { TurnoService } from '../turnos/services/turnos-services';
 
-
-
 @Component({
   selector: 'app-actividades',
   standalone: true,
-  imports: [CommonModule, ActividadesForm,NavAdmin,Footer], // Agregamos CommonModule aquí
+  imports: [CommonModule, ActividadesForm, NavAdmin, Footer],
   templateUrl: './actividades.html',
   styleUrl: './actividades.css',
 })
 export class Actividades implements OnInit {
+
   private actividadService = inject(ActividadesService);
-private turnoService = inject(TurnoService);
+  private turnoService = inject(TurnoService);
 
   actividades: ActividadAdminDTO[] = [];
   mostrarFormulario = false;
@@ -43,38 +42,36 @@ private turnoService = inject(TurnoService);
     this.mostrarFormulario = true;
   }
 
-toggleEstado(a: ActividadAdminDTO) {
+  toggleEstado(a: ActividadAdminDTO) {
+    const nuevaActiva = !a.activa;
+    const actualizada = { ...a, activa: nuevaActiva };
 
-  const nuevaActiva = !a.activa;
+    this.actividadService.updateActividad(a.id!, actualizada)
+      .subscribe(() => {
 
-  const actualizada = { ...a, activa: nuevaActiva };
+        // 🔥 si desactivás → desactiva turnos
+        if (!nuevaActiva) {
+          this.turnoService.getTurnos()
+            .subscribe(turnos => {
 
-  this.actividadService.updateActividad(a.id!, actualizada)
-    .subscribe(() => {
+              const turnosDeActividad = turnos.filter(
+                t => t.actividad.id === a.id
+              );
 
-      // 🔥 Si la desactivamos
-      if (!nuevaActiva) {
+              turnosDeActividad.forEach(t => {
+                const turnoActualizado = { ...t, activo: false };
 
-        this.turnoService.getTurnos()
-          .subscribe(turnos => {
-
-            const turnosDeActividad = turnos.filter(t => t.actividad.id === a.id);
-
-            turnosDeActividad.forEach(t => {
-
-              const turnoActualizado = { ...t, activo: false };
-
-              this.turnoService.updateTurno(t.id, turnoActualizado)
-                .subscribe();
+                this.turnoService.updateTurno(t.id, turnoActualizado)
+                  .subscribe();
+              });
 
             });
+        }
 
-          });
-      }
+        this.cargarActividades();
+      });
+  }
 
-      this.cargarActividades();
-    });
-}
   eliminarActividad(id: number) {
     this.actividadService.deleteActividad(id)
       .subscribe(() => this.cargarActividades());
@@ -85,9 +82,8 @@ toggleEstado(a: ActividadAdminDTO) {
     this.cargarActividades();
   }
 
+  // 🔥 simplificado
   getEstadoCupos(a: ActividadAdminDTO): string {
-    if (!a.activa) return 'Inactiva';
-    if (a.cupos_ocupados >= a.cupos) return 'Completo';
-    return 'Disponible';
+    return a.activa ? 'Disponible' : 'Inactiva';
   }
 }
